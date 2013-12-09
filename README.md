@@ -1,0 +1,4 @@
+quote
+=====
+
+C++ library
