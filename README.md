@@ -1,4 +1,6 @@
 quote
 =====
 
-C++ library
+## “®ìŠÂ‹«
+* Windows 7ˆÈ~
+* Visual C++ 2013
