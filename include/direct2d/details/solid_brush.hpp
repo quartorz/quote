@@ -2,7 +2,7 @@
 
 #include "../solid_brush.hpp"
 
-#include "../../win32/utils.hpp"
+#include "../utils.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -35,7 +35,7 @@ namespace quote{ namespace direct2d{
 
 	void  solid_brush::destroy_resource()
 	{
-		::SafeRelease(instance);
+		::quote::utils::SafeRelease(instance);
 	}
 
 } }

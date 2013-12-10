@@ -3,7 +3,7 @@
 #include "base_types.hpp"
 #include "resource.hpp"
 
-#include "../win32/utils.hpp"
+#include "utils.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -17,7 +17,7 @@ namespace quote{ namespace direct2d{
 		}
 		~brush()
 		{
-			::SafeRelease(instance);
+			::quote::utils::SafeRelease(instance);
 		}
 
 		ID2D1Brush *Get() const

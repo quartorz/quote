@@ -5,7 +5,7 @@
 #include <windowsx.h>
 #include <vsstyle.h>
 
-#include "../win32/utils.hpp"
+#include "utils.hpp"
 #include "factory.hpp"
 #include "base_types.hpp"
 #include "font.hpp"
@@ -44,7 +44,7 @@ namespace quote{ namespace direct2d{
 		}
 		~painter()
 		{
-			::SafeRelease(target);
+			::quote::utils::SafeRelease(target);
 		}
 
 		void draw_line(const paint_params &pp, const brush &brush, line line);

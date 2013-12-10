@@ -22,7 +22,9 @@ namespace quote{
 		void delete_resource(typename Traits::resource*);
 
 		template <class Resource, class... Args>
-		void new_resource(Resource *&, Args... args);
+		void init_resource(Resource *&, Args&&... args);
+		template <class Resource, class... Args>
+		Resource *new_resource(Args&&... args);
 	};
 
 }

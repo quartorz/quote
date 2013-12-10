@@ -5,7 +5,7 @@
 #include <Uxtheme.h>
 #include <comdef.h>
 
-#include "../win32/utils.hpp"
+#include "utils.hpp"
 #include "factory.hpp"
 
 #ifdef max
@@ -274,7 +274,7 @@ namespace quote{ namespace direct2d{
 
 		~polygon()
 		{
-			SafeRelease(geometry);
+			::quote::utils::SafeRelease(geometry);
 		}
 
 		void add_point(const point &p)

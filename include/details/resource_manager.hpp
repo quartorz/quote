@@ -76,10 +76,19 @@ namespace quote{
 
 	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
 	template <class Resource, class... Args>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::new_resource(Resource *&r, Args... args)
+	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::init_resource(Resource *&r, Args&&... args)
 	{
 		r = new Resource(std::forward(args)...);
 		register_resource(r);
+	}
+
+	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
+	template <class Resource, class... Args>
+	Resource *resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::new_resource(Args&&... args)
+	{
+		Resource r;
+		init_resource(r, std::forward(args)...);
+		return r;
 	}
 
 }

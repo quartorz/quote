@@ -71,7 +71,7 @@ namespace quote{ namespace direct2d{
 	inline void painter<Derived>::DestroyResource()
 	{
 		static_cast<Derived*>(this)->destroy_resource();
-		SafeRelease(target);
+		::quote::utils::SafeRelease(target);
 	}
 
 	template <class Derived>

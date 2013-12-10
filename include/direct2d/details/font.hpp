@@ -1,5 +1,5 @@
 #include "../font.hpp"
-#include "../../win32/utils.hpp"
+#include "../utils.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -16,7 +16,7 @@ namespace quote{ namespace direct2d{
 
 	font::~font()
 	{
-		::SafeRelease(format);
+		::quote::utils::SafeRelease(format);
 	}
 
 	void font::set_name(const wchar_t *f)
@@ -49,7 +49,7 @@ namespace quote{ namespace direct2d{
 	void font::destroy_resource()
 	{
 		modified = true;
-		SafeRelease(format);
+		::quote::utils::SafeRelease(format);
 	}
 
 	bool font::create()
@@ -77,7 +77,7 @@ namespace quote{ namespace direct2d{
 	IDWriteTextFormat *font::Get()
 	{
 		if(modified){
-			SafeRelease(format);
+			::quote::utils::SafeRelease(format);
 			create();
 		}
 
