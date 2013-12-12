@@ -11,7 +11,7 @@ namespace quote{
 
 #include <objbase.h>
 
-#define QUOTE_DEFINE_WINMAIN \
+#define QUOTE_DEFINE_MAIN \
 	int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
 	{ \
 		if(FAILED(::CoInitialize(NULL)) || !::quote::initialize()) \

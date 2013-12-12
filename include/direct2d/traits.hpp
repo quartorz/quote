@@ -5,6 +5,7 @@
 #include "object.hpp"
 #include "solid_brush.hpp"
 #include "font.hpp"
+#include "text.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -23,6 +24,7 @@ namespace quote{ namespace direct2d{
 		using brush = brush;
 		using solid_brush = solid_brush;
 		using font = font;
+		using text = text;
 	};
 
 } }

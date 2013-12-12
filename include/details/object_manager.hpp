@@ -132,6 +132,7 @@ namespace quote{
 	template <class Functor>
 	void object_manager<Derived, Traits, CheckDuplicate, MultiThread>::iterate_objects(Functor func)
 	{
-		std::any_of(objects.rbegin(), objects.rend(), [&func](typename Traits::Object *o){return func(*o);});
+		std::any_of(objects.rbegin(), objects.rend(), [&func](typename Traits::object *o){return func(*o);});
 	}
+
 }

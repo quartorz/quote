@@ -16,4 +16,4 @@ int run()
 	return window_system::message_loop(window_system::make_frame_controller<100>(window));
 }
 
-QUOTE_DEFINE_WINMAIN
+QUOTE_DEFINE_MAIN

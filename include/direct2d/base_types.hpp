@@ -36,7 +36,7 @@ namespace quote{ namespace direct2d{
 		}
 		template <class T>
 		size(const T &w, const T &h):
-			D2D1_SIZE_F(D2D1::sizeF(static_cast<FLOAT>(w), static_cast<FLOAT>(h)))
+			D2D1_SIZE_F(D2D1::SizeF(static_cast<FLOAT>(w), static_cast<FLOAT>(h)))
 		{
 		}
 		size &operator=(const D2D1_SIZE_U &s)
