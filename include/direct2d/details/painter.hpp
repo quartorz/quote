@@ -5,46 +5,6 @@
 namespace quote{ namespace direct2d{
 
 	template <class Derived>
-	inline void painter<Derived>::draw_line(const paint_params &pp, const brush &brush, line line)
-	{
-		pp.target->DrawLine(line.GetStartPoint(), line.GetEndPoint(), brush.Get());
-	}
-
-	template <class Derived>
-	inline void painter<Derived>::draw_rect(const paint_params &pp, const brush &brush, const rect &rect)
-	{
-		pp.target->FillRectangle(
-			rect,
-			brush.Get());
-	}
-
-	template <class Derived>
-	inline void painter<Derived>::draw_circle(const paint_params &pp, const brush &brush, circle circle)
-	{
-		pp.target->DrawEllipse(
-			D2D1::Ellipse(circle.GetCenter(), circle.GetRadius(), circle.GetRadius()),
-			brush.Get());
-	}
-
-	template <class Derived>
-	inline void painter<Derived>::draw_text(const paint_params &pp, const font &font, const brush &brush, const wchar_t *text, const rect &rect, bool clip)
-	{
-		pp.target->DrawTextW(
-			text,
-			std::wcslen(text),
-			font.Get(),
-			rect,
-			brush.Get(),
-			(clip ? D2D1_DRAW_TEXT_OPTIONS_CLIP : D2D1_DRAW_TEXT_OPTIONS_NONE));
-	}
-
-	template <class Derived>
-	void painter<Derived>::clear(const paint_params &pp, const color &c)
-	{
-		pp.target->Clear(c);
-	}
-
-	template <class Derived>
 	inline bool painter<Derived>::CreateResource()
 	{
 		if(target != nullptr)

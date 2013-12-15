@@ -14,21 +14,21 @@ namespace quote{ namespace direct2d{
 		struct hittest{
 			HWND hwnd;
 
-			enum class Cursor: int{
-				Arrow,
-				Hand,
-				Ibeam,
-			}cursor;
+			enum class cursor: int{
+				arrow,
+				hand,
+				ibeam,
+			}cursor_;
 
-			void set_cursor(Cursor c)
+			void set_cursor(cursor c)
 			{
-				cursor = c;
+				cursor_ = c;
 			}
 		};
 		template <class Window>
 		static hittest create_hittest(Window *w)
 		{
-			return {w->get_hwnd(), hittest::Cursor::Arrow};
+			return {w->get_hwnd(), hittest::cursor::arrow};
 		}
 
 		virtual bool is_colliding(const point &ap)

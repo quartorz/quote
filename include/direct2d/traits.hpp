@@ -6,6 +6,7 @@
 #include "solid_brush.hpp"
 #include "font.hpp"
 #include "text.hpp"
+#include "userdefined_object.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -25,6 +26,9 @@ namespace quote{ namespace direct2d{
 		using solid_brush = solid_brush;
 		using font = font;
 		using text = text;
+
+		template <class Derived, bool CheckDuplicate = false, bool MultiThread = false>
+		using userdefined_object = userdefined_object<Derived, CheckDuplicate, MultiThread>;
 	};
 
 } }

@@ -18,6 +18,12 @@ namespace quote{ namespace win32{
 	public:
 		bool create(create_params &param)
 		{
+			if(param.w != CW_USEDEFAULT){
+				RECT rc = {0, 0, param.w, param.h};
+				::AdjustWindowRectEx(&rc, param.style, FALSE, param.exstyle);
+				param.w = rc.right - rc.left;
+				param.h = rc.bottom - rc.top;
+			}
 			HWND hwnd = ::CreateWindowExW(
 				param.exstyle,
 				param.classname,

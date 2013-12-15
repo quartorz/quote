@@ -9,7 +9,7 @@ int run()
 		return 0;
 
 	main_window window;
-	if(!window.create(nullptr, L"Sample"))
+	if(!window.create(nullptr, L"Sample", INT_MAX, INT_MAX, 800, 600))
 		return 0;
 	window.show();
 

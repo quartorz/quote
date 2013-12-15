@@ -40,9 +40,9 @@ namespace quote{ namespace direct2d{
 			dest = rect(pos, size_);
 
 		switch(drawingmode){
-		case DrawingMode::Stretch:
+		case drawing_mode::stretch:
 			break;
-		case DrawingMode::Squeeze:
+		case drawing_mode::squeeze:
 			if(size_.width / size_.height < src.width() / src.height()){
 				float x = src.height() * size_.width / src.width();
 				dest.top = (dest.bottom - x) / 2;
@@ -53,7 +53,7 @@ namespace quote{ namespace direct2d{
 				dest.right = dest.left + x;
 			}
 			break;
-		case DrawingMode::Trim:
+		case drawing_mode::trim:
 			if(src.width() / src.height() < size_.width / size_.height){
 				float x = size_.height * src.width() / size_.width;
 				src.top = (src.bottom - x) / 2;
@@ -83,7 +83,7 @@ namespace quote{ namespace direct2d{
 		::quote::utils::SafeRelease(bmp);
 	}
 
-	void image::set_drawing_mode(DrawingMode mode)
+	void image::set_drawing_mode(drawing_mode mode)
 	{
 		drawingmode = mode;
 
@@ -91,7 +91,7 @@ namespace quote{ namespace direct2d{
 			calc_rectangle();
 	}
 
-	void image::set_interpolation_mode(InterpolationMode im)
+	void image::set_interpolation_mode(interpolation_mode im)
 	{
 		interpolationmode = im;
 	}

@@ -7,15 +7,15 @@
 namespace quote{ namespace win32{
 
 	template <class Derived, class Traits>
-	void object_processor<Derived, Traits>::set_cursor_type(CursorType t)
+	void object_processor<Derived, Traits>::set_cursor_type(cursor_type t)
 	{
-		cursor_type = t;
+		cursortype = t;
 		::SetCursor(hCursor[t]);
 	}
 
 	template <class Derived, class Traits>
 	object_processor<Derived, Traits>::object_processor():
-		cursor_type(Arrow), focus(nullptr), hover(nullptr), inside(false), pushing(false)
+		cursortype(arrow), focus(nullptr), hover(nullptr), inside(false), pushing(false)
 	{
 		hCursor[0] = static_cast<HCURSOR>(::LoadImageW(
 			nullptr,
@@ -84,7 +84,7 @@ namespace quote{ namespace win32{
 					});
 				}
 
-				set_cursor_type(static_cast<CursorType>(static_cast<int>(ht.cursor)));
+				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
 
 				TRACKMOUSEEVENT tme;
 				tme.cbSize = sizeof(tme);
@@ -99,7 +99,7 @@ namespace quote{ namespace win32{
 				auto ht = object::create_hittest(static_cast<Derived*>(this));
 				hover->on_mouse_leave(ht);
 				hover = nullptr;
-				set_cursor_type(static_cast<CursorType>(static_cast<int>(ht.cursor)));
+				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
 			}
 			break;
 		case WM_LBUTTONDOWN:
@@ -128,7 +128,7 @@ namespace quote{ namespace win32{
 					focus = nullptr;
 				}
 
-				set_cursor_type(static_cast<CursorType>(static_cast<int>(ht.cursor)));
+				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
 				::SetCapture(static_cast<Derived*>(this)->get_hwnd());
 			}
 			break;
@@ -144,7 +144,7 @@ namespace quote{ namespace win32{
 					focus->on_left_release(point(x, y), ht);
 				}
 				
-				set_cursor_type(static_cast<CursorType>(static_cast<int>(ht.cursor)));
+				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
 				::ReleaseCapture();
 			}
 			break;
@@ -156,7 +156,7 @@ namespace quote{ namespace win32{
 			break;
 		case WM_SETCURSOR:
 			if(inside){
-				::SetCursor(hCursor[cursor_type]);
+				::SetCursor(hCursor[cursortype]);
 				l = TRUE;
 				return false;
 			}

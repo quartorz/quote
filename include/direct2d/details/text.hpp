@@ -120,7 +120,7 @@ namespace quote{ namespace direct2d{
 			colors.push_back(std::make_pair(::quote::utils::CreateRange(start, end), c));
 	}
 
-	void text::set_word_wrapping(WordWrapping ww)
+	void text::set_word_wrapping(word_wrapping ww)
 	{
 		wordwrapping = ww;
 
@@ -128,7 +128,7 @@ namespace quote{ namespace direct2d{
 			layout->SetWordWrapping(static_cast<DWRITE_WORD_WRAPPING>(ww));
 	}
 
-	void text::set_align(Align a)
+	void text::set_alignment(alignment a)
 	{
 		align = a;
 
@@ -136,7 +136,7 @@ namespace quote{ namespace direct2d{
 			layout->SetTextAlignment(static_cast<DWRITE_TEXT_ALIGNMENT>(a));
 	}
 
-	void text::set_paragraph_align(ParagraphAlign pa)
+	void text::set_paragraph_align(paragraph_align pa)
 	{
 		p_align = pa;
 
@@ -189,17 +189,17 @@ namespace quote{ namespace direct2d{
 		return text_.c_str();
 	}
 
-	text::Align text::get_align() const
+	text::alignment text::get_alignment() const
 	{
 		return align;
 	}
 
-	text::ParagraphAlign text::get_paragraph_align() const
+	text::paragraph_align text::get_paragraph_align() const
 	{
 		return p_align;
 	}
 
-	text::WordWrapping text::get_word_wrapping() const
+	text::word_wrapping text::get_word_wrapping() const
 	{
 		return wordwrapping;
 	}

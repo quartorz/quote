@@ -11,15 +11,15 @@ namespace quote{
 		typename Traits::color color[3];
 
 	protected:
-		virtual void set_state(State) override;
+		virtual void set_state(state) override;
 
 	public:
 		flat_button();
 
 		void set_text(const wchar_t *);
-		void set_text_color(State, typename Traits::color);
+		void set_text_color(state, typename Traits::color);
 		void set_text_size(float);
-		void set_color(State, typename Traits::color);
+		void set_color(state, typename Traits::color);
 
 		virtual void set_position(const typename Traits::point &) override;
 		virtual void set_size(const typename Traits::size &) override;

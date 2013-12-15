@@ -141,13 +141,13 @@ namespace quote{ namespace win32{
 				for(auto &tuple : map[static_cast<unsigned>(wParam)]){
 					std::get<1>(tuple)(wParam, true);
 				}
-				static_cast<Derived*>(this)->on_keydown(wParam);
+				static_cast<Derived*>(this)->on_key_down(wParam);
 				break;
 			case WM_KEYUP:
 				for(auto &tuple : map[static_cast<unsigned>(wParam)]){
 					std::get<1>(tuple)(wParam, false);
 				}
-				static_cast<Derived*>(this)->on_keyup(wParam);
+				static_cast<Derived*>(this)->on_key_up(wParam);
 				break;
 			case WM_KILLFOCUS:
 				if(DetectLostFocus){
@@ -155,7 +155,7 @@ namespace quote{ namespace win32{
 						for(auto &tuple : map[i]){
 							std::get<1>(tuple)(i, false);
 						}
-						static_cast<Derived*>(this)->on_keyup(i);
+						static_cast<Derived*>(this)->on_key_up(i);
 					}
 				}
 				break;

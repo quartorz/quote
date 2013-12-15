@@ -5,16 +5,16 @@ namespace quote{
 	template <class Traits>
 	class button: public Traits::object{
 	public:
-		enum class State: int{
-			None,
-			Hover,
-			Push,
+		enum class state: int{
+			none,
+			hover,
+			push,
 		};
 
 	protected:
-		State state = State::None;
+		state state_ = state::none;
 		bool pushing = false;
-		virtual void set_state(State );
+		virtual void set_state(state);
 
 	public:
 		~button();

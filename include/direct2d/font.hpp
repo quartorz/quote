@@ -11,15 +11,15 @@ namespace quote{ namespace direct2d{
 
 	class font: public resource{
 	public:
-		enum class FontWeight: unsigned{
-			Light = DWRITE_FONT_WEIGHT_LIGHT,
-			Normal = DWRITE_FONT_WEIGHT_NORMAL,
-			Bold = DWRITE_FONT_WEIGHT_BOLD,
+		enum class font_weight: unsigned{
+			light = DWRITE_FONT_WEIGHT_LIGHT,
+			normal = DWRITE_FONT_WEIGHT_NORMAL,
+			bold = DWRITE_FONT_WEIGHT_BOLD,
 		};
 
-		enum class FontStyle: unsigned{
-			Normal,
-			Italic,
+		enum class font_style: unsigned{
+			normal,
+			italic,
 		};
 
 	private:
@@ -27,8 +27,8 @@ namespace quote{ namespace direct2d{
 		IDWriteTextFormat *format;
 		std::wstring locale, name;
 		float size;
-		FontWeight weight;
-		FontStyle style;
+		font_weight weight;
+		font_style style;
 		bool modified;
 
 	public:
@@ -37,8 +37,8 @@ namespace quote{ namespace direct2d{
 			locale(L"ja-jp"),
 			name(L"Meiryo"),
 			size(18.f),
-			weight(FontWeight::Normal),
-			style(FontStyle::Normal),
+			weight(font_weight::normal),
+			style(font_style::normal),
 			modified(true)
 		{
 		}
@@ -48,8 +48,8 @@ namespace quote{ namespace direct2d{
 		void set_locale(const wchar_t *);
 		void set_name(const wchar_t *);
 		void set_size(float);
-		void set_weight(FontWeight);
-		void set_style(FontStyle);
+		void set_weight(font_weight);
+		void set_style(font_style);
 
 		virtual bool create_resource(const creation_params &) override;
 		virtual void destroy_resource() override;

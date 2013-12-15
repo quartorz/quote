@@ -10,22 +10,22 @@ namespace quote{ namespace direct2d{
 
 	class text: public object{
 	public:
-		enum class Align: unsigned{
-			Left = DWRITE_TEXT_ALIGNMENT_LEADING,
-			Center = DWRITE_TEXT_ALIGNMENT_CENTER,
-			Right = DWRITE_TEXT_ALIGNMENT_TRAILING,
+		enum class alignment: unsigned{
+			left = DWRITE_TEXT_ALIGNMENT_LEADING,
+			center = DWRITE_TEXT_ALIGNMENT_CENTER,
+			right = DWRITE_TEXT_ALIGNMENT_TRAILING,
 		};
-		enum class ParagraphAlign: unsigned{
-			Top = DWRITE_PARAGRAPH_ALIGNMENT_NEAR,
-			Center = DWRITE_PARAGRAPH_ALIGNMENT_CENTER,
-			Right = DWRITE_PARAGRAPH_ALIGNMENT_FAR,
+		enum class paragraph_align: unsigned{
+			top = DWRITE_PARAGRAPH_ALIGNMENT_NEAR,
+			center = DWRITE_PARAGRAPH_ALIGNMENT_CENTER,
+			right = DWRITE_PARAGRAPH_ALIGNMENT_FAR,
 		};
-		enum class WordWrapping: unsigned{
-			Wrap = DWRITE_WORD_WRAPPING_WRAP,
-			NoWrap = DWRITE_WORD_WRAPPING_NO_WRAP,
+		enum class word_wrapping: unsigned{
+			wrap = DWRITE_WORD_WRAPPING_WRAP,
+			no_wrap = DWRITE_WORD_WRAPPING_NO_WRAP,
 		};
 
-		using FontWeight = font::FontWeight;
+		using font_weight = font::font_weight;
 
 	private:
 		factory factory_;
@@ -33,12 +33,12 @@ namespace quote{ namespace direct2d{
 		solid_brush brush;
 		font font_;
 		std::wstring text_;
-		WordWrapping wordwrapping;
-		Align align;
-		ParagraphAlign p_align;
+		word_wrapping wordwrapping;
+		alignment align;
+		paragraph_align p_align;
 		std::vector<std::pair<DWRITE_TEXT_RANGE, float>> fontsizes;
 		std::vector<std::pair<DWRITE_TEXT_RANGE, bool>> underlines, italics, strikethroughs;
-		std::vector<std::pair<DWRITE_TEXT_RANGE, FontWeight>> fontweights;
+		std::vector<std::pair<DWRITE_TEXT_RANGE, font_weight>> fontweights;
 		std::vector<std::pair<DWRITE_TEXT_RANGE, solid_brush>> colors;
 		bool modified;
 
@@ -49,9 +49,9 @@ namespace quote{ namespace direct2d{
 		text():
 			layout(nullptr),
 			brush(color()),
-			wordwrapping(WordWrapping::Wrap),
-			align(Align::Left),
-			p_align(ParagraphAlign::Top),
+			wordwrapping(word_wrapping::wrap),
+			align(alignment::left),
+			p_align(paragraph_align::top),
 			modified(true)
 		{
 		}
@@ -63,9 +63,9 @@ namespace quote{ namespace direct2d{
 		void set_font(font &&);
 		void set_text(const wchar_t *);
 		void set_color(color, int start=-1, int end=-1);
-		void set_word_wrapping(WordWrapping);
-		void set_align(Align);
-		void set_paragraph_align(ParagraphAlign);
+		void set_word_wrapping(word_wrapping);
+		void set_alignment(alignment);
+		void set_paragraph_align(paragraph_align);
 		void set_underline(int start, int end, bool set=true);
 		void set_italic(int start, int end, bool set=true);
 		void set_strike_through(int start, int end, bool set=true);
@@ -73,9 +73,9 @@ namespace quote{ namespace direct2d{
 		font &get_font();
 		const font &get_font() const;
 		const wchar_t *get_text() const;
-		Align get_align() const;
-		ParagraphAlign get_paragraph_align() const;
-		WordWrapping get_word_wrapping() const;
+		alignment get_alignment() const;
+		paragraph_align get_paragraph_align() const;
+		word_wrapping get_word_wrapping() const;
 
 		virtual rect get_drawing_rect() override;
 		virtual bool create_resource(const creation_params &) override;

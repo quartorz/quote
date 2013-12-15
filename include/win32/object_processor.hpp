@@ -11,12 +11,12 @@ namespace quote{ namespace win32{
 		bool inside, pushing;
 
 	protected:
-		enum CursorType{
-			Arrow,
-			Hand,
-			Ibeam
-		}cursor_type;
-		void set_cursor_type(CursorType);
+		enum cursor_type{
+			arrow,
+			hand,
+			ibeam
+		}cursortype;
+		void set_cursor_type(cursor_type);
 
 	public:
 		object_processor();

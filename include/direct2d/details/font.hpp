@@ -31,12 +31,12 @@ namespace quote{ namespace direct2d{
 		size = s;
 	}
 
-	void font::set_weight(FontWeight w)
+	void font::set_weight(font_weight w)
 	{
 		weight = w;
 	}
 
-	void font::set_style(FontStyle s)
+	void font::set_style(font_style s)
 	{
 		style = s;
 	}

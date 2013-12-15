@@ -47,36 +47,6 @@ namespace quote{ namespace direct2d{
 			::quote::utils::SafeRelease(target);
 		}
 
-		void draw_line(const paint_params &pp, const brush &brush, line line);
-		void draw_line(const paint_params &pp, const brush *brush, const line &line)
-		{
-			draw_line(pp, *brush, line);
-		}
-		void draw_rect(const paint_params &pp, const brush &brush, const rect &rect);
-		void draw_rect(const paint_params &pp, const brush *brush, const rect &rect)
-		{
-			draw_rect(pp, *brush, rect);
-		}
-		void draw_circle(const paint_params &pp, const brush &brush, circle circle);
-		void draw_circle(const paint_params &pp, const brush *brush, const circle &circle)
-		{
-			draw_circle(ps, brush, circle);
-		}
-		void draw_text(const paint_params &pp, const font &font, const brush &brush, const wchar_t *text, const rect &rect, bool clip=false);
-		void draw_text(const paint_params &pp, const font *font, const brush &brush, const wchar_t *text, const rect &rect, bool clip=false)
-		{
-			draw_text(pp, *font, brush, text, rect, clip);
-		}
-		void draw_text(const paint_params &pp, const font &font, const brush *brush, const wchar_t *text, const rect &rect, bool clip=false)
-		{
-			draw_text(pp, font, *brush, text, rect, clip);
-		}
-		void draw_text(const paint_params &pp, const font *font, const brush *brush, const wchar_t *text, const rect &rect, bool clip=false)
-		{
-			draw_text(pp, *font, *brush, text, rect, clip);
-		}
-		void clear(const paint_params &, const color &);
-
 		void repaint()
 		{
 			::InvalidateRect(get_hwnd(), nullptr, FALSE);

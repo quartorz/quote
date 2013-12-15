@@ -8,7 +8,7 @@
 namespace quote{
 
 	template <class Traits>
-	void flat_button<Traits>::set_state(State s)
+	void flat_button<Traits>::set_state(state s)
 	{
 		this->button<Traits>::set_state(s);
 		text.set_color(color[static_cast<int>(s)]);
@@ -17,8 +17,8 @@ namespace quote{
 	template <class Traits>
 	flat_button<Traits>::flat_button()
 	{
-		text.set_align(Traits::text::Align::Center);
-		text.set_paragraph_align(Traits::text::ParagraphAlign::Center);
+		text.set_alignment(Traits::text::alignment::center);
+		text.set_paragraph_align(Traits::text::paragraph_align::center);
 	}
 
 	template <class Traits>
@@ -28,10 +28,10 @@ namespace quote{
 	}
 
 	template <class Traits>
-	void flat_button<Traits>::set_text_color(State s, typename Traits::color c)
+	void flat_button<Traits>::set_text_color(state s, typename Traits::color c)
 	{
 		color[static_cast<int>(s)] = c;
-		set_state(state);
+		set_state(state_);
 	}
 
 	template <class Traits>
@@ -41,7 +41,7 @@ namespace quote{
 	}
 
 	template <class Traits>
-	void flat_button<Traits>::set_color(State s, typename Traits::color c)
+	void flat_button<Traits>::set_color(state s, typename Traits::color c)
 	{
 		brush[static_cast<int>(s)].set_color(c);
 	}
@@ -82,7 +82,7 @@ namespace quote{
 	template <class Traits>
 	void flat_button<Traits>::draw(const typename Traits::paint_params &pp)
 	{
-		this->get_rect().fill(pp, brush[static_cast<int>(state)]);
+		this->get_rect().fill(pp, brush[static_cast<int>(state_)]);
 		text.draw(pp);
 	}
 

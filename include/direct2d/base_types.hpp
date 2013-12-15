@@ -19,6 +19,11 @@
 namespace quote{ namespace direct2d{
 
 	class brush;
+	class font;
+	struct line;
+	struct circle;
+	struct rect;
+	struct color;
 
 	struct creation_params{
 		ID2D1RenderTarget *target;
@@ -27,6 +32,46 @@ namespace quote{ namespace direct2d{
 	struct paint_params{
 		ID2D1RenderTarget *target;
 		bool debug;
+
+		void draw_line(const brush &brush, const line &line, float width=1.f) const;
+		void draw_line(const brush *brush, const line &line, float width=1.f) const
+		{
+			draw_line(*brush, line, width);
+		}
+		void draw_rect(const brush &brush, const rect &rect, float width=1.f) const;
+		void draw_rect(const brush *brush, const rect &rect, float width=1.f) const
+		{
+			draw_rect(*brush, rect, width);
+		}
+		void fill_rect(const brush &brush, const rect &rect) const;
+		void fill_rect(const brush *brush, const rect &rect) const
+		{
+			fill_rect(*brush, rect);
+		}
+		void draw_circle(const brush &brush, const circle &circle, float width=1.f) const;
+		void draw_circle(const brush *brush, const circle &circle, float width=1.f) const
+		{
+			draw_circle(*brush, circle, width);
+		}
+		void fill_circle(const brush &brush, const circle &circle) const;
+		void fill_circle(const brush *brush, const circle &circle) const
+		{
+			fill_circle(*brush, circle);
+		}
+		void draw_text(const font &font, const brush &brush, const wchar_t *text, const rect &rect, bool clip=false) const;
+		void draw_text(const font *font, const brush &brush, const wchar_t *text, const rect &rect, bool clip=false) const
+		{
+			draw_text(*font, brush, text, rect, clip);
+		}
+		void draw_text(const font &font, const brush *brush, const wchar_t *text, const rect &rect, bool clip=false) const
+		{
+			draw_text(font, *brush, text, rect, clip);
+		}
+		void draw_text(const font *font, const brush *brush, const wchar_t *text, const rect &rect, bool clip=false) const
+		{
+			draw_text(*font, *brush, text, rect, clip);
+		}
+		void clear(const color &) const;
 	};
 
 	struct size: public D2D1_SIZE_F{
@@ -130,7 +175,15 @@ namespace quote{ namespace direct2d{
 		{
 			return p1;
 		}
+		const point &get_start_point() const
+		{
+			return p1;
+		}
 		point &get_end_point()
+		{
+			return p2;
+		}
+		const point &get_end_point() const
 		{
 			return p2;
 		}
@@ -350,5 +403,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "brush.hpp"
 #include "details/base_types.hpp"

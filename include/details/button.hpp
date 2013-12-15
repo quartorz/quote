@@ -5,9 +5,9 @@
 namespace quote{
 
 	template <class Traits>
-	void button<Traits>::set_state(State s)
+	void button<Traits>::set_state(state s)
 	{
-		state = s;
+		state_ = s;
 	}
 
 	template <class Traits>
@@ -18,9 +18,9 @@ namespace quote{
 	template <class Traits>
 	void button<Traits>::on_left_press(const typename Traits::point &ap, typename Traits::object::hittest &ht)
 	{
-		ht.set_cursor(Traits::object::hittest::Cursor::Hand);
+		ht.set_cursor(Traits::object::hittest::cursor::hand);
 		pushing = true;
-		set_state(State::Push);
+		set_state(state::push);
 	}
 
 	template <class Traits>
@@ -29,43 +29,43 @@ namespace quote{
 		pushing = false;
 		if(this->is_colliding(ap)){
 			on_push();
-			set_state(State::Hover);
+			set_state(state::hover);
 		}else
-			set_state(State::None);
+			set_state(state::none);
 	}
 
 	template <class Traits>
 	void button<Traits>::on_mouse_move(const typename Traits::point &ap, typename Traits::object::hittest &ht)
 	{
 		if(pushing){
-			ht.set_cursor(Traits::object::hittest::Cursor::Hand);
+			ht.set_cursor(Traits::object::hittest::cursor::hand);
 			if(this->is_colliding(ap)){
 				// 押されててカーソルが中にある
-				set_state(State::Push);
+				set_state(state::push);
 			}else{
 				// 押されてるけど外にある
-				set_state(State::Hover);
+				set_state(state::hover);
 			}
 		}else{
 			if(is_colliding(ap)){
 				// 押してないけどカーソルが乗ってる=ホバーしてる
-				set_state(State::Hover);
-				ht.set_cursor(Traits::object::hittest::Cursor::Hand);
+				set_state(state::hover);
+				ht.set_cursor(Traits::object::hittest::cursor::hand);
 			}else
-				set_state(State::None);
+				set_state(state::none);
 		}
 	}
 
 	template <class Traits>
 	void button<Traits>::on_mouse_leave(const typename Traits::object::hittest &)
 	{
-		set_state(State::None);
+		set_state(state::none);
 	}
 
 	template <class Traits>
 	void button<Traits>::on_lose_focus(const typename Traits::object::hittest &)
 	{
-		set_state(State::None);
+		set_state(state::none);
 	}
 
 }
