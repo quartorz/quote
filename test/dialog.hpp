@@ -46,6 +46,7 @@ public:
 	dialog()
 	{
 		register_object(&text);
+		text.set_position(paint::point(10, 10));
 
 		for(auto &b: buttons){
 			register_object(&b);
@@ -192,5 +193,9 @@ public:
 	virtual void set_size(const paint::size &s) override
 	{
 		dialog_.set_size(s);
+	}
+	virtual void set_position(const paint::point &p) override
+	{
+		dialog_.set_position(p);
 	}
 };

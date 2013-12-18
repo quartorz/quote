@@ -5,7 +5,7 @@
 
 namespace quote{ namespace direct2d{
 
-	bool image::create(ID2D1RenderTarget *t)
+	inline bool image::create(ID2D1RenderTarget *t)
 	{
 		if(!modified)
 			return true;
@@ -25,7 +25,7 @@ namespace quote{ namespace direct2d{
 		return true;
 	}
 
-	void image::calc_rectangle()
+	inline void image::calc_rectangle()
 	{
 		if(clippingrect.width() <= 0.f || clippingrect.height() <= 0.f){
 			auto s = bmp->GetSize();
@@ -69,7 +69,16 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	image::image(const image &i):
+	inline image::image(const wchar_t *filename /* =L"" */):
+		bmp(nullptr),
+		filename(filename),
+		drawingmode(drawing_mode::stretch),
+		interpolationmode(interpolation_mode::linear),
+		modified(true)
+	{
+	}
+
+	inline image::image(const image &i):
 		bmp(nullptr),
 		filename(i.filename),
 		drawingmode(i.drawingmode),
@@ -78,12 +87,12 @@ namespace quote{ namespace direct2d{
 	{
 	}
 
-	image::~image()
+	inline image::~image()
 	{
 		::quote::utils::SafeRelease(bmp);
 	}
 
-	void image::set_drawing_mode(drawing_mode mode)
+	inline void image::set_drawing_mode(drawing_mode mode)
 	{
 		drawingmode = mode;
 
@@ -91,18 +100,18 @@ namespace quote{ namespace direct2d{
 			calc_rectangle();
 	}
 
-	void image::set_interpolation_mode(interpolation_mode im)
+	inline void image::set_interpolation_mode(interpolation_mode im)
 	{
 		interpolationmode = im;
 	}
 
-	void image::set_file_name(const wchar_t *f)
+	inline void image::set_file_name(const wchar_t *f)
 	{
 		modified = true;
 		filename = f;
 	}
 
-	void image::set_clipping_rect(rect r)
+	inline void image::set_clipping_rect(rect r)
 	{
 		clippingrect = r;
 
@@ -110,7 +119,7 @@ namespace quote{ namespace direct2d{
 			calc_rectangle();
 	}
 
-	void image::set_position(const point &p)
+	inline void image::set_position(const point &p)
 	{
 		object::set_position(p);
 
@@ -118,7 +127,7 @@ namespace quote{ namespace direct2d{
 			calc_rectangle();
 	}
 
-	void image::set_size(const size &s)
+	inline void image::set_size(const size &s)
 	{
 		object::set_size(s);
 
@@ -126,17 +135,17 @@ namespace quote{ namespace direct2d{
 			calc_rectangle();
 	}
 
-	bool image::create_resource(const creation_params &cp)
+	inline bool image::create_resource(const creation_params &cp)
 	{
 		return create(cp.target);
 	}
 
-	void image::destroy_resource()
+	inline void image::destroy_resource()
 	{
 		::quote::utils::SafeRelease(bmp);
 	}
 
-	void image::draw(const paint_params &pp)
+	inline void image::draw(const paint_params &pp)
 	{
 		if(modified){
 			destroy_resource();
@@ -151,7 +160,7 @@ namespace quote{ namespace direct2d{
 			src);
 	}
 
-	ID2D1Bitmap *image::Get() const
+	inline ID2D1Bitmap *image::Get() const
 	{
 		return bmp;
 	}

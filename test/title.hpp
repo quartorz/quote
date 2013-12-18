@@ -2,8 +2,6 @@
 
 #include "main_window.hpp"
 
-#include "dialog.hpp"
-
 class main_window::title: public paint::scene<false>{
 	main_window &window;
 
@@ -25,8 +23,6 @@ class main_window::title: public paint::scene<false>{
 
 	std::array<button, 2> buttons;
 
-	modal_dialog<2> dialog;
-
 public:
 	title(main_window *w): window(*w)
 	{
@@ -41,11 +37,6 @@ public:
 			buttons[i].set_rect({paint::point(0, 75.f * i), paint::size(150, 50)});
 		}
 
-		register_object(&dialog);
-		dialog.set_size({200, 100});
-		dialog.show();
-		dialog.set_button_handler(0, [this]{this->dialog.hide();});
-
 		add_timer_handler([this](unsigned){
 			this->window.repaint();
 		}, timer_id);
@@ -55,8 +46,6 @@ public:
 		for(auto &b: buttons){
 			unregister_object(&b);
 		}
-
-		unregister_object(&dialog);
 	}
 	virtual void draw(const paint::paint_params &pp) override
 	{

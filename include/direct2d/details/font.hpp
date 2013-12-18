@@ -3,7 +3,7 @@
 
 namespace quote{ namespace direct2d{
 
-	font::font(const font &f):
+	inline font::font(const font &f):
 		format(nullptr),
 		locale(f.locale),
 		name(f.name),
@@ -14,45 +14,45 @@ namespace quote{ namespace direct2d{
 	{
 	}
 
-	font::~font()
+	inline font::~font()
 	{
 		::quote::utils::SafeRelease(format);
 	}
 
-	void font::set_name(const wchar_t *f)
+	inline void font::set_name(const wchar_t *f)
 	{
 		modified = true;
 		name = f;
 	}
 
-	void font::set_size(float s)
+	inline void font::set_size(float s)
 	{
 		modified = true;
 		size = s;
 	}
 
-	void font::set_weight(font_weight w)
+	inline void font::set_weight(font_weight w)
 	{
 		weight = w;
 	}
 
-	void font::set_style(font_style s)
+	inline void font::set_style(font_style s)
 	{
 		style = s;
 	}
 
-	bool font::create_resource(const creation_params &)
+	inline bool font::create_resource(const creation_params &)
 	{
 		return create();
 	}
 
-	void font::destroy_resource()
+	inline void font::destroy_resource()
 	{
 		modified = true;
 		::quote::utils::SafeRelease(format);
 	}
 
-	bool font::create()
+	inline bool font::create()
 	{
 		if(!modified)
 			return true;
@@ -74,7 +74,7 @@ namespace quote{ namespace direct2d{
 		return false;
 	}
 
-	IDWriteTextFormat *font::Get()
+	inline IDWriteTextFormat *font::Get()
 	{
 		if(modified){
 			::quote::utils::SafeRelease(format);
@@ -84,7 +84,7 @@ namespace quote{ namespace direct2d{
 		return format;
 	}
 
-	IDWriteTextFormat *font::Get() const
+	inline IDWriteTextFormat *font::Get() const
 	{
 		return const_cast<font*>(this)->Get();
 	}

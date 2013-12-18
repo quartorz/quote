@@ -13,12 +13,17 @@
 #include "quote/direct2d/solid_brush.hpp"
 #include "quote/direct2d/font.hpp"
 #include "quote/direct2d/text.hpp"
+#include "quote/direct2d/image.hpp"
 #include "quote/direct2d/flat_button.hpp"
 
 namespace window_system = quote::win32;
 namespace paint = quote::direct2d;
 
+#include "function.hpp"
+
 static const int timer_id = 100;
+
+#include <memory>
 
 class main_window:
 	public window_system::window<
@@ -37,6 +42,7 @@ class main_window:
 	enum class scene: int{
 		title,
 		config,
+		shooting,
 	};
 
 	class button_base: public paint::flat_button{
@@ -63,14 +69,18 @@ class main_window:
 	class configurator;
 	class shooting;
 
-	title *title_;
-	configurator *config;
+	std::unique_ptr<title> title_;
+	std::unique_ptr<configurator> config;
+	std::unique_ptr<shooting> shooting_;
 
 public:
 	static const wchar_t *get_class_name()
 	{
 		return L"main_window";
 	}
+
+	main_window();
+
 	bool initialize();
 	void uninitialize();
 
@@ -82,14 +92,20 @@ public:
 
 #include "title.hpp"
 #include "configurator.hpp"
+#include "shooting.hpp"
+
+inline main_window::main_window():
+	title_(std::make_unique<main_window::title>(this)),
+	config(std::make_unique<main_window::configurator>(this)),
+	shooting_(std::make_unique<main_window::shooting>(this))
+{
+}
 
 inline bool main_window::initialize()
 {
-	title_ = new title(this);
-	add_scene(static_cast<int>(scene::title), title_);
-
-	config = new configurator(this);
-	add_scene(static_cast<int>(scene::config), config);
+	add_scene(static_cast<int>(scene::title), title_.get());
+	add_scene(static_cast<int>(scene::config), config.get());
+	add_scene(static_cast<int>(scene::shooting), shooting_.get());
 
 	select_scene(scene::title);
 
@@ -100,7 +116,4 @@ inline void main_window::uninitialize()
 {
 	remove_scene(0);
 	remove_scene(1);
-
-	delete title_;
-	delete config;
 }

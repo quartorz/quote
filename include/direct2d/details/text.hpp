@@ -8,7 +8,7 @@
 
 namespace quote{ namespace direct2d{
 
-	bool text::create()
+	inline bool text::create()
 	{
 		if(!modified)
 			return true;
@@ -55,14 +55,14 @@ namespace quote{ namespace direct2d{
 		return true;
 	}
 
-	void text::set_colors()
+	inline void text::set_colors()
 	{
 		for(auto &p: colors){
 			layout->SetDrawingEffect(std::get<1>(p).Get(), std::get<0>(p));
 		}
 	}
 
-	text::text(const text &t):
+	inline text::text(const text &t):
 		layout(nullptr),
 		brush(t.brush),
 		wordwrapping(t.wordwrapping),
@@ -77,7 +77,7 @@ namespace quote{ namespace direct2d{
 	{
 	}
 
-	text::text(text &&t):
+	inline text::text(text &&t):
 		layout(nullptr),
 		brush(t.brush),
 		wordwrapping(t.wordwrapping),
@@ -92,27 +92,28 @@ namespace quote{ namespace direct2d{
 	{
 	}
 
-	text::~text()
+	inline text::~text()
 	{
 		destroy_resource();
 	}
-	void text::set_font(const font &f)
+
+	inline void text::set_font(const font &f)
 	{
 		font_ = f;
 	}
 
-	void text::set_font(font &&f)
+	inline void text::set_font(font &&f)
 	{
 		font_ = std::move(f);
 	}
 
-	void text::set_text(const wchar_t *t)
+	inline void text::set_text(const wchar_t *t)
 	{
 		modified = true;
 		text_ = t;
 	}
 
-	void text::set_color(color c, int start /* =-1 */, int end /* =-1 */)
+	inline void text::set_color(color c, int start /* =-1 */, int end /* =-1 */)
 	{
 		if(start < 0 || end <= 0)
 			brush.set_color(c);
@@ -120,7 +121,7 @@ namespace quote{ namespace direct2d{
 			colors.push_back(std::make_pair(::quote::utils::CreateRange(start, end), c));
 	}
 
-	void text::set_word_wrapping(word_wrapping ww)
+	inline void text::set_word_wrapping(word_wrapping ww)
 	{
 		wordwrapping = ww;
 
@@ -128,7 +129,7 @@ namespace quote{ namespace direct2d{
 			layout->SetWordWrapping(static_cast<DWRITE_WORD_WRAPPING>(ww));
 	}
 
-	void text::set_alignment(alignment a)
+	inline void text::set_alignment(alignment a)
 	{
 		align = a;
 
@@ -136,7 +137,7 @@ namespace quote{ namespace direct2d{
 			layout->SetTextAlignment(static_cast<DWRITE_TEXT_ALIGNMENT>(a));
 	}
 
-	void text::set_paragraph_align(paragraph_align pa)
+	inline void text::set_paragraph_align(paragraph_align pa)
 	{
 		p_align = pa;
 
@@ -144,7 +145,7 @@ namespace quote{ namespace direct2d{
 			layout->SetParagraphAlignment(static_cast<DWRITE_PARAGRAPH_ALIGNMENT>(pa));
 	}
 
-	void text::set_underline(int start, int end, bool set /* =true */)
+	inline void text::set_underline(int start, int end, bool set /* =true */)
 	{
 		if(start < 0 || end <= 0){
 			underlines.clear();
@@ -154,7 +155,7 @@ namespace quote{ namespace direct2d{
 			underlines.push_back(std::make_pair(::quote::utils::CreateRange(start, end), set));
 	}
 
-	void text::set_italic(int start, int end, bool set /* =true */)
+	inline void text::set_italic(int start, int end, bool set /* =true */)
 	{
 		if(start < 0 || end <= 0){
 			italics.clear();
@@ -164,7 +165,7 @@ namespace quote{ namespace direct2d{
 			italics.push_back(std::make_pair(::quote::utils::CreateRange(start, end), set));
 	}
 
-	void text::set_strike_through(int start, int end, bool set /* =true */)
+	inline void text::set_strike_through(int start, int end, bool set /* =true */)
 	{
 		if(start < 0 || end <= 0){
 			italics.clear();
@@ -174,37 +175,37 @@ namespace quote{ namespace direct2d{
 			strikethroughs.push_back(std::make_pair(::quote::utils::CreateRange(start, end), set));
 	}
 
-	font &text::get_font()
+	inline font &text::get_font()
 	{
 		return font_;
 	}
 
-	const font &text::get_font() const
+	inline const font &text::get_font() const
 	{
 		return font_;
 	}
 
-	const wchar_t *text::get_text() const
+	inline const wchar_t *text::get_text() const
 	{
 		return text_.c_str();
 	}
 
-	text::alignment text::get_alignment() const
+	inline text::alignment text::get_alignment() const
 	{
 		return align;
 	}
 
-	text::paragraph_align text::get_paragraph_align() const
+	inline text::paragraph_align text::get_paragraph_align() const
 	{
 		return p_align;
 	}
 
-	text::word_wrapping text::get_word_wrapping() const
+	inline text::word_wrapping text::get_word_wrapping() const
 	{
 		return wordwrapping;
 	}
 
-	rect text::get_drawing_rect()
+	inline rect text::get_drawing_rect()
 	{
 		if(modified){
 			::quote::utils::SafeRelease(layout);
@@ -219,7 +220,7 @@ namespace quote{ namespace direct2d{
 			size(size_.width + dom.left + dom.right, size_.height + dom.top + dom.bottom));
 	}
 
-	bool text::create_resource(const creation_params &cs)
+	inline bool text::create_resource(const creation_params &cs)
 	{
 		if(!brush.create_resource(cs))
 			return false;
@@ -239,7 +240,7 @@ namespace quote{ namespace direct2d{
 		return true;
 	}
 
-	void text::destroy_resource()
+	inline void text::destroy_resource()
 	{
 		::quote::utils::SafeRelease(layout);
 		brush.destroy_resource();
@@ -250,7 +251,7 @@ namespace quote{ namespace direct2d{
 		});
 	}
 
-	void text::draw(const paint_params &ps)
+	inline void text::draw(const paint_params &ps)
 	{
 		if(modified){
 			::quote::utils::SafeRelease(layout);
@@ -263,7 +264,7 @@ namespace quote{ namespace direct2d{
 			brush.Get());
 	}
 
-	IDWriteTextLayout *text::Get()
+	inline IDWriteTextLayout *text::Get()
 	{
 		if(modified){
 			::quote::utils::SafeRelease(layout);

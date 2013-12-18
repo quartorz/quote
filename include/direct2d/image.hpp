@@ -52,3 +52,5 @@ namespace quote{ namespace direct2d{
 	};
 
 } }
+
+#include "details/image.hpp"
