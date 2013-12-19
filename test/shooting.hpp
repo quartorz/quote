@@ -322,6 +322,13 @@ public:
 	{
 		unregister_resource(holder.get());
 		unregister_object(&dialog);
+
+		for(auto &enemy: enemies){
+			delete enemy;
+		}
+		for(auto &bullet: enemy_bullets){
+			delete bullet;
+		}
 	}
 	virtual void on_show() override
 	{
@@ -421,8 +428,6 @@ public:
 	}
 	virtual void draw(const paint::paint_params &pp) override
 	{
-		this->paint::scene<false>::draw(pp);
-
 		for(auto &b: bullets){
 			if(b){
 				b.draw(pp, holder->yellow_brush);
@@ -438,5 +443,7 @@ public:
 		for(auto &e: enemies){
 			e->draw(pp);
 		}
+
+		this->paint::scene<false>::draw(pp);
 	}
 };
