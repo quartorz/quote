@@ -1,0 +1,1 @@
+Search.setIndex({objtypes:{},objnames:{},terms:{quot:0,search:0,index:0,modul:0,document:0,content:0,tabl:0,indic:0,welcom:0,page:0},titles:["Welcome to quote&#8217;s documentation!"],filenames:["index"],objects:{}})
