@@ -1,16 +1,32 @@
-.. quote documentation master file, created by
+﻿.. quote documentation master file, created by
    sphinx-quickstart on Sat Dec 21 07:51:20 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to quote's documentation!
-=================================
+===================
+quote documentation
+===================
 
-Contents:
+概要
+====
+| C++でGUIアプリケーションを作るための機能を集めたライブラリ。
+| クロスプラットフォームを目指していた。
 
+動作環境
+========
+* Windows 7以降
+* Visual C++ 2013
+
+導入
+====
+`リポジトリ <https://github.com/quartorz/quote>`_ のinclude内のファイルをインクルード可能な場所に置いてください。
+
+目次
+====
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
+   win32/index
 
 
 Indices and tables

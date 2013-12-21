@@ -1,0 +1,62 @@
+==========
+window.hpp
+==========
+
+windowクラス
+============
+
+宣言
+----
+.. code-block:: cpp
+
+   template <class Derived>
+   class window;
+
+概要
+----
+| 内部にウィンドウクラスプロシージャを持ち、ウィンドウメッセージを受け取る。
+| ``Derived::initialize`` が ``false`` を返したときはウィンドウを生成しない。
+| ウィンドウの作成をする処理は派生クラスが :ref:`creator` や、それに類似したクラスを継承することで行う。
+
+テンプレート引数
+----------------
+================= ==============
+引数名            意味
+================= ==============
+``class Derived`` 派生クラス
+================= ==============
+
+例
+--
+
+最も単純なウィンドウ
+^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: cpp
+
+   #include <quote/win32/window.hpp>
+   #include <quote/win32/procs.hpp>
+   #include <quote/win32/creator.hpp>
+   using namespace quote;
+   
+   class mywindow:
+       public win32::window<
+           mywindow,
+           win32::quit_on_close<mywindow>>,
+	   public win32::creator<mywindow>
+   {
+   public:
+       static const wchar_t *get_class_name()
+       {
+           return L"mywindow";
+       }
+       bool initialize()
+       {
+           // 初期化(ウィンドウを作成した時に呼ばれる)
+		   return true;
+       }
+       void uninitialize()
+       {
+	       // 後処理(ウィンドウが破棄されるときに呼ばれる)
+       }
+   };

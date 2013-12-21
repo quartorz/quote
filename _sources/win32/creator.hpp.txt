@@ -1,0 +1,20 @@
+===========
+creator.hpp
+===========
+
+.. _creator:
+
+creatorクラス
+=============
+
+宣言
+----
+.. code-block:: cpp
+
+   template <class Derived>
+   class creator;
+
+概要
+----
+ウィンドウを作る機能を提供する
+
