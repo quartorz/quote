@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ===================
-quote documentation
+quote's documentation
 ===================
 
 概要
@@ -19,7 +19,7 @@ quote documentation
 
 導入
 ====
-`リポジトリ <https://github.com/quartorz/quote>`_ のinclude内のファイルをインクルード可能な場所に置いてください。
+`リポジトリ <https://github.com/quartorz/quote>`_\ のinclude内のファイルをインクルード可能な場所に置いてください。
 
 目次
 ====
@@ -27,12 +27,3 @@ quote documentation
    :maxdepth: 3
 
    win32/index
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

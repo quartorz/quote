@@ -2,14 +2,14 @@
 creator.hpp
 ===========
 
-.. _creator:
+.. _win32-creator:
 
 creatorクラス
 =============
 
 宣言
 ----
-.. code-block:: cpp
+.. sourcecode:: cpp
 
    template <class Derived>
    class creator;

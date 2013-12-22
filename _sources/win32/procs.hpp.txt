@@ -1,0 +1,105 @@
+========
+proc.hpp
+========
+
+.. _win32-resizer:
+
+resizerクラス
+=============
+
+宣言
+
+----
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class resizer;
+
+概要
+----
+
+リサイズをする機能と、リサイズ時にコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ関数
+----------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+.. cpp:function:: void resize(int w, int h)
+
+   ウィンドウをリサイズする。クライアント領域の大きさを指定する。
+
+注意
+----
+
+* 派生クラスは ``Derived::on_size(int, int)`` を持たなければならない。
+
+  * 派生クラスが direct2d::scene_manager 等を継承しても良い。
+
+* ``Derived::on_size(int, int)`` でサイズ変更時の処理を行う。
+
+例
+--
+
+:ref:`ex-win32-window-size-move`
+
+
+.. _win32-mover:
+
+moverクラス
+===========
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class mover;
+
+概要
+----
+
+ウィンドウを移動する機能と、移動時にコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ関数
+----------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+   .. cpp:function:: void resize(int x, int y)
+
+   ウィンドウを移動する。
+
+注意
+----
+
+* 派生クラスは ``Derived::on_move(int, int)`` を持たなければならない。
+* ``Derived::on_move(int, int)`` で移動時の処理を行う。
+
+例
+--
+
+:ref:`ex-win32-window-size-move`

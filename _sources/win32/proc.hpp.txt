@@ -1,0 +1,30 @@
+========
+proc.hpp
+========
+
+.. _win32-resizer:
+
+resizerクラス
+=============
+
+宣言
+----
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class resizer;
+
+概要
+----
+foo
+
+テンプレート引数
+----------------
+bar
+
+メンバ関数
+----------
+foobar
+
+例
+--

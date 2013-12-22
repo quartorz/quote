@@ -2,37 +2,96 @@
 window.hpp
 ==========
 
+.. _win32-window:
+
 windowクラス
 ============
 
 宣言
 ----
+
 .. code-block:: cpp
 
-   template <class Derived>
+   template <class Derived, class... Procs>
    class window;
 
 概要
 ----
+
 | 内部にウィンドウクラスプロシージャを持ち、ウィンドウメッセージを受け取る。
 | ``Derived::initialize`` が ``false`` を返したときはウィンドウを生成しない。
-| ウィンドウの作成をする処理は派生クラスが :ref:`creator` や、それに類似したクラスを継承することで行う。
+| ウィンドウの作成をする処理は派生クラスが :ref:`win32::creator <win32-creator>` や、それに類似したクラスを継承することで行う。
 
 テンプレート引数
 ----------------
-================= ==============
-引数名            意味
-================= ==============
-``class Derived`` 派生クラス
-================= ==============
+
+====================== ===============================================================================
+引数名                 意味
+====================== ===============================================================================
+``class Derived``      派生クラス
+``class... Procs``     procs.hpp 内で定義されるクラスや direct2d::paint 等の、WindowProcを持つクラス
+====================== ===============================================================================
+
+メンバ関数
+----------
+
+.. cpp:function:: bool window<Derived>::register_class(const wchar_t *classname)
+
+   Windowsにウィンドウクラスを登録する。通常は `register_class() <#window:Derived:::register_class>`_ を使う。
+   登録に成功したら ``true`` を返す。
+
+.. cpp:function:: bool window<Derived>::register_class()
+
+   Windowsにウィンドウクラスを登録する。 ``Derived::get_class_name()`` を引数にして `register_class(const wchar_t *classname) <#window:Derived:::register_class__wchar_tCP>`_ を呼び出し、その結果を返す。
+
+.. cpp:function:: void *window<Derived>::get_handle() const
+
+   ウィンドウハンドルを返す。ウィンドウが作成されていない時は ``nullptr`` を返す。
+
+.. cpp:function:: HWND window<Derived>::get_hwnd() const
+
+   ウィンドウハンドルを返す。ウィンドウが作成されていない時は ``nullptr`` を返す。
+
+.. cpp:function:: HWND get_parent() const
+
+   親ウィンドウのハンドルを返す。親がない時には ``nullptr`` を返す。
+
+.. cpp:function:: void show()
+
+   ウィンドウを表示する。
+
+.. cpp:function:: void hide()
+
+   ウィンドウを隠す。
+
+.. cpp:function:: std::tuple<int, int> get_size()
+
+   ウィンドウのサイズを取得する。
+
+.. cpp:function:: std::tuple<int, int> get_position()
+
+   ウィンドウの位置を取得する。
+
+.. cpp:function:: LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+
+   ウィンドウプロシージャ。ライブラリ内で呼び出される。
+
+注意
+----
+
+* 派生クラスは ``bool initialize()``, ``void uninitialize()``, ``static const wchar_t *get_class_name()`` を持たなければならない。
+* 派生クラスは ``bool initialize()``, ``void uninitialize()`` で初期化と後処理をしなければならない。
 
 例
 --
 
+.. _ex-win32-simplest-window:
+
 最も単純なウィンドウ
 ^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: cpp
+.. sourcecode:: cpp
+   :linenos:
 
    #include <quote/win32/window.hpp>
    #include <quote/win32/procs.hpp>
@@ -43,7 +102,7 @@ windowクラス
        public win32::window<
            mywindow,
            win32::quit_on_close<mywindow>>,
-	   public win32::creator<mywindow>
+       public win32::creator<mywindow>
    {
    public:
        static const wchar_t *get_class_name()
@@ -53,10 +112,57 @@ windowクラス
        bool initialize()
        {
            // 初期化(ウィンドウを作成した時に呼ばれる)
-		   return true;
+           return true;
        }
        void uninitialize()
        {
-	       // 後処理(ウィンドウが破棄されるときに呼ばれる)
+           // 後処理(ウィンドウが破棄されるときに呼ばれる)
+       }
+   };
+
+.. _ex-win32-window-size-move:
+
+サイズ変更時と移動時に標準出力にメッセージを表示するウィンドウ
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. sourcecode:: cpp
+   :linenos:
+
+   #include <iostream>
+
+   #include <quote/win32/window.hpp>
+   #include <quote/win32/procs.hpp>
+   #include <quote/win32/creator.hpp>
+   using namespace quote;
+   
+   class mywindow:
+       public win32::window<
+           mywindow,
+           win32::quit_on_close<mywindow>,
+           win32::resizer<mywindow>,
+           win32::mover<mywindow>>,
+       public win32::creator<mywindow>
+   {
+   public:
+       static const wchar_t *get_class_name()
+       {
+           return L"mywindow";
+       }
+       bool initialize()
+       {
+           // 初期化(ウィンドウを作成した時に呼ばれる)
+           return true;
+       }
+       void uninitialize()
+       {
+           // 後処理(ウィンドウが破棄されるときに呼ばれる)
+       }
+	   void on_size(int w, int h)
+       {
+           std::cout << "on size width:" << w << " height:" << h << std::endl;
+       }
+       void on_move(int x, int y)
+       {
+           std::cout << "on move x:" << x << " y:" << y << std::endl;
        }
    };

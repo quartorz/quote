@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>proc.hpp &mdash; quote 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="quote 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="win32名前空間" href="index.html" />
+    <link rel="next" title="creator.hpp" href="creator.hpp.html" />
+    <link rel="prev" title="window.hpp" href="window.hpp.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="creator.hpp.html" title="creator.hpp"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="window.hpp.html" title="window.hpp"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">quote 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">win32名前空間</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="proc-hpp">
+<h1>proc.hpp<a class="headerlink" href="#proc-hpp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="resizer">
+<span id="win32-resizer"></span><h2>resizerクラス<a class="headerlink" href="#resizer" title="Permalink to this headline">¶</a></h2>
+<p>宣言</p>
+<blockquote>
+<div>template &lt;class Derived&gt;
+class resizer;</div></blockquote>
+<div class="section" id="id1">
+<h3>概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>リサイズをする機能と、リサイズ時にコールバックする機能を提供する。</p>
+</div>
+<div class="section" id="id2">
+<h3>テンプレート引数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="58%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">引数名</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">class</span> <span class="pre">Derived</span></tt></td>
+<td>派生クラス</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3>メンバ関数<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="WindowProc__HWND.UINT.WPARAM.LPARAM.LRESULTR">
+bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <em>msg</em>, WPARAM <em>wParam</em>, LPARAM <em>lParam</em>, LRESULT&amp; <em>lresult</em><big>)</big><a class="headerlink" href="#WindowProc__HWND.UINT.WPARAM.LPARAM.LRESULTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>ウィンドウプロシージャ。 <a class="reference external" href="window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM">win32::window::WindowProc</a> が呼び出す。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="resize__i.i">
+void <tt class="descname">resize</tt><big>(</big>int <em>w</em>, int <em>h</em><big>)</big><a class="headerlink" href="#resize__i.i" title="Permalink to this definition">¶</a></dt>
+<dd><p>ウィンドウをリサイズする。クライアント領域の大きさを指定する。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id4">
+<h3>注意<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>派生クラスは <tt class="docutils literal"><span class="pre">Derived::on_size(int,</span> <span class="pre">int)</span></tt> を持たなければならない。<ul>
+<li>派生クラスが direct2d::scene_manager 等を継承しても良い。</li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">Derived::on_size(int,</span> <span class="pre">int)</span></tt> でサイズ変更時の処理を行う。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>例<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="window.hpp.html#ex-win32-window-size-move"><em>サイズ変更時と移動時に標準出力にメッセージを表示するウィンドウ</em></a></p>
+</div>
+</div>
+<div class="section" id="mover">
+<span id="win32-mover"></span><h2>moverクラス<a class="headerlink" href="#mover" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>宣言<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Derived</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">mover</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>概要<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>ウィンドウを移動する機能と、移動時にコールバックする機能を提供する。</p>
+</div>
+<div class="section" id="id8">
+<h3>テンプレート引数<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="58%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">引数名</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">class</span> <span class="pre">Derived</span></tt></td>
+<td>派生クラス</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h3>メンバ関数<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <em>msg</em>, WPARAM <em>wParam</em>, LPARAM <em>lParam</em>, LRESULT&amp; <em>lresult</em><big>)</big></dt>
+<dd><p>ウィンドウプロシージャ。 <a class="reference external" href="window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM">win32::window::WindowProc</a> が呼び出す。</p>
+<dl class="function">
+<dt id="WindowProc::resize__i.i">
+void <tt class="descname">resize</tt><big>(</big>int <em>x</em>, int <em>y</em><big>)</big><a class="headerlink" href="#WindowProc::resize__i.i" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>ウィンドウを移動する。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id11">
+<h3>注意<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>派生クラスは <tt class="docutils literal"><span class="pre">Derived::on_move(int,</span> <span class="pre">int)</span></tt> を持たなければならない。</li>
+<li><tt class="docutils literal"><span class="pre">Derived::on_move(int,</span> <span class="pre">int)</span></tt> で移動時の処理を行う。</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>例<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="window.hpp.html#ex-win32-window-size-move"><em>サイズ変更時と移動時に標準出力にメッセージを表示するウィンドウ</em></a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">proc.hpp</a><ul>
+<li><a class="reference internal" href="#resizer">resizerクラス</a><ul>
+<li><a class="reference internal" href="#id1">概要</a></li>
+<li><a class="reference internal" href="#id2">テンプレート引数</a></li>
+<li><a class="reference internal" href="#id3">メンバ関数</a></li>
+<li><a class="reference internal" href="#id4">注意</a></li>
+<li><a class="reference internal" href="#id5">例</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mover">moverクラス</a><ul>
+<li><a class="reference internal" href="#id6">宣言</a></li>
+<li><a class="reference internal" href="#id7">概要</a></li>
+<li><a class="reference internal" href="#id8">テンプレート引数</a></li>
+<li><a class="reference internal" href="#id9">メンバ関数</a></li>
+<li><a class="reference internal" href="#id11">注意</a></li>
+<li><a class="reference internal" href="#id12">例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="window.hpp.html"
+                        title="previous chapter">window.hpp</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="creator.hpp.html"
+                        title="next chapter">creator.hpp</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/win32/procs.hpp.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="creator.hpp.html" title="creator.hpp"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="window.hpp.html" title="window.hpp"
+             >previous</a> |</li>
+        <li><a href="../index.html">quote 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >win32名前空間</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, quarter(quartorz).
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
