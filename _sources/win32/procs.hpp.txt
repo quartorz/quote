@@ -8,8 +8,8 @@ resizerクラス
 =============
 
 宣言
-
 ----
+
 .. sourcecode:: cpp
 
    template <class Derived>
@@ -29,8 +29,8 @@ resizerクラス
 ``class Derived``   派生クラス
 =================== ==============
 
-メンバ関数
-----------
+メンバ
+------
 
 .. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 
@@ -52,8 +52,7 @@ resizerクラス
 例
 --
 
-:ref:`ex-win32-window-size-move`
-
+* :ref:`ex-win32-window-size-move`
 
 .. _win32-mover:
 
@@ -82,14 +81,14 @@ moverクラス
 ``class Derived``   派生クラス
 =================== ==============
 
-メンバ関数
-----------
+メンバ
+------
 
 .. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 
    ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
 
-   .. cpp:function:: void resize(int x, int y)
+.. cpp:function:: void resize(int x, int y)
 
    ウィンドウを移動する。
 
@@ -102,4 +101,265 @@ moverクラス
 例
 --
 
-:ref:`ex-win32-window-size-move`
+* :ref:`ex-win32-window-size-move`
+
+
+.. _win32-quit_on_close:
+
+quit_on_closeクラス
+===================
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class quit_on_close;
+
+概要
+----
+
+ウィンドウを閉じた時にメッセージループを抜ける
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+例
+--
+
+* :ref:`ex-win32-simplest-window`
+* :ref:`ex-win32-window-size-move`
+* 等
+
+
+.. _win32-left_button:
+
+left_buttonクラス
+=================
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class left_button;
+
+概要
+----
+
+マウスの左クリックを検出してコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+注意
+----
+
+* 派生クラスは ``Derived::on_left_press(int, int)``, ``Derived::on_left_release(int, int)`` を持たなければならない。
+* 通常は代わりに win32::object_processor を使う。
+
+
+.. _win32-right_button:
+
+right_buttonクラス
+==================
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class right_button;
+
+概要
+----
+
+マウスの右クリックを検出してコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+注意
+----
+
+* 派生クラスは ``Derived::on_right_press(int, int)``, ``Derived::on_right_release(int, int)`` を持たなければならない。
+
+
+.. _win32-mouse_move:
+
+mouse_moveクラス
+================
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class mouse_move;
+
+概要
+----
+
+マウスの移動を検出してコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+注意
+----
+
+* 派生クラスは ``Derived::on_mouse_move(int, int)`` を持たなければならない。
+* 通常は代わりに win32::object_processor を使う。
+
+
+.. _win32-keyboard:
+
+keyboardクラス
+==============
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class keyboard;
+
+概要
+----
+
+キーボードの入力を検出してコールバックする機能を提供する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:type:: handler_type
+
+   ``std::function<void(unsigned, bool)>`` の別名。1つ目の引数にはキーコード、2つ目の引数にはキーが押された時に ``true`` 、離した時に ``false`` が渡される。
+
+.. cpp:type:: hash_type
+
+   符号なし64bit
+
+.. cpp:type:: keycode_range
+
+   ``std::tuple<wchar_t, wchar_t>`` の別名。
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+.. cpp:function:: hash_type add_keyboard_handler(handler_type handler, Type t, Types... characters)
+
+   1つ目の引数にキーが入力された時に呼ばれる関数オブジェクトを渡し、2つ目以降に検出したいキーコードを渡す。キーコードが連続する時には :cpp:type:`keycode_range` が使える。
+
+.. cpp:function:: void remove_keyboard_handler(hash_type hash, Types... characters)
+
+   ハンドラを削除する。1つ目の引数に :cpp:func:`add_keyboard_handler` が返した値を、2つ目以降にキーコードを渡す。
+
+例
+--
+
+* a
+
+
+.. _win32-timer:
+
+timerクラス
+===========
+
+宣言
+----
+
+.. sourcecode:: cpp
+
+   template <class Derived>
+   class timer;
+
+概要
+----
+
+タイマーの制御を行う。WM_TIMERを利用する。
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+
+例
+--
+
+* a

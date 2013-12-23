@@ -11,8 +11,17 @@ win32名前空間
 ====
 ウィンドウの制御やDirectInputなどの描画に直接影響を与えない処理をまとめた名前空間
 
+例
+==
+
+.. toctree::
+   :maxdepth: 2
+
+   example
+
 ヘッダ一覧
 ==========
+
 .. toctree::
    :maxdepth: 2
 
