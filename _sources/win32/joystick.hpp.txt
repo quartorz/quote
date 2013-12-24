@@ -1,0 +1,43 @@
+============
+joystick.hpp
+============
+
+.. _win32-joystick:
+
+joystickクラス
+==============
+
+宣言
+----
+
+.. sourcecode: cpp
+
+   template <class Derived, UINT_PTR TimerID = UINT_PTR_MAX>
+   class joystick;
+
+概要
+----
+
+ジョイスティックの再接続や入力などの処理を提供するクラス
+
+テンプレート引数
+----------------
+
+=================== ==============
+引数名              意味
+=================== ==============
+``class Derived``   派生クラス
+=================== ==============
+
+メンバ
+------
+
+.. cpp:function:: bool has_joystick() const
+
+   ジョイスティックが1つでも接続されていれば ``true`` を返す。
+
+.. cpp:function:: DIDEVCAPS get_joystick_capabilities(GUID &id) const
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。

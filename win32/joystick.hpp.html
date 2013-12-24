@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>creator.hpp &mdash; quote 1.0.0 documentation</title>
+    <title>joystick.hpp &mdash; quote 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -27,8 +27,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="quote 1.0.0 documentation" href="../index.html" />
     <link rel="up" title="win32名前空間" href="index.html" />
-    <link rel="next" title="joystick.hpp" href="joystick.hpp.html" />
-    <link rel="prev" title="proc.hpp" href="procs.hpp.html" /> 
+    <link rel="prev" title="creator.hpp" href="creator.hpp.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,10 +37,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="joystick.hpp.html" title="joystick.hpp"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="procs.hpp.html" title="proc.hpp"
+          <a href="creator.hpp.html" title="creator.hpp"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">quote 1.0.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">win32名前空間</a> &raquo;</li> 
@@ -53,20 +49,16 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="creator-hpp">
-<h1>creator.hpp<a class="headerlink" href="#creator-hpp" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="creator">
-<span id="win32-creator"></span><h2>creatorクラス<a class="headerlink" href="#creator" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="joystick-hpp">
+<h1>joystick.hpp<a class="headerlink" href="#joystick-hpp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="joystick">
+<span id="win32-joystick"></span><h2>joystickクラス<a class="headerlink" href="#joystick" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3>宣言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-cpp"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Derived</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">creator</span><span class="p">;</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="id2">
 <h3>概要<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>ウィンドウを作る機能を提供する</p>
+<p>ジョイスティックの再接続や入力などの処理を提供するクラス</p>
 </div>
 <div class="section" id="id3">
 <h3>テンプレート引数<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -89,12 +81,23 @@
 </div>
 <div class="section" id="id4">
 <h3>メンバ<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id5">
-<h3>例<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li></li>
-</ul>
+<dl class="function">
+<dt id="has_joystickC">
+bool <tt class="descname">has_joystick</tt><big>(</big><big>)</big><tt class="descclassname"> const</tt><a class="headerlink" href="#has_joystickC" title="Permalink to this definition">¶</a></dt>
+<dd><p>ジョイスティックが1つでも接続されていれば <tt class="docutils literal"><span class="pre">true</span></tt> を返す。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_joystick_capabilities__GUIDRC">
+DIDEVCAPS <tt class="descname">get_joystick_capabilities</tt><big>(</big>GUID&amp; <em>id</em><big>)</big><tt class="descclassname"> const</tt><a class="headerlink" href="#get_joystick_capabilities__GUIDRC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="WindowProc__HWND.UINT.WPARAM.LPARAM.LRESULTR">
+bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <em>msg</em>, WPARAM <em>wParam</em>, LPARAM <em>lParam</em>, LRESULT&amp; <em>lresult</em><big>)</big><a class="headerlink" href="#WindowProc__HWND.UINT.WPARAM.LPARAM.LRESULTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>ウィンドウプロシージャ。 <a class="reference external" href="window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM">win32::window::WindowProc</a> が呼び出す。</p>
+</dd></dl>
+
 </div>
 </div>
 </div>
@@ -107,13 +110,12 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">creator.hpp</a><ul>
-<li><a class="reference internal" href="#creator">creatorクラス</a><ul>
+<li><a class="reference internal" href="#">joystick.hpp</a><ul>
+<li><a class="reference internal" href="#joystick">joystickクラス</a><ul>
 <li><a class="reference internal" href="#id1">宣言</a></li>
 <li><a class="reference internal" href="#id2">概要</a></li>
 <li><a class="reference internal" href="#id3">テンプレート引数</a></li>
 <li><a class="reference internal" href="#id4">メンバ</a></li>
-<li><a class="reference internal" href="#id5">例</a></li>
 </ul>
 </li>
 </ul>
@@ -121,14 +123,11 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="procs.hpp.html"
-                        title="previous chapter">proc.hpp</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="joystick.hpp.html"
-                        title="next chapter">joystick.hpp</a></p>
+  <p class="topless"><a href="creator.hpp.html"
+                        title="previous chapter">creator.hpp</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/win32/creator.hpp.txt"
+    <li><a href="../_sources/win32/joystick.hpp.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -155,10 +154,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="joystick.hpp.html" title="joystick.hpp"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="procs.hpp.html" title="proc.hpp"
+          <a href="creator.hpp.html" title="creator.hpp"
              >previous</a> |</li>
         <li><a href="../index.html">quote 1.0.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >win32名前空間</a> &raquo;</li> 

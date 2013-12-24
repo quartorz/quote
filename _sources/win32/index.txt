@@ -28,3 +28,4 @@ win32名前空間
    window.hpp
    procs.hpp
    creator.hpp
+   joystick.hpp
