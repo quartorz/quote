@@ -304,7 +304,7 @@ keyboardクラス
 
 .. cpp:type:: hash_type
 
-   符号なし64bit
+   ハンドラの識別子。符号なし64bit
 
 .. cpp:type:: keycode_range
 
@@ -316,7 +316,9 @@ keyboardクラス
 
 .. cpp:function:: hash_type add_keyboard_handler(handler_type handler, Type t, Types... characters)
 
-   1つ目の引数にキーが入力された時に呼ばれる関数オブジェクトを渡し、2つ目以降に検出したいキーコードを渡す。キーコードが連続する時には :cpp:type:`keycode_range` が使える。
+   ハンドラを追加する。1つ目の引数にキーが入力された時に呼ばれる関数オブジェクトを渡し、2つ目以降に検出したいキーコードを渡す。
+   キーコードが連続する時には :cpp:type:`keycode_range` が使える。
+   ハンドラの識別子を返す。
 
 .. cpp:function:: void remove_keyboard_handler(hash_type hash, Types... characters)
 
@@ -358,6 +360,26 @@ timerクラス
 メンバ
 ------
 
+.. cpp:type:: handler_type
+
+   ``std::function<void(unsigned)>`` の別名。引数はタイマーのIDを表す。
+
+.. cpp:type:: hash_type
+
+   ハンドラの識別子。符号なし64bit
+
+.. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+
+   ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+.. cpp:function:: hash_type add_timer_handler(handler_type handler, Integer id, Integers... ids)
+
+   ハンドラを追加する。1つ目の引数にタイマーが呼ばれた時に呼ばれる関数オブジェクトを、2つ目以降の引数に検出したいタイマーID(整数値)を渡す。
+   ハンドラの識別子を返す。
+
+.. cpp:function:: void remove_timer_handler(hash_type hash, Integers... ids)
+
+   ハンドラを削除する。1つ目の引数に :cpp:func:`add_timer_handler` が返した値を、2つ目以降にタイマーIDを渡す。
 
 例
 --

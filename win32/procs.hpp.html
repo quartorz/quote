@@ -419,7 +419,7 @@ bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <e
 <dl class="type">
 <dt id="hash_type">
 <em class="property">type </em><tt class="descname">hash_type</tt><a class="headerlink" href="#hash_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>符号なし64bit</p>
+<dd><p>ハンドラの識別子。符号なし64bit</p>
 </dd></dl>
 
 <dl class="type">
@@ -437,7 +437,9 @@ bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <e
 <dl class="function">
 <dt id="add_keyboard_handler__handler_type.Type.Types">
 <a class="reference internal" href="#hash_type" title="hash_type">hash_type</a> <tt class="descname">add_keyboard_handler</tt><big>(</big><a class="reference internal" href="#handler_type" title="handler_type">handler_type</a> <em>handler</em>, Type <em>t</em>, Types<em>...</em> <em>characters</em><big>)</big><a class="headerlink" href="#add_keyboard_handler__handler_type.Type.Types" title="Permalink to this definition">¶</a></dt>
-<dd><p>1つ目の引数にキーが入力された時に呼ばれる関数オブジェクトを渡し、2つ目以降に検出したいキーコードを渡す。キーコードが連続する時には <a class="reference internal" href="#keycode_range" title="keycode_range"><tt class="xref cpp cpp-type docutils literal"><span class="pre">keycode_range</span></tt></a> が使える。</p>
+<dd><p>ハンドラを追加する。1つ目の引数にキーが入力された時に呼ばれる関数オブジェクトを渡し、2つ目以降に検出したいキーコードを渡す。
+キーコードが連続する時には <a class="reference internal" href="#keycode_range" title="keycode_range"><tt class="xref cpp cpp-type docutils literal"><span class="pre">keycode_range</span></tt></a> が使える。
+ハンドラの識別子を返す。</p>
 </dd></dl>
 
 <dl class="function">
@@ -488,9 +490,40 @@ void <tt class="descname">remove_keyboard_handler</tt><big>(</big><a class="refe
 </div>
 <div class="section" id="id47">
 <h3>メンバ<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt>
+<em class="property">type </em><tt class="descname">handler_type</tt></dt>
+<dd><p><tt class="docutils literal"><span class="pre">std::function&lt;void(unsigned)&gt;</span></tt> の別名。引数はタイマーのIDを表す。</p>
+</dd></dl>
+
+<dl class="type">
+<dt>
+<em class="property">type </em><tt class="descname">hash_type</tt></dt>
+<dd><p>ハンドラの識別子。符号なし64bit</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+bool <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT <em>msg</em>, WPARAM <em>wParam</em>, LPARAM <em>lParam</em>, LRESULT&amp; <em>lresult</em><big>)</big></dt>
+<dd><p>ウィンドウプロシージャ。 <a class="reference external" href="window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM">win32::window::WindowProc</a> が呼び出す。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="add_timer_handler__handler_type.Integer.Integers">
+<a class="reference internal" href="#hash_type" title="hash_type">hash_type</a> <tt class="descname">add_timer_handler</tt><big>(</big><a class="reference internal" href="#handler_type" title="handler_type">handler_type</a> <em>handler</em>, Integer <em>id</em>, Integers<em>...</em> <em>ids</em><big>)</big><a class="headerlink" href="#add_timer_handler__handler_type.Integer.Integers" title="Permalink to this definition">¶</a></dt>
+<dd><p>ハンドラを追加する。1つ目の引数にタイマーが呼ばれた時に呼ばれる関数オブジェクトを、2つ目以降の引数に検出したいタイマーID(整数値)を渡す。
+ハンドラの識別子を返す。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="remove_timer_handler__hash_type.Integers">
+void <tt class="descname">remove_timer_handler</tt><big>(</big><a class="reference internal" href="#hash_type" title="hash_type">hash_type</a> <em>hash</em>, Integers<em>...</em> <em>ids</em><big>)</big><a class="headerlink" href="#remove_timer_handler__hash_type.Integers" title="Permalink to this definition">¶</a></dt>
+<dd><p>ハンドラを削除する。1つ目の引数に <a class="reference internal" href="#add_timer_handler__handler_type.Integer.Integers" title="add_timer_handler"><tt class="xref cpp cpp-func docutils literal"><span class="pre">add_timer_handler()</span></tt></a> が返した値を、2つ目以降にタイマーIDを渡す。</p>
+</dd></dl>
+
 </div>
-<div class="section" id="id48">
-<h3>例<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id49">
+<h3>例<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>a</li>
 </ul>
@@ -570,7 +603,7 @@ void <tt class="descname">remove_keyboard_handler</tt><big>(</big><a class="refe
 <li><a class="reference internal" href="#id45">概要</a></li>
 <li><a class="reference internal" href="#id46">テンプレート引数</a></li>
 <li><a class="reference internal" href="#id47">メンバ</a></li>
-<li><a class="reference internal" href="#id48">例</a></li>
+<li><a class="reference internal" href="#id49">例</a></li>
 </ul>
 </li>
 </ul>
