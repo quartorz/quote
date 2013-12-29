@@ -10,7 +10,7 @@ joystickクラス
 宣言
 ----
 
-.. sourcecode: cpp
+.. sourcecode:: cpp
 
    template <class Derived, UINT_PTR TimerID = UINT_PTR_MAX>
    class joystick;
@@ -41,3 +41,25 @@ joystickクラス
 .. cpp:function:: bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 
    ウィンドウプロシージャ。 `win32::window::WindowProc <window.hpp.html#WindowProc__HWND.UINT.WPARAM.LPARAM>`_ が呼び出す。
+
+注意
+----
+
+* 派生クラスは ``on_get_joystick_state(const GUID &, const DIJOYSTATE2 &)``, ``on_reload_joysticks(const std::vector<std::tuple<GUID, std::string>> &)`` を持たなければならない
+
+  * 代わりに派生クラスが direct2d::scene_manager を継承しても良い
+
+* ``on_get_joystick_state(const GUID &, const DIJOYSTATE2 &)`` は、IDが ``TimerID`` であるタイマーがタイムアウトした時に呼び出される。
+
+  * 1つ目の引数はジョイスティックのIDを、2つ目の引数はジョイスティックの状態を表す。
+
+* ``on_reload_joysticks(const std::vector<std::tuple<GUID, std::string>> &)`` は、ウィンドウが作成された時とジョイスティックの接続状態が変化した時に呼び出される。
+
+  * GUIDはジョイスティックのIDを、std::wstringはそのジョイスティックの名前を表す。
+
+* keyconfig 
+
+例
+--
+
+* 

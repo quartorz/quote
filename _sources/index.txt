@@ -3,22 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-===================
+=====================
 quote's documentation
-===================
+=====================
 
 概要
 ====
 | C++でGUIアプリケーションを作るための機能を集めたライブラリ。
-| クロスプラットフォームを目指していた。
+|
+
+.. | クロスプラットフォームを目指していた。
 
 動作環境
 ========
 * Windows 7以降
 * Visual C++ 2013
 
-導入
-====
+導入方法
+========
 `リポジトリ <https://github.com/quartorz/quote>`_\ のinclude内のファイルをインクルード可能な場所に置いてください。
 
 目次
