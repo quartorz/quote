@@ -37,7 +37,7 @@ namespace quote{
 	template <class Traits>
 	void flat_button<Traits>::set_text_size(float s)
 	{
-		text.get_font().set_font_size(s);
+		text.get_font().set_size(s);
 	}
 
 	template <class Traits>

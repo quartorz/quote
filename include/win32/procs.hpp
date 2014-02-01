@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <windowsx.h>
 
+#include <cassert>
 #include <functional>
 #include <tuple>
 #include <vector>
@@ -61,7 +62,7 @@ namespace quote{ namespace win32{
 	public:
 		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
-			if(msg == WM_CLOSE)
+			if(msg == WM_DESTROY)
 				::PostQuitMessage(0);
 			return true;
 		}
@@ -118,7 +119,7 @@ namespace quote{ namespace win32{
 		}
 	};
 
-	template <class Derived, bool DetectLostFocus=false>
+	template <class Derived>
 	class keyboard
 	{
 		using handler_type = std::function<void(unsigned keycode, bool is_push)>;
@@ -148,16 +149,6 @@ namespace quote{ namespace win32{
 					std::get<1>(tuple)(wParam, false);
 				}
 				static_cast<Derived*>(this)->on_key_up(wParam);
-				break;
-			case WM_KILLFOCUS:
-				if(DetectLostFocus){
-					for(unsigned i = 0; i < 256; ++i){
-						for(auto &tuple : map[i]){
-							std::get<1>(tuple)(i, false);
-						}
-						static_cast<Derived*>(this)->on_key_up(i);
-					}
-				}
 				break;
 			}
 

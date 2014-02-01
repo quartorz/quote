@@ -52,7 +52,8 @@ namespace quote{ namespace direct2d{
 			::wcslen(text),
 			font.Get(),
 			rect,
-			brush.Get());
+			brush.Get(),
+			(clip? D2D1_DRAW_TEXT_OPTIONS_CLIP: D2D1_DRAW_TEXT_OPTIONS_NONE));
 	}
 
 	inline void paint_params::clear(const color &c) const

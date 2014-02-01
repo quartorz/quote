@@ -6,7 +6,7 @@
 
 namespace quote{ namespace win32{
 
-	struct create_params{
+	struct creation_params{
 		DWORD exstyle, style;
 		const wchar_t *classname, *title;
 		int x, y, w, h;
@@ -16,7 +16,7 @@ namespace quote{ namespace win32{
 	template <class Derived>
 	class creator{
 	public:
-		bool create(create_params &param)
+		bool create(creation_params &param)
 		{
 			if(param.w != CW_USEDEFAULT){
 				RECT rc = {0, 0, param.w, param.h};
@@ -43,7 +43,7 @@ namespace quote{ namespace win32{
 		template <class Parent>
 		bool create(Parent &parent, const wchar_t *classname=nullptr, const wchar_t *title=L"", int x=INT_MAX, int y=INT_MAX, int w=-1, int h=-1)
 		{
-			create_params params ={
+			creation_params params ={
 				0,
 				WS_OVERLAPPEDWINDOW,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name())
@@ -60,7 +60,7 @@ namespace quote{ namespace win32{
 
 		bool create(const wchar_t *classname=nullptr, const wchar_t *title=L"", int x=INT_MAX, int y=INT_MAX, int w=-1, int h=-1)
 		{
-			create_params params ={
+			creation_params params ={
 				0,
 				WS_OVERLAPPEDWINDOW,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name()),

@@ -5,6 +5,8 @@
 
 #include "../tmp/nil.hpp"
 
+#include <tuple>
+
 namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
@@ -121,6 +123,9 @@ namespace quote{ namespace win32{
 				if(!call_proc<Procs..., quote::tmp::nil>(hwnd, msg, wParam, lParam, lresult))
 					return lresult;
 			}
+
+			if(msg == WM_DESTROY)
+				this->hwnd = nullptr;
 
 			return ::DefWindowProcW(hwnd, msg, wParam, lParam);
 		}

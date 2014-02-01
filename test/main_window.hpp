@@ -30,7 +30,7 @@ class main_window:
 		main_window,
 		paint::painter<main_window>,
 		window_system::resizer<main_window>,
-		window_system::keyboard<main_window, true>,
+		window_system::keyboard<main_window>,
 		window_system::joystick<main_window, timer_id>,
 		window_system::object_processor<main_window, paint::traits>,
 		window_system::quit_on_close<main_window>,
