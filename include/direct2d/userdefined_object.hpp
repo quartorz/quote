@@ -2,6 +2,8 @@
 
 #include "base_types.hpp"
 #include "object.hpp"
+#include "resource_creator.hpp"
+#include "object_creator.hpp"
 
 #include <unordered_set>
 #include <vector>
@@ -11,7 +13,11 @@
 namespace quote{ namespace direct2d{
 
 	template <class Derived, bool CheckDuplicate=false, bool MultiThread=false /* –¢ŽÀ‘• */>
-	class userdefined_object: public object{
+	class userdefined_object:
+		public object,
+		public resource_creator<userdefined_object<Derived, CheckDuplicate, MultiThread>>,
+		public object_creator<userdefined_object<Derived, CheckDuplicate, MultiThread>>
+	{
 		std::unordered_set<resource*> resources;
 		std::vector<object*> objects;
 		object *hover, *focus;

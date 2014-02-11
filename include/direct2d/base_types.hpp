@@ -97,6 +97,18 @@ namespace quote{ namespace direct2d{
 			return *this;
 		}
 	};
+	inline size operator+(size s1, const size &s2)
+	{
+		s1.width += s2.width;
+		s1.height += s2.height;
+		return s1;
+	}
+	inline size operator-(size s1, const size &s2)
+	{
+		s1.width -= s2.width;
+		s1.height -= s2.height;
+		return s1;
+	}
 	struct rect;
 	class polygon;
 	struct point: public D2D1_POINT_2F{
