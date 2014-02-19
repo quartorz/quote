@@ -13,8 +13,8 @@
 
 namespace quote{
 
-	template <class Traits, bool MultiThread = false>
-	class scene: public Traits::template userdefined_object<scene<Traits, MultiThread>, false, MultiThread>
+	template <class Traits>
+	class scene: public Traits::template userdefined_object<scene<Traits>>
 	{
 		using hash_type = std::mt19937_64::result_type;
 

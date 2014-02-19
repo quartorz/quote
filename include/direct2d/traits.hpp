@@ -27,8 +27,8 @@ namespace quote{ namespace direct2d{
 		using font = font;
 		using text = text;
 
-		template <class Derived, bool CheckDuplicate = false, bool MultiThread = false>
-		using userdefined_object = userdefined_object<Derived, CheckDuplicate, MultiThread>;
+		template <class Derived>
+		using userdefined_object = userdefined_object<Derived>;
 	};
 
 } }

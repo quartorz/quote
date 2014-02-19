@@ -6,8 +6,8 @@
 
 namespace quote{ namespace direct2d{
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	std::vector<object*>::reverse_iterator userdefined_object<Derived, CheckDuplicate, MultiThread>::find_object(const point &ap)
+	template <class Derived>
+	std::vector<object*>::reverse_iterator userdefined_object<Derived>::find_object(const point &ap)
 	{
 		point p = ap - this->get_position();
 		return std::find_if(
@@ -15,8 +15,8 @@ namespace quote{ namespace direct2d{
 			[&p](object *o){return o->is_colliding(p);});
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	userdefined_object<Derived, CheckDuplicate, MultiThread>::userdefined_object():
+	template <class Derived>
+	userdefined_object<Derived>::userdefined_object():
 		hover(nullptr),
 		focus(nullptr),
 		pushing(false),
@@ -25,22 +25,16 @@ namespace quote{ namespace direct2d{
 	{
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	userdefined_object<Derived, CheckDuplicate, MultiThread>::~userdefined_object()
-	{
-		destroy_resource();
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	bool userdefined_object<Derived, CheckDuplicate, MultiThread>::is_colliding(const point &ap)
+	template <class Derived>
+	bool userdefined_object<Derived>::is_colliding(const point &ap)
 	{
 		if(!ap.is_inside(get_rect()))
 			return false;
 		return find_object(ap) != objects.rend();
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::on_left_press(const point &ap, hittest &ht)
+	template <class Derived>
+	void userdefined_object<Derived>::on_left_press(const point &ap, hittest &ht)
 	{
 		pushing = true;
 
@@ -53,8 +47,8 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::on_left_release(const point &ap, hittest &ht)
+	template <class Derived>
+	void userdefined_object<Derived>::on_left_release(const point &ap, hittest &ht)
 	{
 		pushing = false;
 		if(focus != nullptr){
@@ -62,8 +56,8 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::on_mouse_move(const point &ap, hittest &ht)
+	template <class Derived>
+	void userdefined_object<Derived>::on_mouse_move(const point &ap, hittest &ht)
 	{
 		if(pushing){
 			if(focus != nullptr){
@@ -84,8 +78,8 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::on_mouse_leave(const hittest &ht)
+	template <class Derived>
+	void userdefined_object<Derived>::on_mouse_leave(const hittest &ht)
 	{
 		if(!pushing && hover != nullptr){
 			hover->on_mouse_leave(ht);
@@ -93,8 +87,8 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::on_lose_focus(const hittest &ht)
+	template <class Derived>
+	void userdefined_object<Derived>::on_lose_focus(const hittest &ht)
 	{
 		if(focus != nullptr){
 			focus->on_lose_focus(ht);
@@ -102,8 +96,8 @@ namespace quote{ namespace direct2d{
 		}
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	bool userdefined_object<Derived, CheckDuplicate, MultiThread>::create_resource(const creation_params &cp)
+	template <class Derived>
+	bool userdefined_object<Derived>::create_resource(const creation_params &cp)
 	{
 		created = true;
 		creation = cp;
@@ -121,16 +115,16 @@ namespace quote{ namespace direct2d{
 				std::ref(cp)));
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::destroy_resource()
+	template <class Derived>
+	void userdefined_object<Derived>::destroy_resource()
 	{
 		created = false;
 		std::for_each(resources.begin(), resources.end(), std::mem_fn(&resource::destroy_resource));
 		std::for_each(objects.begin(), objects.end(), std::mem_fn(&object::destroy_resource));
 	}
 
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::draw(const paint_params &pp)
+	template <class Derived>
+	void userdefined_object<Derived>::draw(const paint_params &pp)
 	{
 		auto p = this->get_position();
 		D2D1::Matrix3x2F transform;
@@ -151,149 +145,6 @@ namespace quote{ namespace direct2d{
 		pp.target->PopAxisAlignedClip();
 
 		pp.target->SetTransform(transform);
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::reorder_object(object *move, object *base, bool behind /* =false */)
-	{
-		auto it = std::find(objects.begin(), objects.end(), move);
-		if(it != objects.end()){
-			if(base == nullptr){
-				if(it != objects.begin()){
-					std::copy_backward(objects.begin(), it - 1, it + 1);
-					objects[0] = *it;
-				}
-			} else{
-				auto base_it = std::find(objects.begin(), objects.end(), base);
-				if(base_it == objects.end())
-					return;
-				if(it < base_it){
-					std::rotate(it, it + 1, base_it);
-					if(behind)
-						std::iter_swap(base_it, base_it - 1);
-				} else if(it > base_it){
-					std::rotate(base_it + 1, it, it + 1);
-					if(!behind)
-						std::iter_swap(base_it, base_it + 1);
-				}
-			}
-		}
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::register_object(object *o)
-	{
-		if(o == nullptr)
-			return;
-		if(CheckDuplicate && std::find(objects.begin(), objects.end(), o) != objects.end())
-			return;
-
-		if(created)
-			o->create_resource(creation);
-		objects.push_back(o);
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::unregister_object(object *o)
-	{
-		if(o == nullptr)
-			return;
-
-		auto it = std::find(objects.begin(), objects.end(), o);
-		if(it != objects.end()){
-			o->destroy_resource();
-			objects.erase(it);
-			return;
-		}
-
-		// throw std::runtime_error("non-registered object");
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::delete_object(object *o)
-	{
-		if(o == nullptr)
-			return;
-
-		unregister_object(o);
-		o->destroy_resource();
-		delete o;
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::register_resource(resource *r)
-	{
-		if(r == nullptr)
-			return;
-		if(CheckDuplicate && resources.find(r) != resources.end()){
-			// throw std::runtime_error("resource is already registered");
-			return;
-		}
-
-		if(created)
-			r->create_resource(creation);
-		resources.insert(r);
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::unregister_resource(resource *r)
-	{
-		if(r == nullptr)
-			return;
-
-		auto it = resources.find(r);
-		if(it != resources.end()){
-			r->destroy_resource();
-			resources.erase(it);
-			return;
-		}
-
-		// throw std::runtime_error("non-registered resource");
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::delete_resource(resource *r)
-	{
-		if(r == nullptr)
-			return;
-
-		unregister_resource(r);
-		r->destroy_resource();
-		delete r;
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	template <class Object, class... Args>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::init_object(Object *&o, Args&&... args)
-	{
-		o = new Object(std::forward(args)...);
-		register_object(o);
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	template <class Object, class... Args>
-	Object *userdefined_object<Derived, CheckDuplicate, MultiThread>::new_object(Args&&... args)
-	{
-		Object *o;
-		init_object(o, std::forward(args)...);
-		return o;
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	template <class Resource, class... Args>
-	void userdefined_object<Derived, CheckDuplicate, MultiThread>::init_resource(Resource *&r, Args&&... args)
-	{
-		r = new Resource(std::forward(args)...);
-		register_resource(r);
-	}
-
-	template <class Derived, bool CheckDuplicate, bool MultiThread>
-	template <class Resource, class... Args>
-	Resource *userdefined_object<Derived, CheckDuplicate, MultiThread>::new_resource(Args&&... args)
-	{
-		Resource *r;
-		init_resource(r, std::forward(args)...);
-		return r;
 	}
 
 } }

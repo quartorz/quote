@@ -6,10 +6,10 @@
 
 namespace quote{ namespace direct2d{
 
-	template <class Derived, bool CheckDuplicate = false, bool MultiThread = false>
+	template <class Derived>
 	class resource_manager:
-		public ::quote::resource_manager<Derived, traits, CheckDuplicate, MultiThread>,
-		public resource_creator<resource_manager<Derived, CheckDuplicate, MultiThread>>
+		public ::quote::resource_manager<Derived, struct traits>,
+		public resource_creator<resource_manager<Derived>>
 	{
 	};
 

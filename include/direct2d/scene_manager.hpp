@@ -12,9 +12,9 @@
 
 namespace quote{ namespace direct2d{
 
-	template <class Derived, bool MultiThread = false>
-	class scene_manager: public ::quote::scene_manager<Derived, traits, MultiThread>{
-		using scene_type = scene<MultiThread>;
+	template <class Derived>
+	class scene_manager: public ::quote::scene_manager<Derived, traits>{
+		using scene_type = scene;
 
 	protected:
 		using joystick_id = GUID;

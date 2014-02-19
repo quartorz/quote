@@ -5,7 +5,7 @@
 #include "character.hpp"
 #include "dialog.hpp"
 
-class main_window::shooting: public paint::scene<false>{
+class main_window::shooting: public paint::scene{
 
 #pragma region
 
@@ -444,6 +444,6 @@ public:
 			e->draw(pp);
 		}
 
-		this->paint::scene<false>::draw(pp);
+		this->paint::scene::draw(pp);
 	}
 };

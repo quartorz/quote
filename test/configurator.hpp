@@ -6,7 +6,7 @@
 
 // キー(キーボードとジョイスティック)とボタン(ゲーム内のボタン)を関連付ける
 
-class main_window::configurator: public paint::scene<false>{
+class main_window::configurator: public paint::scene{
 	main_window &window;
 
 	class back_button: public main_window::button_base{
@@ -22,8 +22,8 @@ class main_window::configurator: public paint::scene<false>{
 		}
 	};
 
-	class key_assignor: public paint::userdefined_object<key_assignor, false, false>{
-		using base = paint::userdefined_object<key_assignor, false, false>;
+	class key_assignor: public paint::userdefined_object<key_assignor>{
+		using base = paint::userdefined_object<key_assignor>;
 
 		configurator *config;
 
@@ -257,6 +257,6 @@ public:
 		pp.clear(paint::color(0, 0, 0, 0));
 		pp.target->PopAxisAlignedClip();
 
-		this->paint::scene<false>::draw(pp);
+		this->paint::scene::draw(pp);
 	}
 };

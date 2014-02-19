@@ -4,12 +4,15 @@
 
 namespace quote{
 
-	template <class Derived, class Traits, bool CheckDuplicate = false, bool MultiThread = false /* –¢ŽÀ‘• */>
+	template <class Derived, class Traits>
 	class resource_manager{
 		using resource = typename Traits::resource;
 
-		std::unordered_set<resource*> resources;
 		bool created = false;
+		typename Traits::creation_params cp;
+
+	protected:
+		std::unordered_set<resource*> resources;
 
 	public:
 		~resource_manager();

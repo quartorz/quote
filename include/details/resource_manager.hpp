@@ -8,16 +8,17 @@
 
 namespace quote{
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::~resource_manager()
+	template <class Derived, class Traits>
+	resource_manager<Derived, Traits>::~resource_manager()
 	{
 		destroy_resource();
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	bool resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::create_resource(const typename Traits::creation_params &cp)
+	template <class Derived, class Traits>
+	bool resource_manager<Derived, Traits>::create_resource(const typename Traits::creation_params &cp)
 	{
 		created = true;
+		this->cp = cp;
 		return std::all_of(
 			resources.begin(), resources.end(),
 			std::bind(
@@ -26,8 +27,8 @@ namespace quote{
 				std::ref(cp)));
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::destroy_resource()
+	template <class Derived, class Traits>
+	void resource_manager<Derived, Traits>::destroy_resource()
 	{
 		created = false;
 		for(auto &res: resources){
@@ -35,23 +36,23 @@ namespace quote{
 		}
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::register_resource(typename Traits::resource *r)
+	template <class Derived, class Traits>
+	void resource_manager<Derived, Traits>::register_resource(typename Traits::resource *r)
 	{
 		if(r == nullptr)
 			return;
-		if(CheckDuplicate && resources.find(r) != resources.end()){
+		if(resources.find(r) != resources.end()){
 			// std::runtime_error("this resource is already registered");
 			return;
 		}
 
 		if(created)
-			r->create_resource(static_cast<Derived*>(this)->creation_params());
+			r->create_resource(cp);
 		resources.insert(r);
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::unregister_resource(typename Traits::resource *r)
+	template <class Derived, class Traits>
+	void resource_manager<Derived, Traits>::unregister_resource(typename Traits::resource *r)
 	{
 		if(r == nullptr)
 			return;
@@ -65,8 +66,8 @@ namespace quote{
 		}
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::delete_resource(typename Traits::resource *r)
+	template <class Derived, class Traits>
+	void resource_manager<Derived, Traits>::delete_resource(typename Traits::resource *r)
 	{
 		if(r == nullptr)
 			return;
@@ -74,17 +75,17 @@ namespace quote{
 		delete r;
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
+	template <class Derived, class Traits>
 	template <class Resource, class... Args>
-	void resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::init_resource(Resource *&r, Args&&... args)
+	void resource_manager<Derived, Traits>::init_resource(Resource *&r, Args&&... args)
 	{
 		r = new Resource(std::forward(args)...);
 		register_resource(r);
 	}
 
-	template <class Derived, class Traits, bool CheckDuplicate, bool MultiThread>
+	template <class Derived, class Traits>
 	template <class Resource, class... Args>
-	Resource *resource_manager<Derived, Traits, CheckDuplicate, MultiThread>::new_resource(Args&&... args)
+	Resource *resource_manager<Derived, Traits>::new_resource(Args&&... args)
 	{
 		Resource r;
 		init_resource(r, std::forward(args)...);

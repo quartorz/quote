@@ -37,7 +37,7 @@ class main_window:
 		window_system::timer<main_window>
 	>,
 	public window_system::creator<main_window>,
-	public paint::scene_manager<main_window, false>
+	public paint::scene_manager<main_window>
 {
 	enum class scene: int{
 		title,

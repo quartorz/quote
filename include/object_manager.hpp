@@ -4,10 +4,13 @@
 
 namespace quote{
 
-	template <class Derived, class Traits, bool CheckDuplicate=false, bool MultiThread=false /* –¢ŽÀ‘• */>
+	template <class Derived, class Traits>
 	class object_manager{
-		std::vector<typename Traits::object*> objects;
 		bool created = false;
+		typename Traits::creation_params cp;
+
+	protected:
+		std::vector<typename Traits::object*> objects;
 
 	public:
 		~object_manager();

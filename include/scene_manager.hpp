@@ -4,19 +4,20 @@
 
 namespace quote{
 
-	template <class Derived, class Traits, bool MultiThread = false>
+	template <class Derived, class Traits>
 	class scene_manager{
 	protected:
-		std::unordered_map<int, scene<Traits, MultiThread>*> scenes;
-		scene<Traits, MultiThread> *current_scene = nullptr;
+		std::unordered_map<int, scene<Traits> *> scenes;
+		scene<Traits> *current_scene = nullptr;
 		int current_idx = 0;
 		bool created = false;
 
 	public:
-		void add_scene(int key, scene<Traits, MultiThread> *scene);
+		void add_scene(int key, scene<Traits> *scene);
 		void remove_scene(int key);
 		void select_scene(int key);
-		scene<Traits, MultiThread> *get_current_scene() const;
+		scene<Traits> *get_scene(int key);
+		scene<Traits> *get_current_scene() const;
 		int get_scene_count() const;
 		void on_size(int, int);
 		void on_key_down(unsigned);

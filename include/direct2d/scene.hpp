@@ -11,8 +11,7 @@
 
 namespace quote{ namespace direct2d{
 
-	template <bool MultiThread = false>
-	class scene: public ::quote::scene<traits, MultiThread>{
+	class scene: public ::quote::scene<traits>{
 	protected:
 		using joystick_id = GUID;
 		using joystick_state = DIJOYSTATE2;

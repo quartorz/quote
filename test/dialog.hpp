@@ -8,8 +8,8 @@
 namespace paint = quote::direct2d;
 
 template <unsigned Button>
-class dialog: public paint::userdefined_object<dialog<Button>, false, false>{
-	using base = paint::userdefined_object<dialog<Button>, false, false>;
+class dialog: public paint::userdefined_object<dialog<Button>>{
+	using base = paint::userdefined_object<dialog<Button>>;
 
 	class button: public paint::flat_button{
 		std::function<void(void)> handler;
@@ -147,8 +147,8 @@ public:
 };
 
 template <unsigned Button>
-class modal_dialog: public paint::userdefined_object<modal_dialog<Button>, false, false>{
-	using base = paint::userdefined_object<modal_dialog<Button>, false, false>;
+class modal_dialog: public paint::userdefined_object<modal_dialog<Button>>{
+	using base = paint::userdefined_object<modal_dialog<Button>>;
 
 	dialog<Button> dialog_;
 	bool showing = false;

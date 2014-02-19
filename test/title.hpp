@@ -2,7 +2,7 @@
 
 #include "main_window.hpp"
 
-class main_window::title: public paint::scene<false>{
+class main_window::title: public paint::scene{
 	main_window &window;
 
 	class button: public button_base{
@@ -55,6 +55,6 @@ public:
 			pp.target->PopAxisAlignedClip();
 		}
 
-		this->paint::scene<false>::draw(pp);
+		this->paint::scene::draw(pp);
 	}
 };

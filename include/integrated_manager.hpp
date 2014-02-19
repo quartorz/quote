@@ -5,13 +5,13 @@
 
 namespace quote{
 
-	template <class Derived, class Traits, bool CheckDuplicate=false, bool MultiThread=false>
+	template <class Derived, class Traits>
 	class integrated_manager:
-		public object_manager<Derived, Traits, CheckDuplicate, MultiThread>,
-		public resource_manager<Derived, Traits, CheckDuplicate, MultiThread>
+		public object_manager<Derived, Traits>,
+		public resource_manager<Derived, Traits>
 	{
-		using object_manager = object_manager<Derived, Traits, CheckDuplicate, MultiThread>;
-		using resource_manager = resource_manager<Derived, Traits, CheckDuplicate, MultiThread>;
+		using object_manager = object_manager<Derived, Traits>;
+		using resource_manager = resource_manager<Derived, Traits>;
 
 	public:
 		bool create_resource(const typename Traits::creation_params &cp)

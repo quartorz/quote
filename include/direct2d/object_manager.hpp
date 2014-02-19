@@ -6,10 +6,10 @@
 
 namespace quote{ namespace direct2d{
 
-	template <class Derived, bool CheckDuplicate = false, bool MultiThread = false>
+	template <class Derived>
 	class object_manager:
-		public ::quote::object_manager<Derived, traits, CheckDuplicate, MultiThread>,
-		public object_creator<object_manager<Derived, traits, CheckDuplicate, MultiThread>>
+		public ::quote::object_manager<Derived, traits>,
+		public object_creator<object_manager<Derived>>
 	{
 	};
 

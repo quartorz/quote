@@ -4,6 +4,8 @@
 #include "object.hpp"
 #include "resource_creator.hpp"
 #include "object_creator.hpp"
+#include "resource_manager.hpp"
+#include "object_manager.hpp"
 
 #include <unordered_set>
 #include <vector>
@@ -12,14 +14,14 @@
 
 namespace quote{ namespace direct2d{
 
-	template <class Derived, bool CheckDuplicate=false, bool MultiThread=false /* –¢ŽÀ‘• */>
+	template <class Derived>
 	class userdefined_object:
 		public object,
-		public resource_creator<userdefined_object<Derived, CheckDuplicate, MultiThread>>,
-		public object_creator<userdefined_object<Derived, CheckDuplicate, MultiThread>>
+		public resource_creator<userdefined_object<Derived>>,
+		public object_creator<userdefined_object<Derived>>,
+		public resource_manager<userdefined_object<Derived>>,
+		public object_manager<userdefined_object<Derived>>
 	{
-		std::unordered_set<resource*> resources;
-		std::vector<object*> objects;
 		object *hover, *focus;
 		bool pushing;
 		creation_params creation;
@@ -29,7 +31,6 @@ namespace quote{ namespace direct2d{
 
 	public:
 		userdefined_object();
-		~userdefined_object();
 
 		virtual bool is_colliding(const point &) override;
 		virtual void on_left_press(const point &, hittest &) override;
@@ -41,26 +42,6 @@ namespace quote{ namespace direct2d{
 		virtual bool create_resource(const creation_params &) override;
 		virtual void destroy_resource() override;
 		virtual void draw(const paint_params &);
-
-		void reorder_object(object *, object *base, bool behind=false);
-
-		void register_object(object *);
-		void unregister_object(object *);
-		void delete_object(object *);
-
-		void register_resource(resource *);
-		void unregister_resource(resource *);
-		void delete_resource(resource *);
-
-		template <class Object, class... Args>
-		void init_object(Object *&, Args&&...);
-		template <class Object, class... Args>
-		Object *new_object(Args&&...);
-
-		template <class Resource, class... Args>
-		void init_resource(Resource *&, Args&&...);
-		template <class Resource, class... Args>
-		Resource *new_resource(Args&&...);
 	};
 
 } }
