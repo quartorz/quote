@@ -6,7 +6,7 @@
 
 // キー(キーボードとジョイスティック)とボタン(ゲーム内のボタン)を関連付ける
 
-class main_window::configurator: public paint::scene{
+class main_window::configurator: public paint::scene<>{
 	main_window &window;
 
 	class back_button: public main_window::button_base{
@@ -257,6 +257,6 @@ public:
 		pp.clear(paint::color(0, 0, 0, 0));
 		pp.target->PopAxisAlignedClip();
 
-		this->paint::scene::draw(pp);
+		this->paint::scene<>::draw(pp);
 	}
 };

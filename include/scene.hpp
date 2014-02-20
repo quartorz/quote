@@ -1,6 +1,9 @@
 #pragma once
 
 #include "scene_base.hpp"
+#include "tmp/filter.hpp"
+#include "tmp/contains_type.hpp"
+#include "tmp/has_tag.hpp"
 
 #include <functional>
 #include <tuple>
@@ -15,9 +18,35 @@
 
 namespace quote{
 
-	template <class Traits>
+	namespace scene_tag{
+
+		struct keyboard{};
+		struct mouse{};
+
+	}
+
+	template <class Traits, class... Options>
 	class scene: public scene_base<Traits>
 	{
+		struct on_key_down_binder{
+			template <class Option>
+			void operator()(Option &option, scene<Traits, Options...> &scene, unsigned keycode)
+			{
+				option.on_key_down(scene, keycode);
+			}
+		};
+		struct on_key_up_binder{
+			template <class Option>
+			void operator()(Option &option, scene<Traits, Options...> &scene, unsigned keycode)
+			{
+				option.on_key_up(scene, keycode);
+			}
+		};
+		using keyboard_tuple = ::quote::tmp::filter<
+			typename ::quote::tmp::has_tag<scene_tag::keyboard>::type,
+			Options...>;
+		keyboard_tuple option_keyboard;
+
 		using hash_type = std::mt19937_64::result_type;
 
 		using kb_handler_type = std::function<void(unsigned keycode, bool is_push)>;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <type_traits>
+#include <tuple>
 
 namespace quote{ namespace tmp{
 
@@ -22,6 +23,12 @@ namespace quote{ namespace tmp{
 			std::is_same<Type, Head>::value,
 			std::true_type,
 			std::integral_constant<bool, contains_type<Type, Tail...>::value>>::type::value;
+	};
+
+	template <class Type, class... Types>
+	class contains_type<Type, std::tuple<Types...>>
+		: public contains_type<Type, Types...>
+	{
 	};
 
 } }

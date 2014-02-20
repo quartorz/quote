@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../scene_manager.hpp"
-#include "scene.hpp"
 #include "traits.hpp"
 
 #if !defined DIRECTINPUT_VERSION
@@ -14,7 +13,7 @@ namespace quote{ namespace direct2d{
 
 	template <class Derived>
 	class scene_manager: public ::quote::scene_manager<Derived, traits>{
-		using scene_type = scene;
+		using scene_type = ::quote::scene_base<traits>;
 
 	protected:
 		using joystick_id = GUID;
