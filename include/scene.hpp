@@ -1,5 +1,7 @@
 #pragma once
 
+#include "scene_base.hpp"
+
 #include <functional>
 #include <tuple>
 #include <vector>
@@ -14,7 +16,7 @@
 namespace quote{
 
 	template <class Traits>
-	class scene: public Traits::template userdefined_object<scene<Traits>>
+	class scene: public scene_base<Traits>
 	{
 		using hash_type = std::mt19937_64::result_type;
 
@@ -37,11 +39,11 @@ namespace quote{
 		using keycode_range = std::tuple<wchar_t, wchar_t>;
 
 	public:
-		virtual void on_show();
-		virtual void on_hide();
-		virtual void on_key_down(unsigned keycode);
-		virtual void on_key_up(unsigned keycode);
-		virtual void on_timer(unsigned id);
+		void on_show() override;
+		void on_hide() override;
+		void on_key_down(unsigned keycode) override;
+		void on_key_up(unsigned keycode) override;
+		void on_timer(unsigned id) override;
 		
 		template <class Type, class... Types>
 		hash_type add_keyboard_handler(kb_handler_type handler, Type t, Types... characters);

@@ -5,7 +5,7 @@
 namespace quote{
 
 	template <class Derived, class Traits>
-	void scene_manager<Derived, Traits>::add_scene(int key, scene<Traits> *scene)
+	void scene_manager<Derived, Traits>::add_scene(int key, scene_base<Traits> *scene)
 	{
 		if(created)
 			scene->create_resource(static_cast<Derived*>(this)->creation_params());
@@ -35,13 +35,13 @@ namespace quote{
 	}
 
 	template <class Derived, class Traits>
-	scene<Traits> *scene_manager<Derived, Traits>::get_scene(int key)
+	scene_base<Traits> *scene_manager<Derived, Traits>::get_scene(int key)
 	{
 		return scenes[key];
 	}
 
 	template <class Derived, class Traits>
-	scene<Traits> *scene_manager<Derived, Traits>::get_current_scene() const
+	scene_base<Traits> *scene_manager<Derived, Traits>::get_current_scene() const
 	{
 		return current_scene;
 	}

@@ -17,8 +17,6 @@ namespace quote{ namespace direct2d{
 	template <class Derived>
 	class userdefined_object:
 		public object,
-		public resource_creator<userdefined_object<Derived>>,
-		public object_creator<userdefined_object<Derived>>,
 		public resource_manager<userdefined_object<Derived>>,
 		public object_manager<userdefined_object<Derived>>
 	{
