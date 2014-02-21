@@ -20,7 +20,7 @@ namespace quote{ namespace tmp{
 		};
 
 		template <class... Args>
-		using get_result_tuple = std::tuple<typename result<Functions, Args...>::type...>;
+		using result_tuple = std::tuple<typename result<Functions, Args...>::type...>;
 
 		using function_tuple = std::tuple<Functions...>;
 
@@ -32,22 +32,22 @@ namespace quote{ namespace tmp{
 		}
 
 		template <class... Args>
-		get_result_tuple<Args...> operator()(Args... args)
+		result_tuple<Args...> operator()(Args... args)
 		{
 			return operator_helper(make_index<sizeof...(Functions)>(), args...);
 		}
 
 	private:
 		template <std::size_t... Indices, class... Args>
-		get_result_tuple<Args...> operator_helper(index_tuple<Indices...>, Args... args)
+		result_tuple<Args...> operator_helper(index_tuple<Indices...>, Args... args)
 		{
-			return get_result_tuple<Args...>(bind<Indices>(args...)...);
+			return result_tuple<Args...>(bind<Indices>(args...)...);
 		}
 
 		template <std::size_t I, class... Args>
-		typename std::tuple_element<I, get_result_tuple<Args...>>::type bind(Args... args)
+		typename std::tuple_element<I, result_tuple<Args...>>::type bind(Args... args)
 		{
-			using result_type = typename std::tuple_element<I, get_result_tuple<Args...>>::type;
+			using result_type = typename std::tuple_element<I, result_tuple<Args...>>::type;
 			return bind_helper<result_type>(std::get<I>(functions), args...);
 		}
 
