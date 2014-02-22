@@ -29,6 +29,11 @@ namespace quote{ namespace tmp{
 		tuple_type tuple;
 
 	public:
+		applier()
+		{
+		}
+
+		template <class = typename std::enable_if<sizeof...(Types) != 0>::type>
 		applier(Types... types): tuple(types...)
 		{
 		}
@@ -98,6 +103,14 @@ namespace quote{ namespace tmp{
 				args...
 			);
 		}
+	};
+
+	template <class Tuple>
+	class tuple_to_applier;
+	template <class... Types>
+	class tuple_to_applier<std::tuple<Types...>>{
+	public:
+		using type = applier<Types...>;
 	};
 
 	template <class... Types>

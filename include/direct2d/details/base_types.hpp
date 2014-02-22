@@ -40,7 +40,7 @@ namespace quote{ namespace direct2d{
 
 	inline void paint_params::fill_circle(const brush &brush, const circle &circle) const
 	{
-		target->DrawEllipse(
+		target->FillEllipse(
 			D2D1::Ellipse(circle.get_center(), circle.get_radius(), circle.get_radius()),
 			brush.Get());
 	}

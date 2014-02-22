@@ -45,7 +45,7 @@ namespace quote{ namespace win32{
 		{
 			creation_params params ={
 				0,
-				WS_OVERLAPPEDWINDOW,
+				WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name())
 				title,
 				((x == INT_MAX || y == INT_MAX) ? CW_USEDEFAULT : x),
@@ -62,7 +62,7 @@ namespace quote{ namespace win32{
 		{
 			creation_params params ={
 				0,
-				WS_OVERLAPPEDWINDOW,
+				WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name()),
 				title,
 				((x == INT_MAX || y == INT_MAX) ? CW_USEDEFAULT : x),

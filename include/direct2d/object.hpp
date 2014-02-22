@@ -18,6 +18,7 @@ namespace quote{ namespace direct2d{
 				arrow,
 				hand,
 				ibeam,
+				leftright,
 			}cursor_;
 
 			void set_cursor(cursor c)

@@ -6,7 +6,7 @@ namespace quote{ namespace win32{
 
 	template <class Derived, class Traits>
 	class object_processor{
-		HCURSOR hCursor[3];
+		HCURSOR hCursor[4];
 		typename Traits::object *focus, *hover;
 		bool inside, pushing;
 
@@ -14,7 +14,8 @@ namespace quote{ namespace win32{
 		enum cursor_type{
 			arrow,
 			hand,
-			ibeam
+			ibeam,
+			leftright
 		}cursortype;
 		void set_cursor_type(cursor_type);
 

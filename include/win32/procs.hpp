@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include <windowsx.h>
+#include <shellapi.h>
 
 #include <cassert>
 #include <functional>
@@ -332,6 +333,42 @@ namespace quote{ namespace win32{
 				container.erase(iter);
 
 			remove_handler_helper(hash, ids...);
+		}
+	};
+
+	template <class Derived>
+	class drop_files
+	{
+	public:
+		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		{
+			switch(msg){
+			case WM_CREATE:
+				::DragAcceptFiles(hwnd, TRUE);
+				break;
+
+			case WM_DROPFILES:
+				{
+					 auto hdrop = reinterpret_cast<HDROP>(wParam);
+
+					 auto c = ::DragQueryFileW(hdrop, -1, nullptr, 0);
+
+					 std::size_t size = 0;
+					 std::vector<wchar_t> file;
+					 std::vector<std::wstring> files;
+					 for(decltype(c) i = 0; i < c; ++i){
+						 size = ::DragQueryFileW(hdrop, i, nullptr, 0);
+						 file.resize(size + 1);
+						 ::DragQueryFileW(hdrop, i, &file[0], size + 1);
+						 files.emplace_back(file.begin(), file.end());
+					 }
+
+					 static_cast<Derived*>(this)->on_drop_files(files);
+				}
+				break;
+			}
+
+			return true;
 		}
 	};
 

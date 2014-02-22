@@ -6,6 +6,18 @@
 namespace quote{
 
 	template <class Traits, class... Options>
+	scene<Traits, Options...>::scene()
+	{
+		option_keyboard(initialize_binder(), this, scene_tag::keyboard());
+	}
+
+	template <class Traits, class... Options>
+	scene<Traits, Options...>::~scene()
+	{
+		option_keyboard(uninitialize_binder(), this, scene_tag::keyboard());
+	}
+
+	template <class Traits, class... Options>
 	void scene<Traits, Options...>::on_show()
 	{
 	}
@@ -20,7 +32,7 @@ namespace quote{
 	{
 		assert(0 <= keycode && keycode <= 255);
 
-		::quote::tmp::make_applier(option_keyboard)(on_key_down_binder(), *this, keycode);
+		option_keyboard(on_key_down_binder(), this, keycode);
 
 		for(auto &tuple : kb_map[keycode]){
 			std::get<1>(tuple)(keycode, true);
@@ -32,7 +44,7 @@ namespace quote{
 	{
 		assert(0 <= keycode && keycode <= 255);
 
-		::quote::tmp::make_applier(option_keyboard)(on_key_up_binder(), *this, keycode);
+		option_keyboard(on_key_up_binder(), this, keycode);
 
 		for(auto &tuple: kb_map[keycode]){
 			std::get<1>(tuple)(keycode, false);

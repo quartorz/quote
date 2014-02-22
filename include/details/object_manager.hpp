@@ -53,7 +53,7 @@ namespace quote{
 			if(base == nullptr){
 				if(it != objects.begin()){
 					std::copy_backward(objects.begin(), it - 1, it + 1);
-					objects[0] = *it;
+					objects[0] = move;
 				}
 			}else{
 				auto base_it = std::find(objects.begin(), objects.end(), base);

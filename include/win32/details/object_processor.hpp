@@ -38,6 +38,13 @@ namespace quote{ namespace win32{
 			0,
 			0,
 			LR_DEFAULTSIZE | LR_DEFAULTCOLOR | LR_SHARED));
+		hCursor[3] = static_cast<HCURSOR>(::LoadImageW(
+			nullptr,
+			IDC_SIZEWE,
+			IMAGE_CURSOR,
+			0,
+			0,
+			LR_DEFAULTSIZE | LR_DEFAULTCOLOR | LR_SHARED));
 	}
 
 	template <class Derived, class Traits>
@@ -46,6 +53,7 @@ namespace quote{ namespace win32{
 		::DeleteObject(hCursor[0]);
 		::DeleteObject(hCursor[1]);
 		::DeleteObject(hCursor[2]);
+		::DeleteObject(hCursor[3]);
 	}
 
 	template <class Derived, class Traits>

@@ -4,6 +4,7 @@
 #include "tmp/filter.hpp"
 #include "tmp/contains_type.hpp"
 #include "tmp/has_tag.hpp"
+#include "tmp/has_xxx.hpp"
 
 #include <functional>
 #include <tuple>
@@ -15,6 +16,8 @@
 #include <random>
 #include <string>
 #include <cassert>
+
+extern void *enabler;
 
 namespace quote{
 
@@ -28,24 +31,49 @@ namespace quote{
 	template <class Traits, class... Options>
 	class scene: public scene_base<Traits>
 	{
+		struct initialize_binder{
+			template <class Option, class Tag>
+			auto operator()(Option &option, scene<Traits, Options...> *scene, Tag)
+				-> decltype(option.initialize(*scene, Tag()), void())
+			{
+				option.initialize(*scene, Tag());
+			}
+			template <class Option>
+			void operator()(Option&, ...)
+			{
+			}
+		};
+		struct uninitialize_binder{
+			template <class Option, class Tag>
+			auto operator()(Option &option, scene<Traits, Options...> *scene, Tag)
+				-> decltype(option.uninitialize(*scene, Tag()), void())
+			{
+				option.uninitialize(*scene, Tag());
+			}
+			template <class Option>
+			void operator()(Option&, ...)
+			{
+			}
+		};
+
 		struct on_key_down_binder{
 			template <class Option>
-			void operator()(Option &option, scene<Traits, Options...> &scene, unsigned keycode)
+			void operator()(Option &option, scene<Traits, Options...> *scene, unsigned keycode)
 			{
-				option.on_key_down(scene, keycode);
+				option.on_key_down(*scene, keycode);
 			}
 		};
 		struct on_key_up_binder{
 			template <class Option>
-			void operator()(Option &option, scene<Traits, Options...> &scene, unsigned keycode)
+			void operator()(Option &option, scene<Traits, Options...> *scene, unsigned keycode)
 			{
-				option.on_key_up(scene, keycode);
+				option.on_key_up(*scene, keycode);
 			}
 		};
 		using keyboard_tuple = ::quote::tmp::filter<
 			typename ::quote::tmp::has_tag<scene_tag::keyboard>::type,
 			Options...>;
-		keyboard_tuple option_keyboard;
+		decltype(::quote::tmp::make_applier(keyboard_tuple())) option_keyboard;
 
 		using hash_type = std::mt19937_64::result_type;
 
@@ -68,6 +96,9 @@ namespace quote{
 		using keycode_range = std::tuple<wchar_t, wchar_t>;
 
 	public:
+		scene();
+		~scene() override;
+
 		void on_show() override;
 		void on_hide() override;
 		void on_key_down(unsigned keycode) override;
