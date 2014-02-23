@@ -78,6 +78,7 @@ namespace quote{ namespace direct2d{
 		word_wrapping get_word_wrapping() const;
 
 		virtual rect get_drawing_rect() override;
+		virtual void set_size(const size &) override;
 		virtual bool create_resource(const creation_params &) override;
 		virtual void destroy_resource() override;
 		virtual void draw(const paint_params &) override;

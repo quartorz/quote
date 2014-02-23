@@ -220,6 +220,16 @@ namespace quote{ namespace direct2d{
 			size(size_.width + dom.left + dom.right, size_.height + dom.top + dom.bottom));
 	}
 
+	inline void text::set_size(const size &s)
+	{
+		this->object::set_size(s);
+
+		if(layout != nullptr){
+			layout->SetMaxWidth(s.width);
+			layout->SetMaxHeight(s.height);
+		}
+	}
+
 	inline bool text::create_resource(const creation_params &cs)
 	{
 		if(!brush.create_resource(cs))

@@ -52,8 +52,8 @@ namespace quote{
 		if(it != objects.end()){
 			if(base == nullptr){
 				if(it != objects.begin()){
-					std::copy_backward(objects.begin(), it - 1, it + 1);
-					objects[0] = move;
+					std::copy_backward(it + 1, objects.end(), it);
+					objects.back() = move;
 				}
 			}else{
 				auto base_it = std::find(objects.begin(), objects.end(), base);
