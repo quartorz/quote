@@ -62,10 +62,10 @@ namespace quote{ namespace win32{
 		auto buffer = reinterpret_cast<wchar_t*>(_malloca(sizeof(wchar_t) * _MAX_PATH * 10000));
 		buffer[0] = 0;
 
-		auto on_exit = ::quote::tmp::on_exit([&](){
+		QUOTE_ON_EXIT{
 			_freea(currentdir);
 			_freea(buffer);
-		});
+		};
 
 		OPENFILENAMEW ofn = {};
 		ofn.lStructSize = sizeof ofn;
