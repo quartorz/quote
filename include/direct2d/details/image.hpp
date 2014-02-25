@@ -366,11 +366,10 @@ namespace quote{ namespace direct2d{
 			}
 
 			if(SUCCEEDED(reader->GetMetadataByName(L"/grctlext/Delay", &var)) && var.vt == VT_UI2){
-/*				if(var.uiVal >= 90)
+				if(var.uiVal > 1)
 					delay = std::chrono::duration<long long, std::centi>(var.uiVal);
 				else
-					delay = std::chrono::duration<long long, std::centi>(9);*/
-				delay = std::chrono::duration<long long, std::centi>(var.uiVal);
+					delay = std::chrono::duration<long long, std::centi>(9);
 			} else{
 				delay = std::chrono::duration<long long, std::centi>(9);
 			}

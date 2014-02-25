@@ -28,13 +28,13 @@ namespace quote{ namespace win32{
 			return true;
 		}
 
-		void resize(int w, int h)
+		void set_size(int w, int h)
 		{
 			RECT rc;
-			::GetWindowRect(hwnd, &rc);
+			::GetWindowRect(static_cast<Derived*>(this)->get_hwnd(), &rc);
 			POINT pt ={rc.left, rc.top};
-			::ScreenToClient(hparent, &pt);
-			::MoveWindow(hwnd, pt.x, pt.y, w, h, TRUE);
+			::ScreenToClient(::GetAncestor(static_cast<Derived*>(this)->get_hwnd(), GA_PARENT), &pt);
+			::MoveWindow(static_cast<Derived*>(this)->get_hwnd(), pt.x, pt.y, w, h, TRUE);
 		}
 	};
 
@@ -49,11 +49,11 @@ namespace quote{ namespace win32{
 			return true;
 		}
 
-		void move(int x, int y)
+		void set_position(int x, int y)
 		{
 			RECT rc;
-			::GetWindowRect(hwnd, &rc);
-			::MoveWindow(hwnd, x, y, rc.right - rc.left, rc.bottom - rc.top, TRUE);
+			::GetWindowRect(static_cast<Derived*>(this)->get_hwnd(), &rc);
+			::MoveWindow(static_cast<Derived*>(this)->get_hwnd(), x, y, rc.right - rc.left, rc.bottom - rc.top, TRUE);
 		}
 	};
 

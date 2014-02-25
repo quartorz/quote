@@ -72,6 +72,10 @@ namespace quote{
 			}
 			tag = None;
 		}
+		void clear_tag()
+		{
+			tag = None;
+		}
 		string_type string()
 		{
 			assert(tag == String);

@@ -102,7 +102,7 @@ namespace quote{ namespace win32{
 		std::tuple<int, int> get_position()
 		{
 			RECT rc;
-			::GetClientRect(hwnd, &rc);
+			::GetWindowRect(hwnd, &rc);
 			return std::tuple<int, int>(rc.left, rc.top);
 		}
 
