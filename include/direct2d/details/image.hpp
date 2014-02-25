@@ -107,8 +107,10 @@ namespace quote{ namespace direct2d{
 
 	inline void image::set_file_name(const wchar_t *f)
 	{
-		modified = true;
-		filename = f;
+		if(filename != f){
+			modified = true;
+			filename = f;
+		}
 	}
 
 	inline void image::set_clipping_rect(rect r)
