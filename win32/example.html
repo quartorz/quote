@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,7 +9,7 @@
     
     <title>例 &mdash; quote 1.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -28,9 +27,16 @@
     <link rel="top" title="quote 1.0.0 documentation" href="../index.html" />
     <link rel="up" title="win32名前空間" href="index.html" />
     <link rel="next" title="window.hpp" href="window.hpp.html" />
-    <link rel="prev" title="win32名前空間" href="index.html" /> 
+    <link rel="prev" title="win32名前空間" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
   </head>
   <body>
+
     <div class="related">
       <h3>Navigation</h3>
       <ul>
@@ -204,9 +210,7 @@
 50
 51
 52
-53
-54
-55</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;iostream&gt;</span>
+53</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;iostream&gt;</span>
 
 <span class="cp">#include &lt;quote/quote.hpp&gt;</span>
 <span class="cp">#include &lt;quote/win32/message_loop.hpp&gt;</span>
@@ -230,12 +234,10 @@
     <span class="p">}</span>
     <span class="kt">bool</span> <span class="n">initialize</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="c1">// 初期化(ウィンドウを作成した時に呼ばれる)</span>
         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="kt">void</span> <span class="n">uninitialize</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="c1">// 後処理(ウィンドウが破棄されるときに呼ばれる)</span>
     <span class="p">}</span>
     <span class="kt">void</span> <span class="n">on_size</span><span class="p">(</span><span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span>
     <span class="p">{</span>
@@ -287,11 +289,6 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="window.hpp.html"
                         title="next chapter">window.hpp</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/win32/example.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">

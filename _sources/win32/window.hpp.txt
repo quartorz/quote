@@ -80,7 +80,7 @@ windowクラス
 ----
 
 * 派生クラスは ``bool initialize()``, ``void uninitialize()``, ``static const wchar_t *get_class_name()`` を持たなければならない。
-* 派生クラスは ``bool initialize()``, ``void uninitialize()`` で初期化と後処理をしなければならない。
+* 派生クラスは ``bool initialize()``, ``void uninitialize()`` で初期化と後処理をする。
 
 例
 --

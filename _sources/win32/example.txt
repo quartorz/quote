@@ -90,12 +90,10 @@
        }
        bool initialize()
        {
-           // 初期化(ウィンドウを作成した時に呼ばれる)
            return true;
        }
        void uninitialize()
        {
-           // 後処理(ウィンドウが破棄されるときに呼ばれる)
        }
        void on_size(int w, int h)
        {

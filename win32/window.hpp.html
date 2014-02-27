@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,7 +9,7 @@
     
     <title>window.hpp &mdash; quote 1.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -28,9 +27,16 @@
     <link rel="top" title="quote 1.0.0 documentation" href="../index.html" />
     <link rel="up" title="win32名前空間" href="index.html" />
     <link rel="next" title="proc.hpp" href="procs.hpp.html" />
-    <link rel="prev" title="例" href="example.html" /> 
+    <link rel="prev" title="例" href="example.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
   </head>
   <body>
+
     <div class="related">
       <h3>Navigation</h3>
       <ul>
@@ -162,7 +168,7 @@ LRESULT <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT
 <h3>注意<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>派生クラスは <tt class="docutils literal"><span class="pre">bool</span> <span class="pre">initialize()</span></tt>, <tt class="docutils literal"><span class="pre">void</span> <span class="pre">uninitialize()</span></tt>, <tt class="docutils literal"><span class="pre">static</span> <span class="pre">const</span> <span class="pre">wchar_t</span> <span class="pre">*get_class_name()</span></tt> を持たなければならない。</li>
-<li>派生クラスは <tt class="docutils literal"><span class="pre">bool</span> <span class="pre">initialize()</span></tt>, <tt class="docutils literal"><span class="pre">void</span> <span class="pre">uninitialize()</span></tt> で初期化と後処理をしなければならない。</li>
+<li>派生クラスは <tt class="docutils literal"><span class="pre">bool</span> <span class="pre">initialize()</span></tt>, <tt class="docutils literal"><span class="pre">void</span> <span class="pre">uninitialize()</span></tt> で初期化と後処理をする。</li>
 </ul>
 </div>
 <div class="section" id="id6">
@@ -204,11 +210,6 @@ LRESULT <tt class="descname">WindowProc</tt><big>(</big>HWND <em>hwnd</em>, UINT
   <h4>Next topic</h4>
   <p class="topless"><a href="procs.hpp.html"
                         title="next chapter">proc.hpp</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/win32/window.hpp.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
