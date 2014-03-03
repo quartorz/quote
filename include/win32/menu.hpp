@@ -1,16 +1,19 @@
 #pragma once
 
 #include <Windows.h>
+#include <windowsx.h>
 
 #include <functional>
+#include <set>
 
 namespace quote{ namespace win32{
 
 	class menu{
-		static unsigned menu_id = 0;
+		static unsigned menu_id;
 
 		HMENU handle;
 		unsigned id;
+		std::wstring caption;
 		bool primary, popup, has_child;
 
 		std::function<void(menu&)> handler;
@@ -35,7 +38,7 @@ namespace quote{ namespace win32{
 				for(int i = 0; i < c; ++i){
 					::GetMenuItemInfoW(handle, i, TRUE, &mii);
 					if(mii.dwItemData != NULL)
-						delete reinterpret_cast<Derived*>(mii.dwItemData);
+						delete reinterpret_cast<menu*>(mii.dwItemData);
 				}
 				::DestroyMenu(handle);
 			}
@@ -49,10 +52,54 @@ namespace quote{ namespace win32{
 		void delete_all_children();
 		int get_child_count() const;
 		template <class Window>
-		void show_popup();
+		void show_popup(const Window &w);
+		void set_handler(const std::function<void(menu&)> &);
+
+		void on_select();
 	};
 
-	__declspec(selectany) unsigned menu::menu_id = 1;
+	__declspec(selectany) unsigned menu::menu_id = 100;
+
+	template <class Derived>
+	class menu_proccessor{
+		std::set<menu*> menus;
+
+	public:
+		void register_menu(menu &m)
+		{
+			register_menu(&m);
+		}
+		void register_menu(menu *m)
+		{
+			menus.insert(m);
+		}
+		void unregister_menu(menu &m)
+		{
+			unregister_menu(&m);
+		}
+		void unregister_menu(menu *m)
+		{
+			menus.erase(m);
+		}
+		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		{
+			switch(msg){
+			case WM_COMMAND:
+				if(GET_WM_COMMAND_CMD(wParam, lParam) == 0 /* menu */){
+					auto id = GET_WM_COMMAND_ID(wParam, lParam);
+					for(auto &m: menus){
+						auto menu = m->get_menu(id);
+						if(menu != nullptr){
+							menu->on_select();
+							break;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+	};
 
 } }
 
