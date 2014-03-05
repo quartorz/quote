@@ -31,6 +31,10 @@ namespace quote{ namespace tmp{
 		{
 		}
 
+		combiner(std::tuple<Functions...> functions): functions(functions)
+		{
+		}
+
 		template <class... Args>
 		result_tuple<Args...> operator()(Args... args)
 		{
@@ -89,6 +93,12 @@ namespace quote{ namespace tmp{
 	combiner<Functions...> make_combiner(Functions... functions)
 	{
 		return combiner<Functions...>(functions...);
+	}
+
+	template <class... Functions>
+	combiner<Functions...> make_combiner(std::tuple<Functions...> functions)
+	{
+		return combiner<Functions...>(functions);
 	}
 
 } }

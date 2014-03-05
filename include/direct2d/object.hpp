@@ -34,7 +34,7 @@ namespace quote{ namespace direct2d{
 
 		virtual bool is_colliding(const point &ap)
 		{
-			return ap.is_inside(get_rect());
+			return ap.is_inside(get_drawing_rect());
 		}
 		virtual void on_left_press(const point &, hittest &)
 		{

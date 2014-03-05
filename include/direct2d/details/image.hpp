@@ -498,6 +498,9 @@ namespace quote{ namespace direct2d{
 			create(pp.target);
 		}
 
+		if(bmp == nullptr)
+			return;
+
 		if(is_animated){
 			pp.target->DrawBitmap(
 				bmp,

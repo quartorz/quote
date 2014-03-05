@@ -81,6 +81,14 @@ namespace quote{ namespace win32{
 		{
 			menus.erase(m);
 		}
+		void set_menu(menu &m)
+		{
+			set_menu(&m);
+		}
+		void set_menu(menu *m)
+		{
+			::SetMenu(static_cast<Derived*>(this)->get_hwnd(), m->get_handle());
+		}
 		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			switch(msg){
