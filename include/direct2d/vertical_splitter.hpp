@@ -65,9 +65,6 @@ namespace quote{ namespace direct2d{
 		}
 
 	public:
-		vertical_splitter(): on_set_bar_position(on_set_bar_position_tuple())
-		{
-		}
 		void set_left(object *o)
 		{
 			if(left != nullptr)
