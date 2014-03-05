@@ -6,7 +6,7 @@
 
 #include "../tmp/has_tag.hpp"
 #include "../tmp/filter.hpp"
-#include "../tmp/combiner.hpp"
+#include "../tmp/applier.hpp"
 
 namespace quote{ namespace direct2d{
 
@@ -22,12 +22,12 @@ namespace quote{ namespace direct2d{
 			using tag = ::quote::direct2d::vertical_splitter_tag::on_set_bar_positon;
 
 			template <class Splitter>
-			void operator()(std::reference_wrapper<Splitter> &splitter, const size &s, int pos)
+			void on_set_bar_positon(Splitter &splitter, const size &s, int pos)
 			{
-				splitter.get().get_left()->set_size({
+				splitter.get_left()->set_size({
 					static_cast<float>(pos) - 1,
 					s.height});
-				splitter.get().get_right()->set_rect({
+				splitter.get_right()->set_rect({
 					point(static_cast<float>(pos)+1, 0),
 					size(s.width - (static_cast<float>(pos)+1), s.height)});
 			}
@@ -39,10 +39,18 @@ namespace quote{ namespace direct2d{
 	class vertical_splitter: public userdefined_object<vertical_splitter<Options...>>{
 		using base = userdefined_object<vertical_splitter<Options...>>;
 
+		struct on_set_bar_positon_binder{
+			template <class Option, class Splitter>
+			void operator()(Option &o, std::reference_wrapper<Splitter> &splitter, const size &s, int pos)
+			{
+				o.on_set_bar_positon(splitter.get(), s, pos);
+			}
+		};
+
 		using on_set_bar_position_tuple = ::quote::tmp::filter<
 			::quote::tmp::has_tag<vertical_splitter_tag::on_set_bar_positon>::type,
 			Options...>;
-		decltype(::quote::tmp::make_combiner(on_set_bar_position_tuple())) on_set_bar_position;
+		decltype(::quote::tmp::make_applier(on_set_bar_position_tuple())) on_set_bar_position;
 
 		color c = color(0, 0, 0, 0);
 		object *left = nullptr, *right = nullptr;
@@ -94,7 +102,7 @@ namespace quote{ namespace direct2d{
 				auto s = this->get_size();
 				if(0 < pos && pos < s.width){
 					bar_pos = pos;
-					on_set_bar_position(std::ref(*this), s, pos);
+					on_set_bar_position(on_set_bar_positon_binder(), std::ref(*this), s, pos);
 				}
 			}
 		}
