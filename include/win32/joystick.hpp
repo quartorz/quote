@@ -1,6 +1,6 @@
 #pragma once
 
-#if !defined DIRECTINPUT_VERSION
+#if !defined(DIRECTINPUT_VERSION)
 #define DIRECTINPUT_VERSION 0x0800
 #endif
 

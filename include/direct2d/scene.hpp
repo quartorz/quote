@@ -3,11 +3,7 @@
 #include "../scene.hpp"
 #include "traits.hpp"
 
-#if !defined DIRECTINPUT_VERSION
-#define DIRECTINPUT_VERSION 0x0800
-#endif
-
-#include <dinput.h>
+#include "scene_base.hpp"
 
 namespace quote{ namespace direct2d{
 
