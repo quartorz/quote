@@ -25,6 +25,7 @@ namespace quote{ namespace direct2d{
 		HTHEME htheme;
 		ID2D1DCRenderTarget *target;
 		std::recursive_mutex mutex;
+		bool aero_glass;
 
 	public:
 		using paint_params = paint_params;
@@ -45,6 +46,11 @@ namespace quote{ namespace direct2d{
 		~painter()
 		{
 			::quote::utils::SafeRelease(target);
+		}
+
+		bool aero_glass_enabled() const
+		{
+			return aero_glass;
 		}
 
 		void repaint()

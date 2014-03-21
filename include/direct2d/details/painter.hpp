@@ -10,6 +10,17 @@ namespace quote{ namespace direct2d{
 		if(target != nullptr)
 			return true;
 
+/*		DWM_BLURBEHIND bb = {};
+		bb.dwFlags = DWM_BB_ENABLE;
+		bb.fEnable = TRUE;
+		::DwmEnableBlurBehindWindow(
+			get_hwnd(),
+			&bb);
+
+		BOOL enabled = FALSE;
+		::DwmIsCompositionEnabled(&enabled);
+		aero_glass = enabled != FALSE;*/
+
 		auto props = D2D1::RenderTargetProperties(
 			D2D1_RENDER_TARGET_TYPE_DEFAULT,
 			D2D1::PixelFormat(
@@ -40,11 +51,11 @@ namespace quote{ namespace direct2d{
 		switch(msg){
 		case WM_CREATE:
 			{
-				DWM_BLURBEHIND bb ={};
+				DWM_BLURBEHIND bb = {};
 				bb.dwFlags = DWM_BB_ENABLE;
 				bb.fEnable = TRUE;
 				::DwmEnableBlurBehindWindow(
-					hwnd,
+					get_hwnd(),
 					&bb);
 				htheme = ::OpenThemeData(hwnd, VSCLASS_WINDOW);
 			}
@@ -70,6 +81,9 @@ namespace quote{ namespace direct2d{
 
 				target->BindDC(ps.hdc, &rc);
 				target->BeginDraw();
+
+				if(!aero_glass)
+					target->Clear(color(255, 255, 255, 255));
 
 				static_cast<Derived*>(this)->draw(pp);
 

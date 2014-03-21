@@ -28,6 +28,14 @@ namespace quote{ namespace direct2d{
 		{
 			splitter.set_right(o);
 		}
+		object *get_left()
+		{
+			return splitter.get_left();
+		}
+		object *get_right()
+		{
+			return splitter.get_right();
+		}
 		void set_bar_color(color c)
 		{
 			splitter.set_color(c);
