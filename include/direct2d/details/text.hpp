@@ -259,6 +259,7 @@ namespace quote{ namespace direct2d{
 			[](std::pair<DWRITE_TEXT_RANGE, solid_brush> &p){
 			p.second.destroy_resource();
 		});
+		modified = true;
 	}
 
 	inline void text::draw(const paint_params &ps)

@@ -10,17 +10,6 @@ namespace quote{ namespace direct2d{
 		if(target != nullptr)
 			return true;
 
-/*		DWM_BLURBEHIND bb = {};
-		bb.dwFlags = DWM_BB_ENABLE;
-		bb.fEnable = TRUE;
-		::DwmEnableBlurBehindWindow(
-			get_hwnd(),
-			&bb);
-
-		BOOL enabled = FALSE;
-		::DwmIsCompositionEnabled(&enabled);
-		aero_glass = enabled != FALSE;*/
-
 		auto props = D2D1::RenderTargetProperties(
 			D2D1_RENDER_TARGET_TYPE_DEFAULT,
 			D2D1::PixelFormat(
@@ -58,6 +47,10 @@ namespace quote{ namespace direct2d{
 					get_hwnd(),
 					&bb);
 				htheme = ::OpenThemeData(hwnd, VSCLASS_WINDOW);
+
+				BOOL b;
+				::DwmIsCompositionEnabled(&b);
+				aero_glass = b != FALSE;
 			}
 			break;
 		case WM_DESTROY:
@@ -101,6 +94,13 @@ namespace quote{ namespace direct2d{
 			break;
 		case WM_SIZE:
 			::InvalidateRect(hwnd, nullptr, FALSE);
+			break;
+		case WM_DWMCOMPOSITIONCHANGED:
+			{
+				BOOL b;
+				::DwmIsCompositionEnabled(&b);
+				aero_glass = b != FALSE;
+			}
 			break;
 		}
 		return true;
