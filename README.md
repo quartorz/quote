@@ -7,4 +7,6 @@ quote
 
 [Documentation](http://quartorz.github.io/quote)
 
+[slash](http://github.com/quartorz/slash)に名前変えます
+
 MIT License
