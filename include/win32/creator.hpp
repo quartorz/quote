@@ -4,7 +4,13 @@
 
 #include <climits>
 
+#include "../tmp/has_xxx.hpp"
+
 namespace quote{ namespace win32{
+
+	namespace aux{
+		QUOTE_DECL_HAS_NON_TYPE(is_subclass)
+	}
 
 	struct creation_params{
 		DWORD exstyle, style;
@@ -15,6 +21,26 @@ namespace quote{ namespace win32{
 
 	template <class Derived>
 	class creator{
+		template <bool>
+		void set_subclass_impl(HWND hwnd)
+		{
+			static_cast<Derived*>(this)->set_subclass(hwnd);
+		}
+		template <>
+		void set_subclass_impl<false>(HWND)
+		{
+		}
+
+		template <bool>
+		void set_subclass_(HWND hwnd)
+		{
+			set_subclass_impl<Derived::is_subclass>(hwnd);
+		}
+		template <>
+		void set_subclass_<false>(HWND)
+		{
+		}
+
 	public:
 		bool create(creation_params &param)
 		{
@@ -37,6 +63,7 @@ namespace quote{ namespace win32{
 				nullptr,
 				::GetModuleHandleW(nullptr),
 				static_cast<Derived*>(this));
+			set_subclass_<aux::has_is_subclass<Derived>::value>(hwnd);
 			return hwnd != nullptr;
 		}
 
@@ -46,7 +73,7 @@ namespace quote{ namespace win32{
 			creation_params params ={
 				0,
 				WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
-				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name())
+				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name()),
 				title,
 				((x == INT_MAX || y == INT_MAX) ? CW_USEDEFAULT : x),
 				y,

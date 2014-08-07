@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include <windowsx.h>
+#include <CommCtrl.h>
 
 #include "../tmp/nil.hpp"
 
@@ -12,7 +13,7 @@
 namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
-	class window: public Procs...{
+	class subclass_window: public Procs...{
 		static LRESULT CALLBACK WindowProc_SetData(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			auto w = reinterpret_cast<Derived*>(::GetWindowLongPtrW(hwnd, 0));
@@ -29,44 +30,25 @@ namespace quote{ namespace win32{
 			return w->WindowProc(hwnd, msg, wParam, lParam);
 		}
 
-		static LRESULT CALLBACK WindowProc_Static(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+		static LRESULT CALLBACK SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uId, DWORD_PTR dwRefData)
 		{
-			auto w = reinterpret_cast<Derived*>(::GetWindowLongPtrW(hwnd, 0));
-			if(w == nullptr)
-				return ::DefWindowProcW(hwnd, msg, wParam, lParam);
+			auto w = reinterpret_cast<Derived*>(dwRefData);
 			return w->WindowProc(hwnd, msg, wParam, lParam);
 		}
 
 	protected:
+		WNDPROC windowproc;
 		HWND hwnd, hparent;
 
 	public:
-		window(): hwnd(nullptr), hparent(nullptr)
+		static const bool is_subclass = true;
+		void set_subclass(HWND hwnd)
 		{
+			::SetWindowSubclass(hwnd, SubclassProc, 0, reinterpret_cast<DWORD_PTR>(this));
 		}
 
-		static bool register_class(const wchar_t *classname)
+		subclass_window(): windowproc(nullptr), hwnd(nullptr), hparent(nullptr)
 		{
-			WNDCLASSEXW wcex;
-			wcex.cbSize = sizeof(WNDCLASSEX);
-			wcex.style = CS_HREDRAW | CS_VREDRAW;
-			wcex.lpfnWndProc = WindowProc_SetData;
-			wcex.cbClsExtra = 0;
-			wcex.cbWndExtra = sizeof(void*);
-			wcex.hInstance = ::GetModuleHandleW(NULL);
-			wcex.hIcon = nullptr;
-			wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-			wcex.hbrBackground = nullptr;
-			wcex.lpszMenuName = nullptr;
-			wcex.lpszClassName = classname;
-			wcex.hIconSm = nullptr;
-
-			return ::RegisterClassExW(&wcex) != 0;
-		}
-
-		static bool register_class(void)
-		{
-			return register_class(Derived::get_class_name());
 		}
 
 		void *get_handle() const
@@ -154,7 +136,7 @@ namespace quote{ namespace win32{
 			if(msg == WM_DESTROY)
 				this->hwnd = nullptr;
 
-			return ::DefWindowProcW(hwnd, msg, wParam, lParam);
+			return ::DefSubclassProc(hwnd, msg, wParam, lParam);
 		}
 
 	private:
