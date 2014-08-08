@@ -31,13 +31,11 @@ namespace quote{ namespace win32{
 		{
 		}
 
-		template <bool>
-		void set_subclass_(HWND hwnd)
+		void set_subclass_(std::true_type&, HWND hwnd)
 		{
 			set_subclass_impl<Derived::is_subclass>(hwnd);
 		}
-		template <>
-		void set_subclass_<false>(HWND)
+		void set_subclass_(std::false_type&, HWND)
 		{
 		}
 
@@ -63,7 +61,7 @@ namespace quote{ namespace win32{
 				nullptr,
 				::GetModuleHandleW(nullptr),
 				static_cast<Derived*>(this));
-			set_subclass_<aux::has_is_subclass<Derived>::value>(hwnd);
+			set_subclass_(typename aux::has_is_subclass<Derived>::type(), hwnd);
 			return hwnd != nullptr;
 		}
 

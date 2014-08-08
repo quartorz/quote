@@ -10,26 +10,12 @@
 
 #include <string>
 
+#pragma comment(lib, "Comctl32")
+
 namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
 	class subclass_window: public Procs...{
-		static LRESULT CALLBACK WindowProc_SetData(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-		{
-			auto w = reinterpret_cast<Derived*>(::GetWindowLongPtrW(hwnd, 0));
-			if(msg == WM_NCCREATE || msg == WM_CREATE){
-				auto lpcs = reinterpret_cast<LPCREATESTRUCT>(lParam);
-				::SetWindowLongPtrW(hwnd, 0, reinterpret_cast<LONG_PTR>(lpcs->lpCreateParams));
-				::SetWindowLongPtrW(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WindowProc_Static));
-				w = reinterpret_cast<Derived*>(lpcs->lpCreateParams);
-				w->hwnd = hwnd;
-				w->hparent = lpcs->hwndParent;
-			}
-			if(w == nullptr)
-				return ::DefWindowProcW(hwnd, msg, wParam, lParam);
-			return w->WindowProc(hwnd, msg, wParam, lParam);
-		}
-
 		static LRESULT CALLBACK SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uId, DWORD_PTR dwRefData)
 		{
 			auto w = reinterpret_cast<Derived*>(dwRefData);
