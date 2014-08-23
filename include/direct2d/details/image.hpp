@@ -502,21 +502,48 @@ namespace quote{ namespace direct2d{
 			return;
 
 		if(is_animated){
-			pp.target->DrawBitmap(
-				bmp,
-				dest,
-				1.f,
-				static_cast<D2D1_BITMAP_INTERPOLATION_MODE>(interpolationmode),
-				src);
-
 			auto tp = std::chrono::system_clock::now();
 			duration += std::chrono::duration_cast<std::chrono::milliseconds>(tp - timepoint);
 			timepoint = tp;
 			auto step = duration.count() / (delay.count() * 10);
 			if(step != 0){
 				duration = std::chrono::milliseconds(duration.count() % (delay.count() * 10));
-				select_frame(pp.target, (currentframe + step) % framecount);
-			}
+
+				UINT i = 0;
+				for(;;){
+					pp.target->DrawBitmap(
+						bmp,
+						dest,
+						1.f,
+						static_cast<D2D1_BITMAP_INTERPOLATION_MODE>(interpolationmode),
+						src);
+
+					i++;
+					UINT f = (currentframe + i) % framecount;
+					select_frame(pp.target, f);
+
+					if(i == step)
+						break;
+
+					ID2D1Bitmap *frame;
+					btarget->GetBitmap(&frame);
+					if(frame != nullptr){
+						pp.target->DrawBitmap(
+							frame,
+							dest,
+							1.f,
+							static_cast<D2D1_BITMAP_INTERPOLATION_MODE>(interpolationmode),
+							src);
+						utils::SafeRelease(frame);
+					}
+				}
+			}else
+				pp.target->DrawBitmap(
+					bmp,
+					dest,
+					1.f,
+					static_cast<D2D1_BITMAP_INTERPOLATION_MODE>(interpolationmode),
+					src);
 		}
 
 		if(is_gif){

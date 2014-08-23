@@ -22,21 +22,23 @@ namespace quote{ namespace win32{
 	template <class Derived>
 	class creator{
 		template <bool>
-		void set_subclass_impl(HWND hwnd)
+		bool set_subclass_impl(HWND hwnd)
 		{
-			static_cast<Derived*>(this)->set_subclass(hwnd);
+			return static_cast<Derived*>(this)->set_subclass(hwnd);
 		}
 		template <>
-		void set_subclass_impl<false>(HWND)
+		bool set_subclass_impl<false>(HWND)
 		{
+			return true;
 		}
 
-		void set_subclass_(std::true_type&, HWND hwnd)
+		bool set_subclass_(std::true_type&, HWND hwnd)
 		{
-			set_subclass_impl<Derived::is_subclass>(hwnd);
+			return set_subclass_impl<Derived::is_subclass>(hwnd);
 		}
-		void set_subclass_(std::false_type&, HWND)
+		bool set_subclass_(std::false_type&, HWND)
 		{
+			return true;
 		}
 
 	public:
@@ -61,7 +63,10 @@ namespace quote{ namespace win32{
 				nullptr,
 				::GetModuleHandleW(nullptr),
 				static_cast<Derived*>(this));
-			set_subclass_(typename aux::has_is_subclass<Derived>::type(), hwnd);
+			if(!set_subclass_(typename aux::has_is_subclass<Derived>::type(), hwnd)){
+				::DestroyWindow(hwnd);
+				hwnd = nullptr;
+			}
 			return hwnd != nullptr;
 		}
 

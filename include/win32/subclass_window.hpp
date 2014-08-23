@@ -23,17 +23,19 @@ namespace quote{ namespace win32{
 		}
 
 	protected:
-		WNDPROC windowproc;
 		HWND hwnd, hparent;
 
 	public:
 		static const bool is_subclass = true;
-		void set_subclass(HWND hwnd)
+		bool set_subclass(HWND hwnd)
 		{
 			::SetWindowSubclass(hwnd, SubclassProc, 0, reinterpret_cast<DWORD_PTR>(this));
+			this->hwnd = hwnd;
+			hparent = ::GetAncestor(hwnd, GA_PARENT);
+			return static_cast<Derived*>(this)->initialize();
 		}
 
-		subclass_window(): windowproc(nullptr), hwnd(nullptr), hparent(nullptr)
+		subclass_window(): hwnd(nullptr), hparent(nullptr)
 		{
 		}
 
