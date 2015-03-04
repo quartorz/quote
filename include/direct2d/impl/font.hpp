@@ -47,6 +47,11 @@ namespace quote{ namespace direct2d{
 		style = s;
 	}
 
+	inline float font::get_size()
+	{
+		return size;
+	}
+
 	inline bool font::create_resource(const creation_params &)
 	{
 		return create();

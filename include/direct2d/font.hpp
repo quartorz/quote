@@ -14,7 +14,7 @@ namespace quote{ namespace direct2d{
 		enum font_weight{
 			light = DWRITE_FONT_WEIGHT_THIN,
 			normal = DWRITE_FONT_WEIGHT_LIGHT,
-			bold = DWRITE_FONT_WEIGHT_NORMAL,
+			bold = DWRITE_FONT_WEIGHT_ULTRA_BOLD,
 		};
 	}
 
@@ -29,8 +29,8 @@ namespace quote{ namespace direct2d{
 	public:
 		enum class font_weight: unsigned{
 			light = DWRITE_FONT_WEIGHT_THIN,
-			normal = DWRITE_FONT_WEIGHT_LIGHT,
-			bold = DWRITE_FONT_WEIGHT_NORMAL,
+			normal = DWRITE_FONT_WEIGHT_NORMAL,
+			bold = DWRITE_FONT_WEIGHT_ULTRA_BOLD,
 		};
 
 		enum class font_style: unsigned{
@@ -76,6 +76,8 @@ namespace quote{ namespace direct2d{
 		{
 			set_style(static_cast<font_style>(s));
 		}
+
+		float get_size();
 
 		virtual bool create_resource(const creation_params &) override;
 		virtual void destroy_resource() override;

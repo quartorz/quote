@@ -119,6 +119,7 @@ namespace quote{ namespace direct2d{
 		underlines(t.underlines),
 		italics(t.italics),
 		strikethroughs(t.strikethroughs),
+		fontweights(t.fontweights),
 		colors(t.colors),
 		modified(true),
 		selectable(t.selectable),
@@ -147,6 +148,7 @@ namespace quote{ namespace direct2d{
 		underlines(std::move(t.underlines)),
 		italics(std::move(t.italics)),
 		strikethroughs(std::move(t.strikethroughs)),
+		fontweights(std::move(t.fontweights)),
 		colors(t.colors),
 		modified(true),
 		selectable(t.selectable),
@@ -418,31 +420,30 @@ namespace quote{ namespace direct2d{
 
 	inline void text::on_left_release(const point &pt, hittest &ht)
 	{
-		if(!selectable)
-			return;
+		if(!dragging && links.size() != 0){
+			auto iter = get_link(pt);
 
-		pressing = false;
-		if(!dragging){
-			if(select_range.length != -1){
-				layout->SetDrawingEffect(nullptr, {0, -1});
-				apply_color();
-				::InvalidateRect(ht.hwnd, nullptr, FALSE);
+			if(iter != links.end()){
+				auto &r = std::get<0>(*iter);
+				ht.set_cursor(hittest::cursor::hand);
+				std::get<1>(*iter)(r.startPosition, r.startPosition + r.length);
 			}
-
-			if(links.size() != 0){
-				auto iter = get_link(pt);
-
-				if(iter != links.end()){
-					auto &r = std::get<0>(*iter);
-					ht.set_cursor(hittest::cursor::hand);
-					std::get<1>(*iter)(r.startPosition, r.startPosition + r.length);
-				}
-			}
-		}else{
-			ht.set_cursor(hittest::cursor::ibeam);
 		}
 
-		dragging = false;
+		if(!selectable){
+			pressing = false;
+			if(!dragging){
+				if(select_range.length != -1){
+					layout->SetDrawingEffect(nullptr, {0, -1});
+					apply_color();
+					::InvalidateRect(ht.hwnd, nullptr, FALSE);
+				}
+			}else{
+				ht.set_cursor(hittest::cursor::ibeam);
+			}
+
+			dragging = false;
+		}
 	}
 
 	inline void text::on_mouse_move(const point &pt, hittest &ht)
@@ -501,7 +502,7 @@ namespace quote{ namespace direct2d{
 			}
 		}
 
-		if(!dragging && links.size() != 0){
+		if((!selectable && !dragging) && links.size() != 0){
 			auto iter = get_link(pt);
 
 			if(iter != links.end()){
@@ -511,14 +512,16 @@ namespace quote{ namespace direct2d{
 				layout->SetUnderline(FALSE, {0, -1});
 				apply_underline();
 			}
+			::InvalidateRect(ht.hwnd, nullptr, FALSE);
 		}
 	}
 
-	inline void text::on_mouse_leave(const hittest &)
+	inline void text::on_mouse_leave(const hittest &ht)
 	{
 		if(links.size() != 0){
 			layout->SetUnderline(FALSE, {0, -1});
 			apply_underline();
+			::InvalidateRect(ht.hwnd, nullptr, FALSE);
 		}
 	}
 
