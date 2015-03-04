@@ -32,4 +32,4 @@ namespace quote{
 
 }
 
-#include "details/resource_manager.hpp"
+#include "impl/resource_manager.hpp"

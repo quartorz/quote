@@ -141,15 +141,15 @@ namespace quote{ namespace win32{
 			switch(msg){
 			case WM_KEYDOWN:
 				for(auto &tuple : map[static_cast<unsigned>(wParam)]){
-					std::get<1>(tuple)(wParam, true);
+					std::get<1>(tuple)(static_cast<unsigned>(wParam), true);
 				}
-				static_cast<Derived*>(this)->on_key_down(wParam);
+				static_cast<Derived*>(this)->on_key_down(static_cast<unsigned>(wParam));
 				break;
 			case WM_KEYUP:
 				for(auto &tuple : map[static_cast<unsigned>(wParam)]){
-					std::get<1>(tuple)(wParam, false);
+					std::get<1>(tuple)(static_cast<unsigned>(wParam), false);
 				}
-				static_cast<Derived*>(this)->on_key_up(wParam);
+				static_cast<Derived*>(this)->on_key_up(static_cast<unsigned>(wParam));
 				break;
 			}
 

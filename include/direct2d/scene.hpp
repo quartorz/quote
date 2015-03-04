@@ -22,4 +22,6 @@ namespace quote{ namespace direct2d{
 		}
 	};
 
+	using scene_ = scene<>;
+
 } }

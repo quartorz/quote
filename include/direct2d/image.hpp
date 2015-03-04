@@ -9,6 +9,22 @@
 
 namespace quote{ namespace direct2d{
 
+	// Cython‚Åenum class‚ªŽg‚¦‚È‚¢
+	namespace image_drawing_mode{
+		enum image_drawing_mode{
+			stretch,
+			squeeze,
+			trim,
+		};
+	}
+
+	namespace image_interpolation_mode{
+		enum image_interpolation_mode{
+			nearest_neighbor = D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+			linear = D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+		};
+	}
+
 	class image: public object{
 	public:
 		enum class drawing_mode: int{
@@ -65,7 +81,17 @@ namespace quote{ namespace direct2d{
 		void set_interpolation_mode(interpolation_mode);
 		void set_file_name(const wchar_t *);
 		void set_clipping_rect(rect);
-		rect get_clipping_rect() const;
+		rect get_clipping_rect();
+
+		void set_drawing_mode(::quote::direct2d::image_drawing_mode::image_drawing_mode dm)
+		{
+			set_drawing_mode(static_cast<drawing_mode>(dm));
+		}
+
+		void set_interpolation_mode(::quote::direct2d::image_interpolation_mode::image_interpolation_mode im)
+		{
+			set_interpolation_mode(static_cast<interpolation_mode>(im));
+		}
 
 		virtual void set_position(const point &) override;
 		virtual void set_size(const size &) override;
@@ -79,4 +105,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "details/image.hpp"
+#include "impl/image.hpp"

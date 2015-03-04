@@ -9,12 +9,28 @@
 
 namespace quote{ namespace direct2d{
 
+	// Cython‚Åenum class‚ªŽg‚¦‚È‚¢
+	namespace font_weight{
+		enum font_weight{
+			light = DWRITE_FONT_WEIGHT_THIN,
+			normal = DWRITE_FONT_WEIGHT_LIGHT,
+			bold = DWRITE_FONT_WEIGHT_NORMAL,
+		};
+	}
+
+	namespace font_style{
+		enum font_style{
+			normal,
+			italic,
+		};
+	}
+
 	class font: public resource{
 	public:
 		enum class font_weight: unsigned{
-			light = DWRITE_FONT_WEIGHT_LIGHT,
-			normal = DWRITE_FONT_WEIGHT_NORMAL,
-			bold = DWRITE_FONT_WEIGHT_BOLD,
+			light = DWRITE_FONT_WEIGHT_THIN,
+			normal = DWRITE_FONT_WEIGHT_LIGHT,
+			bold = DWRITE_FONT_WEIGHT_NORMAL,
 		};
 
 		enum class font_style: unsigned{
@@ -51,6 +67,16 @@ namespace quote{ namespace direct2d{
 		void set_weight(font_weight);
 		void set_style(font_style);
 
+		void set_weight(::quote::direct2d::font_weight::font_weight w)
+		{
+			set_weight(static_cast<font_weight>(w));
+		}
+
+		void set_style(::quote::direct2d::font_style::font_style s)
+		{
+			set_style(static_cast<font_style>(s));
+		}
+
 		virtual bool create_resource(const creation_params &) override;
 		virtual void destroy_resource() override;
 
@@ -61,4 +87,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "details/font.hpp"
+#include "impl/font.hpp"

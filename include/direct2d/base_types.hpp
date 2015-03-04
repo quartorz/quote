@@ -361,7 +361,7 @@ namespace quote{ namespace direct2d{
 			CheckError(geometry->Open(&sink));
 			sink->BeginFigure(points[0], D2D1_FIGURE_BEGIN_FILLED);
 			if(points.size() > 1)
-				sink->AddLines(&points[1], points.size() - 1);
+				sink->AddLines(&points[1], static_cast<UINT32>(points.size() - 1));
 			sink->EndFigure(D2D1_FIGURE_END_CLOSED);
 			CheckError(sink->Close());
 		}
@@ -415,4 +415,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "details/base_types.hpp"
+#include "impl/base_types.hpp"

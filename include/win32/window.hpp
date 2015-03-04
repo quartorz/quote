@@ -104,11 +104,6 @@ namespace quote{ namespace win32{
 			::ShowWindow(hwnd, SW_HIDE);
 		}
 
-		void destroy()
-		{
-			::DestroyWindow(hwnd);
-		}
-
 		std::tuple<int, int> get_size()
 		{
 			RECT rc;

@@ -4,6 +4,8 @@
 
 #include <climits>
 
+#include "creation_params.hpp"
+
 #include "../tmp/has_xxx.hpp"
 
 namespace quote{ namespace win32{
@@ -11,13 +13,6 @@ namespace quote{ namespace win32{
 	namespace aux{
 		QUOTE_DECL_HAS_NON_TYPE(is_subclass)
 	}
-
-	struct creation_params{
-		DWORD exstyle, style;
-		const wchar_t *classname, *title;
-		int x, y, w, h;
-		HWND hparent;
-	};
 
 	template <class Derived>
 	class creator{
@@ -73,7 +68,7 @@ namespace quote{ namespace win32{
 		template <class Parent>
 		bool create(Parent &parent, const wchar_t *classname=nullptr, const wchar_t *title=L"", int x=INT_MAX, int y=INT_MAX, int w=-1, int h=-1)
 		{
-			creation_params params ={
+			creation_params params = {
 				0,
 				WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name()),
@@ -90,7 +85,7 @@ namespace quote{ namespace win32{
 
 		bool create(const wchar_t *classname=nullptr, const wchar_t *title=L"", int x=INT_MAX, int y=INT_MAX, int w=-1, int h=-1)
 		{
-			creation_params params ={
+			creation_params params = {
 				0,
 				WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 				((classname != nullptr) ? classname : static_cast<Derived*>(this)->get_class_name()),
@@ -103,6 +98,11 @@ namespace quote{ namespace win32{
 			};
 
 			return create(params);
+		}
+
+		void destroy()
+		{
+			::DestroyWindow(hwnd);
 		}
 	};
 

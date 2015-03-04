@@ -26,4 +26,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "details/solid_brush.hpp"
+#include "impl/solid_brush.hpp"

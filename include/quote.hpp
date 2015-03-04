@@ -5,7 +5,7 @@ namespace quote{
 	void uninitialize();
 }
 
-#include "details/quote.hpp"
+#include "impl/quote.hpp"
 
 #if defined _MSC_VER
 

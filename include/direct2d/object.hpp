@@ -85,4 +85,7 @@ namespace quote{ namespace direct2d{
 		}
 	};
 
+	// Cython‚Åobject‚Á‚Ä‘‚­‚ÆPyObject‚É‚È‚é
+	using object_base = object;
+
 } }

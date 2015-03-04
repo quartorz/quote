@@ -34,4 +34,4 @@ namespace quote{
 
 }
 
-#include "details/scene_manager.hpp"
+#include "impl/scene_manager.hpp"
