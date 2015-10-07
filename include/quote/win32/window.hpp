@@ -40,6 +40,8 @@ namespace quote{ namespace win32{
 	protected:
 		HWND hwnd, hparent;
 
+		using window_type = window<Derived, Procs...>;
+
 	public:
 		window(): hwnd(nullptr), hparent(nullptr)
 		{
@@ -126,6 +128,20 @@ namespace quote{ namespace win32{
 		void set_title(const std::wstring &title)
 		{
 			::SetWindowTextW(hwnd, title.c_str());
+		}
+
+		std::wstring get_title()
+		{
+			int n = ::GetWindowTextLengthW(hwnd);
+			wchar_t *buf = reinterpret_cast<wchar_t*>(_malloca(sizeof(wchar_t) * (n + 1)));
+
+			::GetWindowTextW(hwnd, buf, n + 1);
+
+			std::wstring title(buf);
+
+			::_freea(buf);
+
+			return title;
 		}
 
 		LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
