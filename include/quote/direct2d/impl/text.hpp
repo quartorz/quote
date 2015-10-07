@@ -35,7 +35,7 @@ namespace quote{ namespace direct2d{
 		layout->SetParagraphAlignment(static_cast<DWRITE_PARAGRAPH_ALIGNMENT>(p_align));
 		layout->SetWordWrapping(static_cast<DWRITE_WORD_WRAPPING>(wordwrapping));
 
-		layout->SetFontWeight(DWRITE_FONT_WEIGHT_LIGHT, {0, -1});
+		layout->SetFontWeight(DWRITE_FONT_WEIGHT_LIGHT, {0, static_cast<UINT32>(-1)});
 
 		for(auto &p: fontsizes){
 			layout->SetFontSize(std::get<1>(p), std::get<0>(p));
@@ -202,7 +202,7 @@ namespace quote{ namespace direct2d{
 
 	inline void text::set_link(std::function<void(int, int)> callback, int start, int end)
 	{
-		links.push_back({{start, end}, callback});
+		links.push_back({{static_cast<UINT32>(start), static_cast<UINT32>(end)}, callback});
 	}
 
 	inline void text::set_word_wrapping(word_wrapping ww)
@@ -434,7 +434,7 @@ namespace quote{ namespace direct2d{
 			pressing = false;
 			if(!dragging){
 				if(select_range.length != -1){
-					layout->SetDrawingEffect(nullptr, {0, -1});
+					layout->SetDrawingEffect(nullptr, {0, static_cast<UINT32>(-1)});
 					apply_color();
 					::InvalidateRect(ht.hwnd, nullptr, FALSE);
 				}
@@ -459,7 +459,7 @@ namespace quote{ namespace direct2d{
 
 				std::tie(p, trailing, inside) = hittest_(pt);
 
-				layout->SetDrawingEffect(nullptr, {0, -1});
+				layout->SetDrawingEffect(nullptr, {0, static_cast<UINT32>(-1)});
 				apply_color();
 
 				if(startpos != p || start_trailing != trailing){
@@ -509,7 +509,7 @@ namespace quote{ namespace direct2d{
 				ht.set_cursor(hittest::cursor::hand);
 				layout->SetUnderline(TRUE, std::get<0>(*iter));
 			}else{
-				layout->SetUnderline(FALSE, {0, -1});
+				layout->SetUnderline(FALSE, {0, static_cast<UINT32>(-1)});
 				apply_underline();
 			}
 			::InvalidateRect(ht.hwnd, nullptr, FALSE);
@@ -519,7 +519,7 @@ namespace quote{ namespace direct2d{
 	inline void text::on_mouse_leave(const hittest &ht)
 	{
 		if(links.size() != 0){
-			layout->SetUnderline(FALSE, {0, -1});
+			layout->SetUnderline(FALSE, {0, static_cast<UINT32>(-1)});
 			apply_underline();
 			::InvalidateRect(ht.hwnd, nullptr, FALSE);
 		}
@@ -530,7 +530,7 @@ namespace quote{ namespace direct2d{
 		if(!selectable)
 			return;
 
-		layout->SetDrawingEffect(nullptr, {0, -1});
+		layout->SetDrawingEffect(nullptr, {0, static_cast<UINT32>(-1)});
 		apply_color();
 
 		select_range = {0, 0};

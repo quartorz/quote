@@ -8,7 +8,7 @@ namespace quote{ namespace utils{
 
 	DWRITE_TEXT_RANGE CreateRange(int start, int end)
 	{
-		return {start, end - start};
+		return {static_cast<UINT32>(start), static_cast<UINT32>(end - start)};
 	}
 
 } }
