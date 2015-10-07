@@ -2,7 +2,24 @@
 
 #include "../painter.hpp"
 
+#include <VersionHelpers.h>
+
 namespace quote{ namespace direct2d{
+
+	namespace detail{
+		struct ACCENTPOLICY{
+			int nAccentState;
+			int nAccentFlags;
+			int nGradientColor;
+			int nAnimationId;
+		};
+
+		struct WINDOWCOMPOSITIONATTRIBUTEDATA{
+			int nAttribute;
+			LPVOID pData;
+			ULONG ulDataSize;
+		};
+	}
 
 	template <class Derived>
 	inline bool painter<Derived>::CreateResource()
@@ -40,17 +57,39 @@ namespace quote{ namespace direct2d{
 		switch(msg){
 		case WM_CREATE:
 			{
-				DWM_BLURBEHIND bb = {};
-				bb.dwFlags = DWM_BB_ENABLE;
-				bb.fEnable = TRUE;
-				::DwmEnableBlurBehindWindow(
-					get_hwnd(),
-					&bb);
-				htheme = ::OpenThemeData(hwnd, VSCLASS_WINDOW);
+				if(::IsWindowsVersionOrGreater(6, 2, 0)){
+					HINSTANCE module = ::LoadLibrary(L"user32.dll");
 
-				BOOL b;
-				::DwmIsCompositionEnabled(&b);
-				aero_glass = b != FALSE;
+					if(module == nullptr)
+						break;
+
+					using lpfnSetWindowCompositionAttribute = BOOL(WINAPI *)(HWND, detail::WINDOWCOMPOSITIONATTRIBUTEDATA*);
+					auto SetWindowCompositionAttribute = (lpfnSetWindowCompositionAttribute)::GetProcAddress(module, "SetWindowCompositionAttribute");
+
+					if(SetWindowCompositionAttribute == nullptr){
+						::FreeLibrary(module);
+						break;
+					}
+
+					detail::ACCENTPOLICY policy = {3, 0, 0, 0};
+					detail::WINDOWCOMPOSITIONATTRIBUTEDATA data = {19, &policy, sizeof(policy)};
+
+					SetWindowCompositionAttribute(hwnd, &data);
+
+					::FreeLibrary(module);
+				}else{
+					DWM_BLURBEHIND bb = {};
+					bb.dwFlags = DWM_BB_ENABLE;
+					bb.fEnable = TRUE;
+					::DwmEnableBlurBehindWindow(
+						get_hwnd(),
+						&bb);
+					htheme = ::OpenThemeData(hwnd, VSCLASS_WINDOW);
+
+					BOOL b;
+					::DwmIsCompositionEnabled(&b);
+					aero_glass = b != FALSE;
+				}
 			}
 			break;
 		case WM_DESTROY:
