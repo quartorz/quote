@@ -22,9 +22,9 @@ namespace quote{ namespace win32{
 	public:
 		object_processor();
 		~object_processor();
-		bool WindowProc(HWND, UINT, WPARAM, LPARAM, LRESULT &);
+		bool WindowProc(Derived &, HWND, UINT, WPARAM, LPARAM, LRESULT &);
 	};
 
 } }
 
-#include "impl/object_processor.hpp"
+#include <quote/win32/impl/object_processor.hpp>

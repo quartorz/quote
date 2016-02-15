@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../integrated_manager.hpp"
-#include "traits.hpp"
+#include <quote/integrated_manager.hpp>
+#include <quote/direct2d/traits.hpp>
 
 namespace quote{
 	namespace direct2d{

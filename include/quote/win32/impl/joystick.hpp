@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../joystick.hpp"
-#include "../utils.hpp"
+#include <quote/win32/joystick.hpp>
+#include <quote/win32/utils.hpp>
 
 #include <comdef.h>
 

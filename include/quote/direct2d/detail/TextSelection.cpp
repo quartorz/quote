@@ -1,5 +1,5 @@
 
-#include "DrawingEffect.h"
+#include <quote/direct2d/detail/DrawingEffect.h>
 
 namespace quote{ namespace direct2d{ namespace detail{
 

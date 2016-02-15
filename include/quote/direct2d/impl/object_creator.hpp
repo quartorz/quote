@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../object_creator.hpp"
+#include <quote/direct2d/object_creator.hpp>
 
 namespace quote{ namespace direct2d{
 

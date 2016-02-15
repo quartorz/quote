@@ -32,4 +32,4 @@ private:
 
 } } }
 
-#include "TextSelection.cpp"
+#include <quote/direct2d/detail/TextSelection.cpp>

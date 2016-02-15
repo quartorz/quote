@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../base_types.hpp"
-#include "../brush.hpp"
-#include "../font.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/brush.hpp>
+#include <quote/direct2d/font.hpp>
 
 namespace quote{ namespace direct2d{
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../resource_creator.hpp"
+#include <quote/direct2d/resource_creator.hpp>
 
 namespace quote{ namespace direct2d{
 

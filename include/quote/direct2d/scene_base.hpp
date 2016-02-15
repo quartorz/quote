@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../scene_base.hpp"
-#include "traits.hpp"
+#include <quote/scene_base.hpp>
+#include <quote/direct2d/traits.hpp>
 
 namespace quote{ namespace direct2d{
 

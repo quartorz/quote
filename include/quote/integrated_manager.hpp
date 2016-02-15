@@ -1,7 +1,7 @@
 #pragma once
 
-#include "object_manager.hpp"
-#include "resource_manager.hpp"
+#include <quote/object_manager.hpp>
+#include <quote/resource_manager.hpp>
 
 namespace quote{
 

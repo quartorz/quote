@@ -82,5 +82,5 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
 #endif
 
-#include "TextSelection.h"
-#include "CustomTextRenderer.h"
+#include <quote/direct2d/detail/TextSelection.h>
+#include <quote/direct2d/detail/CustomTextRenderer.h>

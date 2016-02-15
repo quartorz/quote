@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../flat_button.hpp"
+#include <quote/flat_button.hpp>
 
 #include <functional>
 #include <algorithm>

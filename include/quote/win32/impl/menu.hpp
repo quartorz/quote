@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../menu.hpp"
+#include <quote/win32/menu.hpp>
 
 namespace quote{ namespace win32{
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../flat_button.hpp"
-#include "traits.hpp"
+#include <quote/flat_button.hpp>
+#include <quote/direct2d/traits.hpp>
 
 namespace quote{ namespace direct2d{
 

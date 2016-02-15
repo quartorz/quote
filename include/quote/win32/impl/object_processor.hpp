@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../object_processor.hpp"
+#include <quote/win32/object_processor.hpp>
 
 #include <windowsx.h>
 
@@ -57,7 +57,7 @@ namespace quote{ namespace win32{
 	}
 
 	template <class Derived, class Traits>
-	bool object_processor<Derived, Traits>::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &l)
+	bool object_processor<Derived, Traits>::WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &l)
 	{
 		using object = typename Traits::object;
 		using point = typename Traits::point;

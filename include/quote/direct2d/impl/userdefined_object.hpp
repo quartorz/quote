@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../userdefined_object.hpp"
+#include <quote/direct2d/userdefined_object.hpp>
 
 #include <utility>
 

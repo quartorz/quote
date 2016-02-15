@@ -14,14 +14,13 @@
 #include <ctime>
 #include <random>
 
-
 namespace quote{ namespace win32{
 
 	template <class Derived>
 	class resizer
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_SIZE)
 				static_cast<Derived*>(this)->on_size(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
@@ -42,7 +41,7 @@ namespace quote{ namespace win32{
 	class mover
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_MOVE)
 				static_cast<Derived*>(this)->on_move(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
@@ -61,7 +60,7 @@ namespace quote{ namespace win32{
 	class quit_on_close
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_DESTROY)
 				::PostQuitMessage(0);
@@ -73,7 +72,7 @@ namespace quote{ namespace win32{
 	class left_button
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			switch(msg){
 			case WM_LBUTTONDOWN:
@@ -92,7 +91,7 @@ namespace quote{ namespace win32{
 	class right_button
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			switch(msg){
 			case WM_RBUTTONDOWN:
@@ -111,7 +110,7 @@ namespace quote{ namespace win32{
 	class mouse_move
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_MOUSEMOVE)
 				static_cast<Derived*>(this)->on_mouse_move(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
@@ -136,7 +135,7 @@ namespace quote{ namespace win32{
 		using keycode_range = std::tuple<wchar_t, wchar_t>;
 
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			switch(msg){
 			case WM_KEYDOWN:
@@ -263,7 +262,7 @@ namespace quote{ namespace win32{
 		std::mt19937_64 rand{std::time(nullptr)};
 
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_TIMER){
 				auto it = map.find(wParam);
@@ -340,7 +339,7 @@ namespace quote{ namespace win32{
 	class drop_files
 	{
 	public:
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			switch(msg){
 			case WM_CREATE:

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../scene.hpp"
-#include "traits.hpp"
+#include <quote/scene.hpp>
+#include <quote/direct2d/traits.hpp>
 
-#include "scene_base.hpp"
+#include <quote/direct2d/scene_base.hpp>
 
 namespace quote{ namespace direct2d{
 

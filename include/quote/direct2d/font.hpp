@@ -2,8 +2,8 @@
 
 #include <dwrite.h>
 
-#include "resource.hpp"
-#include "factory.hpp"
+#include <quote/direct2d/resource.hpp>
+#include <quote/direct2d/factory.hpp>
 
 #include <string>
 
@@ -89,4 +89,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/font.hpp"
+#include <quote/direct2d/impl/font.hpp>

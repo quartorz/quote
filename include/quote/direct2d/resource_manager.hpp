@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../resource_manager.hpp"
-#include "resource_creator.hpp"
-#include "traits.hpp"
+#include <quote/resource_manager.hpp>
+#include <quote/direct2d/resource_creator.hpp>
+#include <quote/direct2d/traits.hpp>
 
 namespace quote{ namespace direct2d{
 

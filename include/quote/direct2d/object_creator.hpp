@@ -1,7 +1,7 @@
 #pragma once
 
-#include "text.hpp"
-#include "image.hpp"
+#include <quote/direct2d/text.hpp>
+#include <quote/direct2d/image.hpp>
 
 namespace quote{ namespace direct2d{
 
@@ -14,4 +14,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/object_creator.hpp"
+#include <quote/direct2d/impl/object_creator.hpp>

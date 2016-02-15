@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../win32/utils.hpp"
+#include <quote/win32/utils.hpp>
 
 #include <dwrite.h>
 

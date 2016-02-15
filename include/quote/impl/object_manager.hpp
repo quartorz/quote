@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../object_manager.hpp"
+#include <quote/object_manager.hpp>
 
 #include <algorithm>
 #include <utility>

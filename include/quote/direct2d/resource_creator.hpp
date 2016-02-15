@@ -1,7 +1,7 @@
 #pragma once
 
-#include "font.hpp"
-#include "solid_brush.hpp"
+#include <quote/direct2d/font.hpp>
+#include <quote/direct2d/solid_brush.hpp>
 
 namespace quote{ namespace direct2d{
 
@@ -14,4 +14,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/resource_creator.hpp"
+#include <quote/direct2d/impl/resource_creator.hpp>

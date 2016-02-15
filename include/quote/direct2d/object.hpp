@@ -1,7 +1,7 @@
 #pragma once
 
-#include "base_types.hpp"
-#include "resource.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/resource.hpp>
 
 namespace quote{ namespace direct2d{
 

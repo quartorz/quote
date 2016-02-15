@@ -1,6 +1,6 @@
 #include <stdexcept>
 
-#include "factory.hpp"
+#include <quote/direct2d/factory.hpp>
 
 #pragma comment(lib, "d2d1")
 #pragma comment(lib, "dwrite")

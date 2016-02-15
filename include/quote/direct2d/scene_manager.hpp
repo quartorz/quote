@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../scene_manager.hpp"
-#include "traits.hpp"
+#include <quote/scene_manager.hpp>
+#include <quote/direct2d/traits.hpp>
 
-#if !defined DIRECTINPUT_VERSION
+#if !defined(DIRECTINPUT_VERSION)
 #define DIRECTINPUT_VERSION 0x0800
 #endif
 

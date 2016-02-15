@@ -1,9 +1,9 @@
 #pragma once
 
-#include "base_types.hpp"
-#include "object.hpp"
-#include "wicdecoder.hpp"
-#include "factory.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/object.hpp>
+#include <quote/direct2d/wicdecoder.hpp>
+#include <quote/direct2d/factory.hpp>
 
 #include <chrono>
 
@@ -105,4 +105,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/image.hpp"
+#include <quote/direct2d/impl/image.hpp>

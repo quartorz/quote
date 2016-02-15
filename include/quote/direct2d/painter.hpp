@@ -5,10 +5,10 @@
 #include <windowsx.h>
 #include <vsstyle.h>
 
-#include "utils.hpp"
-#include "factory.hpp"
-#include "base_types.hpp"
-#include "font.hpp"
+#include <quote/direct2d/utils.hpp>
+#include <quote/direct2d/factory.hpp>
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/font.hpp>
 
 #include <mutex>
 
@@ -60,9 +60,9 @@ namespace quote{ namespace direct2d{
 
 		bool CreateResource();
 		void DestroyResource();
-		bool WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &r);
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &r);
 	};
 
 } }
 
-#include "impl/painter.hpp"
+#include <quote/direct2d/impl/painter.hpp>

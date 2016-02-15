@@ -12,8 +12,8 @@
 
 #include <concurrent_queue.h>
 
-#include "creation_params.hpp"
-#include "message_loop.hpp"
+#include <quote/win32/creation_params.hpp>
+#include <quote/win32/message_loop.hpp>
 
 namespace quote{ namespace win32{
 

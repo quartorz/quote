@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../quote.hpp"
+#include <quote/quote.hpp>
 
-#include "../win32/init.hpp"
-#include "../direct2d/init.hpp"
+#include <quote/win32/init.hpp>
+#include <quote/direct2d/init.hpp>
 
 namespace quote{
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "joystick.hpp"
+#include <quote/joystick.hpp>
 
 namespace quote{
 

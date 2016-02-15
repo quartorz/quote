@@ -1,6 +1,6 @@
 #pragma once
 
-#include "button.hpp"
+#include <quote/button.hpp>
 
 namespace quote{
 
@@ -31,4 +31,4 @@ namespace quote{
 
 }
 
-#include "impl/flat_button.hpp"
+#include <quote/impl/flat_button.hpp>

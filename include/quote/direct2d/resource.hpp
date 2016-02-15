@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base_types.hpp"
+#include <quote/direct2d/base_types.hpp>
 
 namespace quote{ namespace direct2d{
 

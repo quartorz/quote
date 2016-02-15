@@ -4,7 +4,7 @@
 #include <d2d1.h>
 #include <comdef.h>
 
-#include "factory.hpp"
+#include <quote/direct2d/factory.hpp>
 
 namespace quote{ namespace direct2d{
 

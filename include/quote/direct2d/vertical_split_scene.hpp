@@ -1,7 +1,7 @@
 #pragma once
 
-#include "scene.hpp"
-#include "vertical_splitter.hpp"
+#include <quote/direct2d/scene.hpp>
+#include <quote/direct2d/vertical_splitter.hpp>
 
 namespace quote{ namespace direct2d{
 

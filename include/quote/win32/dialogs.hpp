@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <cstdint>
 
-#include "../tmp/on_exit.hpp"
+#include <quote/tmp/on_exit.hpp>
 
 namespace quote{ namespace win32{
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../image.hpp"
-#include "../utils.hpp"
+#include <quote/direct2d/image.hpp>
+#include <quote/direct2d/utils.hpp>
 
-#include "../../tmp/on_exit.hpp"
+#include <quote/tmp/on_exit.hpp>
 
 #include <wincodec.h>
 #include <comdef.h>

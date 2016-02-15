@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../painter.hpp"
+#include <quote/direct2d/painter.hpp>
 
 #include <VersionHelpers.h>
 
@@ -52,12 +52,12 @@ namespace quote{ namespace direct2d{
 	}
 
 	template <class Derived>
-	bool painter<Derived>::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &r)
+	bool painter<Derived>::WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &r)
 	{
 		switch(msg){
 		case WM_CREATE:
 			{
-				if(::IsWindowsVersionOrGreater(6, 2, 0)){
+				/*if(::IsWindowsVersionOrGreater(6, 2, 0)){
 					HINSTANCE module = ::LoadLibrary(L"user32.dll");
 
 					if(module == nullptr)
@@ -89,7 +89,7 @@ namespace quote{ namespace direct2d{
 					BOOL b;
 					::DwmIsCompositionEnabled(&b);
 					aero_glass = b != FALSE;
-				}
+				}*/
 			}
 			break;
 		case WM_DESTROY:

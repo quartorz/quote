@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../object_manager.hpp"
-#include "object_creator.hpp"
-#include "traits.hpp"
+#include <quote/object_manager.hpp>
+#include <quote/direct2d/object_creator.hpp>
+#include <quote/direct2d/traits.hpp>
 
 namespace quote{ namespace direct2d{
 

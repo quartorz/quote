@@ -1,11 +1,11 @@
 #pragma once
 
-#include "base_types.hpp"
-#include "object.hpp"
-#include "resource_creator.hpp"
-#include "object_creator.hpp"
-#include "resource_manager.hpp"
-#include "object_manager.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/object.hpp>
+#include <quote/direct2d/resource_creator.hpp>
+#include <quote/direct2d/object_creator.hpp>
+#include <quote/direct2d/resource_manager.hpp>
+#include <quote/direct2d/object_manager.hpp>
 
 #include <unordered_set>
 #include <vector>
@@ -44,4 +44,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/userdefined_object.hpp"
+#include <quote/direct2d/impl/userdefined_object.hpp>

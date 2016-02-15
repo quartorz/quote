@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../scene.hpp"
-#include "../tmp/applier.hpp"
+#include <quote/scene.hpp>
+#include <quote/tmp/applier.hpp>
 
 namespace quote{
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../solid_brush.hpp"
+#include <quote/direct2d/solid_brush.hpp>
 
-#include "../utils.hpp"
+#include <quote/direct2d/utils.hpp>
 
 namespace quote{ namespace direct2d{
 

@@ -1,5 +1,5 @@
-#include "../font.hpp"
-#include "../utils.hpp"
+#include <quote/direct2d/font.hpp>
+#include <quote/direct2d/utils.hpp>
 
 namespace quote{ namespace direct2d{
 

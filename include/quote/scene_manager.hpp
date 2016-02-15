@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene_base.hpp"
+#include <quote/scene_base.hpp>
 
 namespace quote{
 
@@ -34,4 +34,4 @@ namespace quote{
 
 }
 
-#include "impl/scene_manager.hpp"
+#include <quote/impl/scene_manager.hpp>

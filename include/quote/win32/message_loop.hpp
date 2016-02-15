@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "../tmp/combiner.hpp"
+#include <quote/tmp/combiner.hpp>
 
 #include <chrono>
 #include <thread>

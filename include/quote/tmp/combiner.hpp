@@ -1,7 +1,7 @@
 #pragma once
 
-#include "index_tuple.hpp"
-#include "nil.hpp"
+#include <quote/tmp/index_tuple.hpp>
+#include <quote/tmp/nil.hpp>
 
 #include <tuple>
 #include <type_traits>

@@ -116,4 +116,4 @@ private:
 
 } } }
 
-#include "CustomTextRenderer.cpp"
+#include <quote/direct2d/detail/CustomTextRenderer.cpp>

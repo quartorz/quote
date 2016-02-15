@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../text.hpp"
-#include "../utils.hpp"
+#include <quote/direct2d/text.hpp>
+#include <quote/direct2d/utils.hpp>
 
 #include <tuple>
 #include <algorithm>

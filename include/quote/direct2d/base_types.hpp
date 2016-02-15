@@ -5,11 +5,14 @@
 #include <Uxtheme.h>
 #include <comdef.h>
 
-#include "utils.hpp"
-#include "factory.hpp"
+#include <quote/direct2d/utils.hpp>
+#include <quote/direct2d/factory.hpp>
 
-#ifdef max
+#if defined(max)
 #undef max
+#endif
+
+#if defined(min)
 #undef min
 #endif
 
@@ -415,4 +418,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/base_types.hpp"
+#include <quote/direct2d/impl/base_types.hpp>

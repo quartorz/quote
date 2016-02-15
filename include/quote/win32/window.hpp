@@ -3,7 +3,8 @@
 #include <Windows.h>
 #include <windowsx.h>
 
-#include "../tmp/nil.hpp"
+#include <quote/base/procedure.hpp>
+#include <quote/macro.hpp>
 
 #include <tuple>
 
@@ -12,14 +13,19 @@
 namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
-	class window: public Procs...{
-		static LRESULT CALLBACK WindowProc_SetData(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	class window: public ::quote::base::procedure<Procs...>{
+		QUOTE_DECLARE_BINDER(Derived, repaint)
+		QUOTE_DECLARE_BINDER(Derived, WindowProc, windowproc_binder)
+		QUOTE_DECLARE_BINDER(Derived, initialize)
+		QUOTE_DECLARE_BINDER(Derived, uninitialize)
+
+		static LRESULT CALLBACK WindowProc0(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			auto w = reinterpret_cast<Derived*>(::GetWindowLongPtrW(hwnd, 0));
 			if(msg == WM_NCCREATE || msg == WM_CREATE){
 				auto lpcs = reinterpret_cast<LPCREATESTRUCT>(lParam);
 				::SetWindowLongPtrW(hwnd, 0, reinterpret_cast<LONG_PTR>(lpcs->lpCreateParams));
-				::SetWindowLongPtrW(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WindowProc_Static));
+				::SetWindowLongPtrW(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WindowProc1));
 				w = reinterpret_cast<Derived*>(lpcs->lpCreateParams);
 				w->hwnd = hwnd;
 				w->hparent = lpcs->hwndParent;
@@ -29,7 +35,7 @@ namespace quote{ namespace win32{
 			return w->WindowProc(hwnd, msg, wParam, lParam);
 		}
 
-		static LRESULT CALLBACK WindowProc_Static(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+		static LRESULT CALLBACK WindowProc1(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			auto w = reinterpret_cast<Derived*>(::GetWindowLongPtrW(hwnd, 0));
 			if(w == nullptr)
@@ -52,7 +58,7 @@ namespace quote{ namespace win32{
 			WNDCLASSEXW wcex;
 			wcex.cbSize = sizeof(WNDCLASSEX);
 			wcex.style = CS_HREDRAW | CS_VREDRAW;
-			wcex.lpfnWndProc = WindowProc_SetData;
+			wcex.lpfnWndProc = WindowProc0;
 			wcex.cbClsExtra = 0;
 			wcex.cbWndExtra = sizeof(void*);
 			wcex.hInstance = ::GetModuleHandleW(NULL);
@@ -86,22 +92,22 @@ namespace quote{ namespace win32{
 			return hparent;
 		}
 
-		void enable(void) const
+		void enable() const
 		{
 			::EnableWindow(hwnd, TRUE);
 		}
 
-		void disable(void) const
+		void disable() const
 		{
 			::EnableWindow(hwnd, FALSE);
 		}
 
-		void show(void)
+		void show()
 		{
 			::ShowWindow(hwnd, SW_SHOW);
 		}
 
-		void hide(void)
+		void hide()
 		{
 			::ShowWindow(hwnd, SW_HIDE);
 		}
@@ -148,17 +154,18 @@ namespace quote{ namespace win32{
 		{
 			switch(msg){
 			case WM_CREATE:
-				if(!static_cast<Derived*>(this)->initialize())
+				if(!static_cast<Derived*>(this)->initialize() || !this->all_of<initialize_binder>())
 					return -1l;
-				break;
+				return ::DefWindowProcW(hwnd, msg, wParam, lParam);
 			case WM_DESTROY:
 				static_cast<Derived*>(this)->uninitialize();
+				this->for_each<uninitialize_binder>();
 				break;
 			}
 
 			if(sizeof...(Procs) > 0){
 				LRESULT lresult = 0l;
-				if(!call_proc<Procs..., quote::tmp::nil>(hwnd, msg, wParam, lParam, lresult))
+				if(!this->all_of<windowproc_binder>(hwnd, msg, wParam, lParam, ::std::ref(lresult)))
 					return lresult;
 			}
 
@@ -166,21 +173,6 @@ namespace quote{ namespace win32{
 				this->hwnd = nullptr;
 
 			return ::DefWindowProcW(hwnd, msg, wParam, lParam);
-		}
-
-	private:
-		// FIXME
-		template <class Proc, class... Others>
-		bool call_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
-		{
-			return this->Proc::WindowProc(hwnd, msg, wParam, lParam, lresult)
-				&& call_proc<Others...>(hwnd, msg, wParam, lParam, lresult);
-		}
-
-		template <>
-		bool call_proc<quote::tmp::nil>(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
-		{
-			return true;
 		}
 	};
 

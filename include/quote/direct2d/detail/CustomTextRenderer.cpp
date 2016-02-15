@@ -21,7 +21,7 @@
 *
 ************************************************************************/
 
-#include "DrawingEffect.h"
+#include <quote/direct2d/detail/DrawingEffect.h>
 #include <numeric>
 
 namespace quote{ namespace direct2d{ namespace detail{

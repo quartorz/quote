@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../resource_manager.hpp"
+#include <quote/resource_manager.hpp>
 
 #include <algorithm>
 #include <functional>

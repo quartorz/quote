@@ -4,7 +4,7 @@
 #include <windowsx.h>
 #include <CommCtrl.h>
 
-#include "../tmp/nil.hpp"
+#include <quote/base/procedure.hpp>
 
 #include <tuple>
 
@@ -15,7 +15,11 @@
 namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
-	class subclass_window: public Procs...{
+	class subclass_window: public ::quote::base::procedure<Procs...>{
+		DQUOTE_DECLARE_BINDER(Derived, initialize)
+		DQUOTE_DECLARE_BINDER(Derived, uninitialize)
+		DQUOTE_DECLARE_BINDER(Derived, WindowProc, windowproc_binder)
+
 		static LRESULT CALLBACK SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uId, DWORD_PTR dwRefData)
 		{
 			auto w = reinterpret_cast<Derived*>(dwRefData);
@@ -107,17 +111,18 @@ namespace quote{ namespace win32{
 		{
 			switch(msg){
 			case WM_CREATE:
-				if(!static_cast<Derived*>(this)->initialize())
+				if(!static_cast<Derived*>(this)->initialize() || !this->all_of<initialize_binder>())
 					return -1l;
 				break;
 			case WM_DESTROY:
 				static_cast<Derived*>(this)->uninitialize();
+				this->for_each<uninitialize_binder>();
 				break;
 			}
 
 			if(sizeof...(Procs) > 0){
 				LRESULT lresult = 0l;
-				if(!call_proc<Procs..., quote::tmp::nil>(hwnd, msg, wParam, lParam, lresult))
+				if(!this->all_of<windowproc_binder>(hwnd, msg, wParam, lParam, lresult))
 					return lresult;
 			}
 

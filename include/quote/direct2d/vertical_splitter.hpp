@@ -1,12 +1,12 @@
 #pragma once
 
-#include "base_types.hpp"
-#include "object.hpp"
-#include "userdefined_object.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/object.hpp>
+#include <quote/direct2d/userdefined_object.hpp>
 
-#include "../tmp/has_tag.hpp"
-#include "../tmp/filter.hpp"
-#include "../tmp/applier.hpp"
+#include <quote/tmp/has_tag.hpp>
+#include <quote/tmp/filter.hpp>
+#include <quote/tmp/applier.hpp>
 
 namespace quote{ namespace direct2d{
 

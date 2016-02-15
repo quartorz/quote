@@ -6,7 +6,7 @@
 
 #include "creation_params.hpp"
 
-#include "../tmp/has_xxx.hpp"
+#include <quote/tmp/has_xxx.hpp>
 
 namespace quote{ namespace win32{
 

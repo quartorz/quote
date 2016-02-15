@@ -6,7 +6,7 @@
 
 #include <dinput.h>
 
-#include "utils.hpp"
+#include <quote/win32/utils.hpp>
 
 #pragma comment(lib, "Dinput8")
 #pragma comment(lib, "dxguid")
@@ -36,4 +36,4 @@ namespace quote{ namespace win32{
 
 } }
 
-#include "impl/joystick.hpp"
+#include <quote/win32/impl/joystick.hpp>

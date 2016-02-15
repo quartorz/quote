@@ -1,12 +1,12 @@
 #pragma once
 
-#include "base_types.hpp"
-#include "resource.hpp"
-#include "object.hpp"
-#include "solid_brush.hpp"
-#include "font.hpp"
-#include "text.hpp"
-#include "userdefined_object.hpp"
+#include <quote/direct2d/base_types.hpp>
+#include <quote/direct2d/resource.hpp>
+#include <quote/direct2d/object.hpp>
+#include <quote/direct2d/solid_brush.hpp>
+#include <quote/direct2d/font.hpp>
+#include <quote/direct2d/text.hpp>
+#include <quote/direct2d/userdefined_object.hpp>
 
 namespace quote{ namespace direct2d{
 

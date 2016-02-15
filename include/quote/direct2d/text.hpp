@@ -5,9 +5,9 @@
 #include <tuple>
 #include <functional>
 
-#include "font.hpp"
-#include "object.hpp"
-#include "solid_brush.hpp"
+#include <quote/direct2d/font.hpp>
+#include <quote/direct2d/object.hpp>
+#include <quote/direct2d/solid_brush.hpp>
 
 #include "detail/CustomTextRenderer.h"
 
@@ -187,4 +187,4 @@ namespace quote{ namespace direct2d{
 
 } }
 
-#include "impl/text.hpp"
+#include <quote/direct2d/impl/text.hpp>
