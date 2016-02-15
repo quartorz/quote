@@ -53,6 +53,22 @@ namespace quote{ namespace direct2d{
 		apply_color();
 		apply_underline();
 
+		IDWriteTypography *typo;
+
+		if(FAILED(factory_[DWrite]->CreateTypography(&typo)))
+			return false;
+
+		DWRITE_FONT_FEATURE feature;
+
+		feature.nameTag = DWRITE_FONT_FEATURE_TAG_STANDARD_LIGATURES;
+		feature.parameter = 0;
+
+		typo->AddFontFeature(feature);
+
+		layout->SetTypography(typo, {0, static_cast<UINT32>(-1)});
+
+		typo->Release();
+
 		return true;
 	}
 
