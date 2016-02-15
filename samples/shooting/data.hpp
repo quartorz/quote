@@ -216,7 +216,7 @@ private:
 			{
 				vector_type::size_type count = 0, size = d.pvector->size();
 				for(auto &v: *d.pvector){
-					save(os, v, beautify, beautify + 1, false);
+					save(os, v, beautify, depth + 1, false);
 					if(count != size - 1)
 						os << static_cast<Char>(',');
 					if(beautify)
