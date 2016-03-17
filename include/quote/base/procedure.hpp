@@ -17,6 +17,11 @@ namespace quote{ namespace base{
 		{
 		}
 
+		procedure(Procs... procs)
+			: Procs(procs)...
+		{
+		}
+
 		template <template <class> class Pred>
 		class make_filter{
 		public:
