@@ -16,9 +16,9 @@ namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
 	class subclass_window: public ::quote::base::procedure<Procs...>{
-		DQUOTE_DECLARE_BINDER(Derived, initialize)
-		DQUOTE_DECLARE_BINDER(Derived, uninitialize)
-		DQUOTE_DECLARE_BINDER(Derived, WindowProc, windowproc_binder)
+		QUOTE_DEFINE_BINDER(Derived, initialize)
+		QUOTE_DEFINE_BINDER(Derived, uninitialize)
+		QUOTE_DEFINE_BINDER(Derived, WindowProc, windowproc_binder)
 
 		static LRESULT CALLBACK SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uId, DWORD_PTR dwRefData)
 		{

@@ -16,8 +16,8 @@ namespace quote{ namespace win32{
 		class message_loop_procedure : public ::quote::base::procedure<Procs...> {
 			using base = ::quote::base::procedure<Procs...>;
 
-			QUOTE_DECLARE_BINDER(message_loop_procedure<Procs...>, on_key_down);
-			QUOTE_DECLARE_BINDER(message_loop_procedure<Procs...>, on_no_message);
+			QUOTE_DEFINE_BINDER(message_loop_procedure<Procs...>, on_key_down);
+			QUOTE_DEFINE_BINDER(message_loop_procedure<Procs...>, on_no_message);
 
 		public:
 			message_loop_procedure(Procs... p)
@@ -79,7 +79,8 @@ namespace quote{ namespace win32{
 			{
 			}
 
-			void on_no_message(...)
+			template <typename Proc>
+			void on_no_message(Proc &)
 			{
 				f_();
 			}
@@ -92,7 +93,7 @@ namespace quote{ namespace win32{
 		F,
 		::std::is_convertible<::std::result_of_t<F(unsigned)>, bool>::value
 	>
-		key_down(F f)
+	key_down(F f)
 	{
 		return{ f };
 	}
@@ -121,6 +122,7 @@ namespace quote{ namespace win32{
 				::TranslateMessage(&msg);
 				::DispatchMessageW(&msg);
 			} else {
+				::Sleep(1);
 				procedure.on_no_message();
 			}
 		} while (msg.message != WM_QUIT);
@@ -152,7 +154,8 @@ namespace quote{ namespace win32{
 		{
 		}
 
-		void on_no_message()
+		template <typename Proc>
+		void on_no_message(Proc &)
 		{
 			using namespace std::chrono;
 			using std::this_thread::sleep_for;

@@ -7,22 +7,22 @@ namespace quote{ namespace cef{
 
 	template <typename Derived>
 	class app : public CefApp, public CefBrowserProcessHandler{
-		CefRefCount refcount_;
+		CefRefCount ref_count_;
 
 	public:
 		void AddRef() const override
 		{
-			refcount_.AddRef();
+			ref_count_.AddRef();
 		}
 
 		bool Release() const override
 		{
-			return refcount_.Release();
+			return ref_count_.Release();
 		}
 
 		bool HasOneRef() const override
 		{
-			return refcount_.HasOneRef();
+			return ref_count_.HasOneRef();
 		}
 
 		CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() override

@@ -14,10 +14,10 @@ namespace quote{ namespace win32{
 
 	template <class Derived, class... Procs>
 	class window: public ::quote::base::procedure<Procs...>{
-		QUOTE_DECLARE_BINDER(Derived, repaint)
-		QUOTE_DECLARE_BINDER(Derived, WindowProc, windowproc_binder)
-		QUOTE_DECLARE_BINDER(Derived, initialize)
-		QUOTE_DECLARE_BINDER(Derived, uninitialize)
+		QUOTE_DEFINE_BINDER(Derived, repaint)
+		QUOTE_DEFINE_BINDER(Derived, WindowProc, windowproc_binder)
+		QUOTE_DEFINE_BINDER(Derived, initialize)
+		QUOTE_DEFINE_BINDER(Derived, uninitialize)
 
 		static LRESULT CALLBACK WindowProc0(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{

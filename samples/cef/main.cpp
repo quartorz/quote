@@ -31,8 +31,17 @@ class SimpleApp : public CefApp,
   IMPLEMENT_REFCOUNTING(SimpleApp);
 };
 
+struct a {
+	template <typename T>
+	void operator()()
+	{
+	}
+};
+
 int run()
 {
+	a{}.operator()<void>();
+
 	int exit_code;
 	void *sandbox_info = nullptr;
 

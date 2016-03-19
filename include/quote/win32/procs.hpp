@@ -265,14 +265,14 @@ namespace quote{ namespace win32{
 		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
 		{
 			if(msg == WM_TIMER){
-				auto it = map.find(wParam);
+				auto it = map.find(static_cast<id_type>(wParam));
 				if(it != map.end()){
 					auto &container = it->second;
 					for(auto &tuple: container){
-						std::get<1>(tuple)(wParam);
+						std::get<1>(tuple)(static_cast<id_type>(wParam));
 					}
 				}
-				static_cast<Derived*>(this)->on_timer(wParam);
+				static_cast<Derived*>(this)->on_timer(static_cast<id_type>(wParam));
 			}
 
 			return true;

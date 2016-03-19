@@ -423,7 +423,7 @@ public:
 			}
 		}
 		auto remover = std::remove(enemies.begin(), enemies.end(), nullptr);
-		score += std::distance(remover, enemies.end());
+		score += static_cast<int>(std::distance(remover, enemies.end()));
 		enemies.erase(remover, enemies.end());
 	}
 	virtual void draw(const paint::paint_params &pp) override

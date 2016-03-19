@@ -3,12 +3,32 @@
 #include <cef_base.h>
 #include <cef_app.h>
 
+#include <chrono>
+
 namespace quote{ namespace cef{
 
-	struct message_handler {
-		void on_no_message()
+	class message_handler {
+		std::chrono::system_clock::time_point last_;
+
+	public:
+		message_handler()
+			: last_(std::chrono::system_clock::now())
 		{
-			::CefDoMessageLoopWork();
+		}
+
+		template <typename Proc>
+		void on_no_message(Proc &)
+		{
+			using namespace std::chrono;
+
+			auto now = system_clock::now();
+
+			if (duration_cast<milliseconds>(now - last_).count() >= 1000) {
+				::CefDoMessageLoopWork();
+
+				last_ = now;
+				::OutputDebugStringW(L"a\n");
+			}
 		}
 	};
 
