@@ -34,6 +34,10 @@
 		} \
 	};
 
+#if !defined(QUOTE_PP_TOKEN_const_getter)
+#  define QUOTE_PP_TOKEN_getter ,
+#endif
+
 #if !defined(QUOTE_PP_TOKEN_getter)
 #  define QUOTE_PP_TOKEN_getter ,
 #endif
@@ -46,7 +50,7 @@
 	QUOTE_PP_OVERLOAD(QUOTE_DEFINE_SIMPLE_PROPERTY_I_, __VA_ARGS__)
 
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_I_2(type, name) \
-	QUOTE_DEFINE_SIMPLE_PROPERTY_I_3(type, name, (getter, setter))
+	QUOTE_DEFINE_SIMPLE_PROPERTY_I_3(type, name, (getter, const_getter, setter))
 
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_I_3(type, name, tuple) \
 	private: \
@@ -63,7 +67,9 @@
 	type &name() \
 	{ \
 		return name ## _; \
-	} \
+	}
+
+#define QUOTE_DEFINE_SIMPLE_PROPERTY_const_getter(type, name) \
 	const type &name() const \
 	{ \
 		return name ## _; \
