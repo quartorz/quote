@@ -17,8 +17,9 @@ namespace quote{ namespace base{
 		{
 		}
 
-		procedure(Procs... procs)
-			: Procs(procs)...
+		template <class... Args, std::enable_if_t<(sizeof...(Args) > 0)>* = nullptr>
+		procedure(Args&&... procs)
+			: Procs(::std::forward<Args>(procs))...
 		{
 		}
 
