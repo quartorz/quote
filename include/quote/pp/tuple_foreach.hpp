@@ -40,11 +40,19 @@
 		QUOTE_PP_TUPLE_FOREACH_I_2(macro, data, rest)),)
 
 #define QUOTE_PP_TUPLE_FOREACH_I_4(macro, data, tuple) \
+	QUOTE_PP_TUPLE_FOREACH_II_4(macro, data, QUOTE_PP_TUPLE_CAR(tuple), QUOTE_PP_TUPLE_CDR(tuple))
+#define QUOTE_PP_TUPLE_FOREACH_II_4(macro, data, elm, rest) \
+	QUOTE_PP_TUPLE_FOREACH_III_4(macro, data, elm, rest)
+#define QUOTE_PP_TUPLE_FOREACH_III_4(macro, data, elm, rest) \
 	QUOTE_PP_CAT(QUOTE_PP_TUPLE_CONS( \
-		macro(data, QUOTE_PP_TUPLE_ELEMENT(0, tuple)), \
-		QUOTE_PP_TUPLE_FOREACH_I_3(macro, data, QUOTE_PP_TUPLE_CDR(tuple))),)
+		macro(data, elm), \
+		QUOTE_PP_TUPLE_FOREACH_I_3(macro, data, rest)),)
 
 #define QUOTE_PP_TUPLE_FOREACH_I_5(macro, data, tuple) \
+	QUOTE_PP_TUPLE_FOREACH_II_5(macro, data, QUOTE_PP_TUPLE_CAR(tuple), QUOTE_PP_TUPLE_CDR(tuple))
+#define QUOTE_PP_TUPLE_FOREACH_II_5(macro, data, elm, rest) \
+	QUOTE_PP_TUPLE_FOREACH_III_3(macro, data, elm, rest)
+#define QUOTE_PP_TUPLE_FOREACH_III_5(macro, data, elm, rest) \
 	QUOTE_PP_CAT(QUOTE_PP_TUPLE_CONS( \
-		macro(data, QUOTE_PP_TUPLE_ELEMENT(0, tuple)), \
-		QUOTE_PP_TUPLE_FOREACH_I_4(macro, data, QUOTE_PP_TUPLE_CDR(tuple))),)
+		macro(data, elm), \
+		QUOTE_PP_TUPLE_FOREACH_I_4(macro, data, rest)),)
