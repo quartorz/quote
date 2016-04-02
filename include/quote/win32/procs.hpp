@@ -57,6 +57,25 @@ namespace quote{ namespace win32{
 	};
 
 	template <class Derived>
+	class on_close {
+	public:
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		{
+			if (msg == WM_CLOSE) {
+				if (static_cast<Derived*>(this)->on_close()) {
+					return true;
+				}
+				else {
+					lresult = 0;
+					return false;
+				}
+			}
+
+			return true;
+		}
+	};
+
+	template <class Derived>
 	class quit_on_close
 	{
 	public:
