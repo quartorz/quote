@@ -102,7 +102,7 @@ namespace quote{ namespace win32{
 
 		void destroy()
 		{
-			::DestroyWindow(hwnd);
+			::DestroyWindow(static_cast<Derived*>(this)->get_hwnd());
 		}
 	};
 
