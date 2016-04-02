@@ -131,21 +131,6 @@ namespace quote{ namespace win32{
 
 			return ::DefSubclassProc(hwnd, msg, wParam, lParam);
 		}
-
-	private:
-		// FIXME
-		template <class Proc, class... Others>
-		bool call_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
-		{
-			return this->Proc::WindowProc(hwnd, msg, wParam, lParam, lresult)
-				&& call_proc<Others...>(hwnd, msg, wParam, lParam, lresult);
-		}
-
-		template <>
-		bool call_proc<quote::tmp::nil>(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
-		{
-			return true;
-		}
 	};
 
 } }
