@@ -62,11 +62,15 @@
 #  define QUOTE_PP_TOKEN_setter ,
 #endif
 
+#if !defined(QUOTE_PP_TOKEN_all)
+#  define QUOTE_PP_TOKEN_all ,
+#endif
+
 #define QUOTE_DEFINE_SIMPLE_PROPERTY(...) \
 	QUOTE_PP_OVERLOAD(QUOTE_DEFINE_SIMPLE_PROPERTY_I_, __VA_ARGS__)
 
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_I_2(type, name) \
-	QUOTE_DEFINE_SIMPLE_PROPERTY_I_4(type, name, accessors (getter, const_getter, setter), empty ())
+	QUOTE_DEFINE_SIMPLE_PROPERTY_I_4(type, name, accessors (all), empty ())
 
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_I_3(type, name, v) \
 	QUOTE_DEFINE_SIMPLE_PROPERTY_I_4(type, name, v, empty ())
@@ -144,3 +148,8 @@
 	{ \
 		name ## _ = value; \
 	}
+
+#define QUOTE_DEFINE_SIMPLE_PROPERTY_all(type, name) \
+	QUOTE_DEFINE_SIMPLE_PROPERTY_getter(type, name) \
+	QUOTE_DEFINE_SIMPLE_PROPERTY_const_getter(type, name) \
+	QUOTE_DEFINE_SIMPLE_PROPERTY_setter(type, name) \
