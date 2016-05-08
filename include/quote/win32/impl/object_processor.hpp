@@ -121,19 +121,19 @@ namespace quote{ namespace win32{
 
 				static_cast<Derived*>(this)->iterate_objects([&](typename object &o)-> bool{
 					if(o.is_colliding(point(x, y))){
-						if(focus != nullptr && &o != focus){
-							focus->on_lose_focus(ht);
+						if(this->focus != nullptr && &o != this->focus){
+							this->focus->on_lose_focus(ht);
 						}
 						o.on_left_press(point(x, y), ht);
-						focus = &o;
+						this->focus = &o;
 						collide = true;
 						return true;
 					}
 					return false;
 				});
-				if(!collide && focus != nullptr){
-					focus->on_lose_focus(ht);
-					focus = nullptr;
+				if(!collide && this->focus != nullptr){
+					this->focus->on_lose_focus(ht);
+					this->focus = nullptr;
 				}
 
 				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
@@ -148,8 +148,8 @@ namespace quote{ namespace win32{
 
 				pushing = false;
 
-				if(focus != nullptr){
-					focus->on_left_release(point(x, y), ht);
+				if(this->focus != nullptr){
+					this->focus->on_left_release(point(x, y), ht);
 				}
 				
 				set_cursor_type(static_cast<cursor_type>(static_cast<int>(ht.cursor_)));
@@ -157,9 +157,9 @@ namespace quote{ namespace win32{
 			}
 			break;
 		case WM_KILLFOCUS:
-			if(focus != nullptr){
-				focus->on_lose_focus(object::create_hittest(static_cast<Derived*>(this)));
-				focus = nullptr;
+			if(this->focus != nullptr){
+				this->focus->on_lose_focus(object::create_hittest(static_cast<Derived*>(this)));
+				this->focus = nullptr;
 			}
 			break;
 		case WM_SETCURSOR:
