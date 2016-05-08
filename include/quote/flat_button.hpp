@@ -27,6 +27,11 @@ namespace quote{
 		virtual bool create_resource(const typename Traits::creation_params &) override;
 		virtual void destroy_resource() override;
 		virtual void draw(const typename Traits::paint_params &) override;
+
+		typename Traits::font &get_font()
+		{
+			return text.get_font();
+		}
 	};
 
 }
