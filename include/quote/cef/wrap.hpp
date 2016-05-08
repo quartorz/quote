@@ -1,18 +1,18 @@
 #pragma once
 
-#include <cef_base.h>
-#include <cef_app.h>
+#include "include/cef_base.h"
+#include "include/cef_app.h"
 
 #include <chrono>
 
 namespace quote{ namespace cef{
 
 	class message_handler {
-		std::chrono::system_clock::time_point last_;
+		std::chrono::system_clock::time_point last_time_;
 
 	public:
 		message_handler()
-			: last_(std::chrono::system_clock::now())
+			: last_time_(std::chrono::system_clock::now())
 		{
 		}
 
@@ -23,24 +23,47 @@ namespace quote{ namespace cef{
 
 			auto now = system_clock::now();
 
-			if (duration_cast<milliseconds>(now - last_).count() >= 1000) {
+			if (duration_cast<milliseconds>(now - last_time_).count() >= 33) {
 				::CefDoMessageLoopWork();
 
-				last_ = now;
-				::OutputDebugStringW(L"a\n");
+				last_time_ = now;
 			}
 		}
 	};
 
-	template <typename App, typename Func>
-	int wrap(App *app, void *sandbox_info, Func f)
+	template <typename Func>
+	int wrap(CefApp *app, void *sandbox_info, Func f)
 	{
 		CefMainArgs main_args(::GetModuleHandleW(nullptr));
 		CefSettings settings;
 
+		settings.multi_threaded_message_loop = false;
+		settings.single_process = false;
+
 		::CefInitialize(main_args, settings, app, sandbox_info);
 
 		int code = f();
+
+		::CefDoMessageLoopWork();
+
+		::CefShutdown();
+
+		return code;
+	}
+
+	template <typename Func>
+	int wrap(CefApp *app, const CefMainArgs &main_args, void *sandbox_info, Func f)
+	{
+		CefSettings settings;
+
+		settings.multi_threaded_message_loop = false;
+		settings.single_process = false;
+
+		::CefInitialize(main_args, settings, app, sandbox_info);
+
+		int code = f();
+
+		::CefDoMessageLoopWork();
 
 		::CefShutdown();
 
