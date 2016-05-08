@@ -35,7 +35,7 @@
 	};
 
 #if !defined(QUOTE_PP_TOKEN_empty)
-#  define QUOTE_PP_TOKEN_getter ,
+#  define QUOTE_PP_TOKEN_empty ,
 #endif
 
 #if !defined(QUOTE_PP_TOKEN_default)
@@ -51,7 +51,7 @@
 #endif
 
 #if !defined(QUOTE_PP_TOKEN_const_getter)
-#  define QUOTE_PP_TOKEN_getter ,
+#  define QUOTE_PP_TOKEN_const_getter ,
 #endif
 
 #if !defined(QUOTE_PP_TOKEN_getter)
@@ -76,7 +76,7 @@
 	QUOTE_DEFINE_SIMPLE_PROPERTY_I_4(type, name, v, empty ())
 
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_I_4(type, name, v0, v1) \
-	private: \
+	protected: \
 		type name ## _ \
 		QUOTE_PP_TUPLE_FOREACH_EXPAND(QUOTE_DEFINE_SIMPLE_PROPERTY_MAKE_DEFAULT, , (v0, v1)) \
 		; \
@@ -152,4 +152,4 @@
 #define QUOTE_DEFINE_SIMPLE_PROPERTY_all(type, name) \
 	QUOTE_DEFINE_SIMPLE_PROPERTY_getter(type, name) \
 	QUOTE_DEFINE_SIMPLE_PROPERTY_const_getter(type, name) \
-	QUOTE_DEFINE_SIMPLE_PROPERTY_setter(type, name) \
+	QUOTE_DEFINE_SIMPLE_PROPERTY_setter(type, name)
