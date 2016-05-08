@@ -46,6 +46,7 @@ namespace quote{ namespace direct2d{
 		font_weight weight;
 		font_style style;
 		bool modified;
+		bool d2drenderer;
 
 	public:
 		font():
@@ -55,7 +56,8 @@ namespace quote{ namespace direct2d{
 			size(18.f),
 			weight(font_weight::normal),
 			style(font_style::normal),
-			modified(true)
+			modified(true),
+			d2drenderer(false)
 		{
 		}
 		font(const font &);
@@ -75,6 +77,16 @@ namespace quote{ namespace direct2d{
 		void set_style(::quote::direct2d::font_style::font_style s)
 		{
 			set_style(static_cast<font_style>(s));
+		}
+
+		void use_custom_renderer(bool f)
+		{
+			d2drenderer = !f;
+		}
+
+		bool use_custom_renderer() const
+		{
+			return !d2drenderer;
 		}
 
 		float get_size();

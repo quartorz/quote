@@ -574,11 +574,15 @@ namespace quote{ namespace direct2d{
 				throw std::runtime_error("text::create failed in text::draw");
 		}
 
-		layout->Draw(
-			brush.Get(),
-			renderer,
-			pos.x,
-			pos.y);
+		if (font_.use_custom_renderer()) {
+			layout->Draw(
+				brush.Get(),
+				renderer,
+				pos.x,
+				pos.y);
+		} else {
+			ps.target->DrawTextLayout({ pos.x, pos.y }, layout, brush.Get());
+		}
 	}
 
 	inline IDWriteTextLayout *text::Get()

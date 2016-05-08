@@ -10,7 +10,8 @@ namespace quote{ namespace direct2d{
 		size(f.size),
 		weight(f.weight),
 		style(f.style),
-		modified(true)
+		modified(true),
+		d2drenderer(f.d2drenderer)
 	{
 	}
 
