@@ -390,4 +390,22 @@ namespace quote{ namespace win32{
 		}
 	};
 
+	template <class Derived>
+	class focus
+	{
+	public:
+		bool WindowProc(Derived &, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT &lresult)
+		{
+			switch(msg){
+			case WM_SETFOCUS:
+				static_cast<Derived*>(this)->on_get_focus((HWND)wParam);
+				break;
+			case WM_KILLFOCUS:
+				static_cast<Derived*>(this)->on_lost_focus((HWND)wParam);
+			}
+
+			return true;
+		}
+	};
+
 } }
