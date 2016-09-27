@@ -7,7 +7,7 @@ namespace quote{ namespace cef{
 	namespace detail{
 		template <typename Func>
 		class StringVisitor : public CefStringVisitor {
-			IMPLEMENT_REFCOUNTING(StringVisitor);
+			IMPLEMENT_REFCOUNTING(StringVisitor<Func>);
 
 			Func f_;
 
