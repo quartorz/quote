@@ -32,26 +32,32 @@ namespace quote{ namespace cef{
 	};
 
 	template <typename Func>
-	int wrap(CefApp *app, void *sandbox_info, Func f)
+	int wrap(CefApp *app, void *sandbox_info, const CefSettings &settings, Func f)
 	{
 		CefMainArgs main_args(::GetModuleHandleW(nullptr));
-		CefSettings settings;
-
-		settings.multi_threaded_message_loop = false;
-		settings.single_process = false;
 
 		::CefInitialize(main_args, settings, app, sandbox_info);
 
 		int code = f();
 
 		::CefDoMessageLoopWork();
-
 		::CefShutdown();
 
 		return code;
 	}
 
 	template <typename Func>
+	int wrap(CefApp *app, void *sandbox_info, Func f)
+	{
+		CefSettings settings;
+
+		settings.multi_threaded_message_loop = false;
+		settings.single_process = false;
+
+		return wrap(app, sandbox_info, settings, f);;
+	}
+
+	/*template <typename Func>
 	int wrap(CefApp *app, const CefMainArgs &main_args, void *sandbox_info, Func f)
 	{
 		CefSettings settings;
@@ -68,6 +74,6 @@ namespace quote{ namespace cef{
 		::CefShutdown();
 
 		return code;
-	}
+	}*/
 
 } }
