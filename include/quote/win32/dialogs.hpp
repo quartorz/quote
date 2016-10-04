@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include <malloc.h>
+#include <ShObjIdl.h>
 
 #include <vector>
 #include <string>
@@ -85,8 +86,8 @@ namespace quote{ namespace win32{
 		ofn.nFileOffset = 0;
 		ofn.nFileExtension = 0;
 		ofn.lpstrDefExt = L"png";
-		ofn.lCustData = NULL;
-		ofn.lpfnHook = NULL;
+		ofn.lCustData = nullptr;
+		ofn.lpfnHook = nullptr;
 
 		if(filter.size() != 0){
 			if(std::get<1>(filter[0]).size() != 0){
@@ -114,6 +115,62 @@ namespace quote{ namespace win32{
 
 	inline std::wstring get_save_file()
 	{
+	}
+
+	template <typename Window>
+	inline std::wstring open_directory_dialog(const Window &parent, const wchar_t *root = nullptr, const wchar_t *title = L"Select directory")
+	{
+		IFileOpenDialog *fod;
+
+		if (FAILED(::CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&fod)))) {
+			return L"";
+		}
+
+		std::wstring result;
+		HRESULT hr;
+		DWORD options;
+
+		hr = fod->SetTitle(title);
+
+		if (SUCCEEDED(hr)) {
+			hr = fod->GetOptions(&options);
+		}
+
+		if (SUCCEEDED(hr)) {
+			hr = fod->SetOptions(options | FOS_PICKFOLDERS);
+		}
+
+		if (root != nullptr) {
+			IShellItem *psi;
+			HRESULT hr = ::SHCreateItemFromParsingName(root, nullptr, IID_PPV_ARGS(&psi));
+
+			if (SUCCEEDED(hr)) {
+				fod->SetFolder(psi);
+				psi->Release();
+			}
+		}
+
+		if (SUCCEEDED(hr)) {
+			hr = fod->Show(parent.get_hwnd());
+		}
+
+		if (SUCCEEDED(hr)) {
+			LPWSTR path;
+			IShellItem *psi;
+
+			hr = fod->GetResult(&psi);
+
+			if (SUCCEEDED(hr)) {
+				psi->GetDisplayName(SIGDN_FILESYSPATH, &path);
+				result = path;
+				::CoTaskMemFree(path);
+				psi->Release();
+			}
+		}
+
+		fod->Release();
+
+		return result;
 	}
 
 } }
