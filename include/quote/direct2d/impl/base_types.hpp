@@ -47,7 +47,7 @@ namespace quote{ namespace direct2d{
 
 	inline void paint_params::draw_text(const font &font, const brush &brush, const wchar_t *text, const rect &rect, bool clip /* =false */) const
 	{
-		target->DrawTextW(
+		target->DrawText(
 			text,
 			static_cast<UINT32>(::wcslen(text)),
 			font.Get(),

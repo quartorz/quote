@@ -299,12 +299,12 @@ namespace quote{ namespace win32{
 
 		bool set_timer(unsigned id, UINT time)
 		{
-			return ::SetTimer(static_cast<Derived*>(this)->GetHwnd(), id, time, NULL) != 0;
+			return ::SetTimer(static_cast<Derived*>(this)->get_hwnd(), id, time, NULL) != 0;
 		}
 
 		void kill_timer(unsigned id)
 		{
-			::KillTimer(static_cast<Derived*>(this)->GetHwnd(), id);
+			::KillTimer(static_cast<Derived*>(this)->get_hwnd(), id);
 		}
 
 		template <class Integer, class... Integers>
